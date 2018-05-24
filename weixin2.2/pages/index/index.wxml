@@ -1,0 +1,81 @@
+<!--index.wxml-->
+<scroll-view class="container" scroll-y="{{true}}">
+  <view class='index_head'>
+    <view class='local'>
+      <image src='{{LocalImage}}'></image>
+      <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+        <view class="picker">
+          {{region[1]}},{{region[2]}}
+        </view>
+      </picker>
+    </view>
+    <view class='index_icongrp'>
+      <image src='{{QRCode}}'></image>
+      <image src='{{PhoneIcon}}'></image>
+      <image src='{{UserIcon}}' bindtap='getorderifo'></image>
+    </view>
+  </view>
+  <view class="customer-top">
+    <swiper class='customer-banner' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{imgUrls}}">
+        <swiper-item>
+          <image src="{{item.bPath}}" class="slide-image" data-ftype="{{item.fType}}" data-bUrl="{{item.bUrl}}"/>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class='linkgrp'>
+    <view class='linkitem' wx:for="{{LinkList}}" data-url="{{item.fUrl}}" bindtap='JumpTo'>
+      <image class='linkimg' src='{{item.fImgUrl}}'></image>
+      <view class='linkname'>{{item.fTitle}}</view>
+    </view>
+  </view>
+  <view class='statusgrp'>
+    <view class='stathead'>
+      <image src='{{StutImage}}'></image>
+      <span>工地材料进度</span>
+    </view>
+    <swiper class='customer-banner' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval2}}" duration="{{duration}}" style="height: 180rpx;">
+      <block wx:for="{{StutList}}">
+        <swiper-item>
+          <view class='stat_cont'>
+            <view class='stat_cont_l'>
+              <view class='statitempic'>
+                <image src='{{StutPic}}'></image>
+              </view>
+              <view>
+                <view class='stat_l_name'>{{item.title}}</view>
+                <view class='stat_l_date'>{{item.time}}</view>
+              </view>
+            </view>
+            <view class='stat_cont_r'>
+              <view class='btn'>{{item.butt}}</view>
+            </view>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+    
+  </view>
+  <view class='shopgrp'>
+    <view class='shophead' bindtap='ToStationList'>
+      <image src='{{ShopIcon}}'></image>
+      <span>多维自装服务站</span>
+    </view>
+    <view class='shopcont' wx:for="{{ShopList}}">
+      <image src="{{item.fMainPicPath}}" class='shop_cont_pic'></image>
+      <view class='shop_cont_r'>
+        <view class='shop_cont_title'>
+          <view class='shop_cont_name'>{{item.fShopName}}</view>
+          <view class='shop_cont_range'>{{item.fShopPsn}}km</view>
+        </view>
+        <view class='shop_cont_uname'>{{item.fShopPsn}}</view>
+        <view class='shop_cont_btngrp'>
+          <view class='btn btn_call' data-phone="{{item.fShopPhone}}"><image src="{{CallIcon}}"></image>联系</view>
+          <view class='btn btn_navi'><image src="{{NaviIcon}}"></image>导航</view>
+          <view class='btn btn_praise'><image src="{{AppraiseIcon}}"></image>评价</view>
+        </view>
+      </view>      
+    </view>
+  </view>
+</scroll-view>

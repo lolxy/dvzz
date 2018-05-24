@@ -1,0 +1,28 @@
+<!--pages/ysty/brand.wxml-->
+<view class="container">
+  <view class='head'>
+    <view class='hitem' bindtap='chgstat' data-isnormal="0"  data-distance=''>
+      <view>综合推荐</view>
+    </view>
+    <view class='hitem' bindtap='chgstat' data-isnormal="1" data-distance='{{distance}}'>
+      <view>距离最近</view>
+      <image src="{{unknownimgurl}}" wx:if="{{isNormal==0}}"></image>
+      <image src="{{downimgurl}}" wx:elif="{{distance==1}}"></image>
+      <image src="{{upimgurl}}" wx:elif="{{distance==0}}"></image>
+    </view>
+  </view>
+  <view class='bitem' wx:for="{{itemdetail}}">
+    <view class='biteml'>
+      <view class='itemimg'>
+        <image  src="{{item.fUrl}}"></image>
+      </view>
+      <view class='itemtext'>
+        <view class='itemname'>{{item.fBrandName}}</view>
+        <view class='itemadd'>价格区间：{{item.fMinPrice}}~{{item.fMaxPrice}}</view>
+      </view>
+    </view>
+    <view class='bitemr'>
+      <view>{{item.distance}}</view>
+    </view>
+  </view>
+</view>

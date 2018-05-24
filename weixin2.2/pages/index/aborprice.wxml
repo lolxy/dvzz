@@ -1,0 +1,15 @@
+<!--pages/index/aborprice.wxml-->
+<view class="container">
+  <view class='typelist'>
+    <view class="{{index==currenttab?'active':''}}"  wx:for="{{tabs}}" data-fcode="{{item.fCode}}" data-index="{{index}}" bindtap='TabsChange'>{{item.fValue}}</view>
+  </view>
+  <view class='find_lst' bindtap='ToFindDetail' wx:for="{{datalist}}" >
+    <image class="find_item_pic" src="{{item.fThumbnailUrl}}"/>
+    <view>
+      <view  class='see_item'>{{item.fMatName}}</view>
+      <view class='seee_item2'>
+        工钱：<span>{{item.fPrice}}</span>
+      </view>
+    </view>
+  </view>
+</view>
