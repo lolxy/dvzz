@@ -1,0 +1,61 @@
+<!--index.wxml-->
+<scroll-view class="containers" style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" scroll-y="{{true}}">
+<view class='index_head'>
+    <view class='local'>
+      <image class='local-icon' src='{{localImage}}'></image>
+      <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+        <view class="picker">
+          {{region[2]}}<image class='down-icon' src="{{downIcon}}"></image>
+        </view>
+      </picker>
+    </view>
+    <view class='index_icongrp'>
+      <image src='{{qRCode}}' bindtap='scanCode'></image>
+      <image src='{{phoneIcon}}' bindtap='callPhone'></image>
+      <image src='{{userIcon}}' bindtap='gotoMyHome'></image>
+    </view>
+  </view>
+
+  <view class='swriper-contains'>
+      <swiper-banner imgUrls="{{imgUrls}}"></swiper-banner>
+  </view>
+
+  <view class='menu'>
+    <block wx:for='{{menuList}}' wx:key='{{index}}'>
+      <view class='menu-item' data-id='{{item.id}}' bindtap="goToPage">
+        <image src='{{item.fImgUrl}}'></image>
+        <text>{{item.fTitle}}</text>
+      </view>
+    </block>
+  </view>
+
+  <view class='lanmu'>
+    <view class='main'>
+      <navigator url="/pages/main/budget/index/index">
+        <image src='{{lanmu.lanmu1}}'></image>
+      </navigator>
+    </view>
+    <view class='submain'>
+      <view>
+        <navigator url="/pages/main/mall/categories/index">
+          <image src='{{lanmu.lanmu2}}'></image>
+        </navigator>
+      </view>
+      <view>
+        <navigator url="">
+          <image src='{{lanmu.lanmu3}}'></image>
+        </navigator>
+      </view>
+    </view>
+  </view>
+
+  <!-- 推荐模块 -->
+  <view class='recom-list'>
+    <navigator url="">
+      <image src='{{shopIcon}}'></image>
+      <text>为您推荐</text>
+    </navigator>
+
+    <product-list></product-list>
+  </view>
+</scroll-view>

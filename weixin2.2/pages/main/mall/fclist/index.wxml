@@ -1,0 +1,27 @@
+<!--pages/list/list.wxml-->
+<view class='containers'>
+  <view class='list-fixed'>
+    <search-box></search-box>
+  </view>
+
+   <scroll-view class="cate-container" scroll-y="{{isScroll}}" scroll-top="{{scrollTop}}">
+  <view class='sub-cate'>
+    <block wx:if="type='fucai'">
+      <sub-cate-list type="fucai" bindcustomevent="toggleActionSheet"/>
+    </block>
+    <block wx:else>
+      <sub-cate-list bindcustomevent="onUpdateScrollStatus"/>
+    </block>
+  </view>
+  <view class='listbox' wx:if="{{currentType == 'goods'}}">
+    <product-list displayType="mall"></product-list>
+  </view>
+   <view class='listbox' wx:else>
+    <brands-list></brands-list>
+  </view>
+  </scroll-view>
+
+ <action-sheet hidden="{{actionSheetHidden}}" bindchange="actionSheetChange">
+    <filter-action-sheet></filter-action-sheet>
+</action-sheet>
+</view>

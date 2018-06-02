@@ -1,4 +1,5 @@
 // pages/index/piclink.js
+const app = getApp()
 Page({
 
   /**

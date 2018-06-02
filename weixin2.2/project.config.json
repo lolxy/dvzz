@@ -33,19 +33,25 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "内页模式",
-					"pathName": "pages/index/finddetail",
-					"query": ""
+					"pathName": "pages/index/auxiliary/brand",
+					"query": "fSaleOrderID=ff808081616e748101616f0742f0000a"
+				},
+				{
+					"id": 1,
+					"name": "内页模式",
+					"pathName": "pages/ysty/zxjc",
+					"query": "fSaleOrderID=ff808081629f2a6401629f6f75c3001b&fTypeCategory=开关面板"
 				},
 				{
 					"id": -1,
-					"name": "内页模式",
-					"pathName": "pages/ysty/shop",
-					"query": ""
+					"name": "评价",
+					"pathName": "pages/order/evaluate",
+					"query": "fSaleOrderID=ff808081616e748101616f0742f0000a"
 				}
 			]
 		}

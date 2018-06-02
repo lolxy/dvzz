@@ -1,0 +1,21 @@
+<!--components/productItem/productItem.wxml-->
+<view class='pro-list'>
+<block  wx:for='{{productList}}' wx:key='{{index}}'>
+  <view class='pro-item' data-id="{{item.id}}" bindtap='gotoPage'>
+    <image src="{{item.imgurl}}"></image>
+    <view class='title'>{{item.title}}</view>
+    <view class='budget price' wx:if="{{displayType == 'budget'}}">
+      <view class='sale'>￥<text>{{item.price}}</text>元/个</view>
+      <view class='sum'>总价：{{item.oldPrice}}元</view>
+    </view>
+    <view class='mall price' wx:else>
+      <view class='sale'>￥<text>{{item.price}}</text>元</view>
+      <view class='old' wx:if="{{displayType == 'mall'}}">原价：￥{{item.oldPrice}}元</view>
+    </view>
+    <view class='info'>
+      <view class='store'>{{item.store}}</view>
+      <view class='area'>{{item.area}}</view>
+    </view>
+  </view> 
+  </block>
+</view>

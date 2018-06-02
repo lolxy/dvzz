@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "add-item":  "/components/addItem/item"
+  }
+}

@@ -1,0 +1,12 @@
+<!--pages/mine/suite.wxml-->
+<radio-group class='container'>
+  <view class='list' wx:for="{{SuiteList}}">
+    <view>
+      <view class='item_name'>{{item.ItemName}}</view>
+      <label class="radio">
+        <radio value="index" checked="{{item.IsDefault}}"/>默认地址
+      </label>
+    </view>
+    <view class='item_addr'>{{item.DetailAdrass}}</view>
+  </view >
+</radio-group>

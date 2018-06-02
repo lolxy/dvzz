@@ -1,4 +1,5 @@
 // pages/index/aborprice.js
+const app = getApp()
 Page({
 
   /**
@@ -66,7 +67,7 @@ Page({
   GetDataList: function () {
     var that = this
     wx.request({
-      url: 'https://www.dovzs.com/APPDWERP/wx/shop/priceMatList.do', //url 不能出现端口号
+      url: app.globalData.posturl +'wx/shop/priceMatList.do', //url 不能出现端口号
       data: {
         fCode: that.data.currentcode,
         num: that.data.num
@@ -74,8 +75,7 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {
-        
+      success: function (res) {        
         if (that.data.num > 0) {
           let n = that.data.datalist.length
           for (let i = 0; i < res.data.data.length; i++) {
@@ -91,7 +91,6 @@ Page({
             maxpage: res.data.totalPage
           })
         }
-        console.log(that.data.datalist)
       },
       method: 'GET'
     });
@@ -103,12 +102,11 @@ Page({
   getitemtype: function () {
     var that = this
     wx.request({
-      url: 'https://www.dovzs.com/APPDWERP/wx/shop/priceType.do', //url 不能出现端口号
+      url: app.globalData.posturl + '/wx/shop/priceType.do', //url 不能出现端口号
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data);
         that.setData({
           tabs: res.data.data,
           currentcode: res.data.data[that.data.currenttab].fCode

@@ -1,0 +1,77 @@
+<!--pages/main/budget/index/index.wxml-->
+<view class='containers'>
+  <view class='nav'>
+     <view class='menus'>  
+      <view class="item {{currentType == 'fucai'?'on':''}}" data-type="fucai" bindtap='getCurrentType'>
+        <view class='item-wrap'>
+          <text class='tit'>辅材报价</text>
+          <text>￥45224元</text>
+        </view>
+      </view>
+      <view class="item {{currentType == 'jiancai'?'on':''}}" data-type="jiancai" bindtap='getCurrentType'>
+        <view class='item-wrap'>
+          <text class='tit'>建材报价</text>
+          <text>￥45224元</text>
+        </view>
+      </view>
+    </view> 
+    <scroll-view class='menu-sub' scroll-into-view="{{toMenuSubView}}" scroll-x="{{true}}" style='width:{{windowWidth}}px;'>
+      <view class='item' id="subitem{{item.id}}" data-id="{{item.id}}" wx:for="{{menuList}}" wx:key="{{index}}" bindtap='getCurrentSubMenuData'>
+        <text class="{{currentSubMenu == item.id?'on':''}}">{{item.title}}</text>
+      </view>
+    </scroll-view> 
+  </view>
+
+  <view class='xuancai-wrap' wx:if="{{currentType == 'fucai'}}">
+    <view class='x-header'>
+      <view class='th'>商品</view>
+      <view class='th flex2'>规格</view>
+      <view class='th'>单价</view>
+      <view class='th'>单位</view>
+      <view class='th'>数量</view>
+      <view class='th'>金额</view>
+    </view>
+
+    <scroll-view class='list' scroll-y="{{true}}">
+      <view class='item' wx:for="{{fucaiList}}" wx:key="{{index}}" data-id="{{item.id}}">
+        <view class='namebox'>
+          <text class='name'>{{item.name}}</text>
+          <text class='brand'>({{item.brand}})</text>
+        </view>
+        <view class='specbox'>
+          <block wx:for="{{item.specList}}" wx:for-item="spec" wx:for-index="specIndex" wx:key="{{specIndex}}">
+            <view class='spec-list'>
+              <view class='td flex2'>{{spec.spec}}</view>
+              <view class='td'>{{spec.price}}</view>
+              <view class='td'>{{spec.unit}}</view>
+              <view class='td'>{{spec.num}}</view>
+              <view class='td'>{{spec.sumprice}}</view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class='xuancai-wrap' wx:else>
+    <view class='x-header'>
+      <view class='th'>区域</view>
+      <view class='th flex2'>规格</view>
+      <view class='th'>价格</view>
+    </view>
+
+    <scroll-view class='list' scroll-y="{{true}}">
+      <view class='item' wx:for="{{attrList}}" wx:key="{{index}}" data-id="{{item.id}}">
+        <view class='td'>{{item.area}}</view>
+        <view class='td flex2'>{{item.spec}}</view>
+        <view class='td'>{{item.price}}元</view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class='footer'>
+    <view class='total'>
+      <text>合计：{{sumPrice}}元</text>
+    </view>
+  </view>
+</view>

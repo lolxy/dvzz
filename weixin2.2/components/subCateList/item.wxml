@@ -1,0 +1,42 @@
+<!--components/mall/subCateList/item.wxml-->
+<view class='cate-list-wrap'>
+  <view class='cate-header' wx:if="{{type !='fucai'}}">
+    <view class='main-cate'>
+        <block wx:for="{{cateList}}" wx:key="{{index}}" wx:if="{{index <= 4}}">
+        <navigator url="/pages/main/mall/list/index?id={{item.id}}" class="{{currentCatId == item.id?'on':''}}">
+          <text>{{item.name}}</text></navigator>
+        </block>
+    </view>
+    <view class="more {{!isShow?'open':''}}" bindtap='toggleMoreMenu'>
+      <image src="{{moreIcon}}"></image>
+    </view>
+  </view>
+<view class='cate-header' wx:else>
+    <view class='main-cate main-cate-scroll'>
+        <scroll-view class='cate-list' scroll-x='{{true}}'>
+        <block wx:for="{{cateList}}" wx:key="{{index}}">
+        <navigator url="/pages/main/mall/list/index?id={{item.id}}" class="{{currentCatId == item.id?'on':''}}">
+          <text>{{item.name}}</text></navigator>
+        </block>
+        </scroll-view>
+    </view>
+    <view class='more filter' bindtap='actionSheetTap'>
+        <image src="{{filterIcon}}"></image>
+        <text>筛选</text>
+    </view>
+  </view>
+  <view class='sub-cate-list'>
+    <view class='cate-item' wx:for="{{subCateList}}" wx:key="{{index}}">
+       <navigator url="/pages/main/mall/list/index?id={{item.id}}">{{item.name}}</navigator>
+    </view>
+  </view>
+
+  <view class='action-sheet' hidden="{{isShow}}">
+    <view class='moreList'>
+      <block wx:for="{{moreList}}" wx:key="{{index}}">
+          <navigator url="/pages/main/mall/list/index?id={{item.id}}">{{item.name}}</navigator>
+          </block>
+    </view>
+    <view class='maskbg' catchtap='closeActionSheet'></view>
+  </view>
+</view>

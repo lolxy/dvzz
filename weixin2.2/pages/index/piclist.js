@@ -1,4 +1,5 @@
 // pages/index/piclist.js
+const app = getApp()
 Page({
 
   /**
@@ -83,7 +84,7 @@ Page({
   GetItemType: function () {
     var that = this
     wx.request({
-      url: 'https://www.dovzs.com/APPDWERP/app/data/queryCustomized.do', //url 不能出现端口号
+      url: app.globalData.posturl + 'app/data/queryCustomized.do', //url 不能出现端口号
       data: {
         type: that.data.CurrentType
       },
@@ -91,11 +92,13 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        that.setData({
-          tabs: res.data.data,
-          CurrentCode: res.data.data[that.data.currenttab].fCode
-        })
-        that.GetDataList()
+        if (res.data.data > 0) {
+          that.setData({
+            tabs: res.data.data,
+            CurrentCode: res.data.data[that.data.currenttab].fCode
+          })
+          that.GetDataList()
+        }
       },
       method: 'GET'
     });
@@ -106,7 +109,7 @@ Page({
   GetDataList: function () {
     var that = this
     wx.request({
-      url: 'https://www.dovzs.com/APPDWERP/app/picture/queryPic.do', //url 不能出现端口号
+      url: app.globalData.posturl + 'app/picture/queryPic.do', //url 不能出现端口号
       data: {
         type: that.data.CurrentType,
         fCode: that.data.CurrentCode,

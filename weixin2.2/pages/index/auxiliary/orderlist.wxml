@@ -1,0 +1,58 @@
+<!--pages/index/auxiliary/orderlist.wxml-->
+<view class='container' style="padding-bottom: 100rpx;">
+  <view class='head'>
+    <view class='order_tabs' wx:for="{{tabs}}" data-url='{{item.LinkUrl}}' bindtap='jumpurl'>
+      <image src="{{item.TabIcon}}"/>
+      <view>{{item.TabsName}}</view>
+    </view>
+  </view>
+  <view class='typelist'>
+    <view class="{{index==flag?'active':''}}"  wx:for="{{StatusList}}" data-flag="{{index}}" bindtap='ChangeFlags'>{{item.StatusName}}</view>
+  </view>
+  <checkbox-group class='order_list' bindchange="checkboxChange">
+    <view class='order_item' wx:for="{{OrderList}}" >
+      <view class='order_item_head'>
+        <view>{{item.fCustomerName}}</view>
+        <view>{{item.fState}}</view>
+      </view>
+      <view class='order_item_body'>
+        <view>
+          <label class="checkbox">
+            <checkbox value="{{index}}" checked="{{item.Selected}}" color="#ff6600"/>
+          </label>
+          <image class='order_item_img' src="{{item.fUrl}}"/>
+          <view class='order_item_grp'>
+            <view class='order_item_name'>{{item.fTypeCategory}}</view>
+            <view class='order_item_totle'>合计：{{item.fAmount}}元</view>
+          </view>
+        </view>
+        <view>
+          <view >
+            <view class='order_item_num'>共{{item.num}}件商品</view>
+            <image src="{{menuimg}}" bindtap='ToList' data-fid="{{item.fSaleOrderID}}" data-item="{{item.fTypeCategory}}" data-receipt="{{item.fReceiptNo}}"></image>
+          </view>
+          <view wx:if="{{item.flag == 1||item.flag == 2}}">
+            <view class='order_item_btn' wx:if="{{item.flag == 1}}">确认收货</view>
+            <view class='order_item_btn' wx:elif="{{item.flag == 2}}">评价</view>
+          </view>
+        </view>
+      </view>
+      <view class='order_item_foot'>
+        <view>订单号：{{item.fReceiptNo}}</view>
+        <view>创建单据：{{item.fDate}}</view>
+      </view>
+    </view>
+  </checkbox-group>
+  <view class='foot' wx:if="{{flag==0}}">
+    <checkbox-group bindchange="SelectAll">
+      <label class="checkbox">
+        <checkbox value="1" checked="{{SelectAll}}" color="#ff6600"/>全选
+      </label>
+    </checkbox-group>
+    <view class='foot_r_grp'>
+      <view>合计:{{totle}}元</view>
+      <view class='btn foot_button' bindtap='ToSettlement'>结算</view>
+    </view>
+  </view>
+</view>
+

@@ -15,4 +15,11 @@
     </view>
     <image src="{{menurightimg}}"></image>
   </view>
+  <view class='list' data-phone="{{servicephone}}"bindtap='ToPhoneCall'>
+    <view class='items'>
+      <image src='{{serviceicon}}'></image>
+      <view>{{servicename}}</view>
+    </view>
+    <image src="{{menurightimg}}"></image>
+  </view>
 </view>

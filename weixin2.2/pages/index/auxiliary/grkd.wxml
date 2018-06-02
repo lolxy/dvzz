@@ -1,0 +1,43 @@
+<!--pages/index/auxiliary/grkd.wxml-->
+<view class='container' style="padding-bottom: 100rpx;">
+  <view class='head'>
+    <scroll-view scroll-x>
+      <view class="order_tabs {{CurrentTab==index?'active':''}}" wx:for="{{tabs}}" bindtap='TabChange' data-index="{{index}}">
+        <image src="{{item.TabIcon}}"/>
+        <view>{{item.TabsName}}</view>
+      </view>
+    </scroll-view>
+  </view>
+  <view class='typelist'>
+    <scroll-view scroll-x>
+      <view class="typeitem {{index==flag?'active':''}}"  wx:for="{{StatusList}}" data-flag="{{index}}" bindtap='ChangeFlags'>{{item.StatusName}}</view>
+    </scroll-view>
+  </view>
+  <view class='table table_border'>
+    <view class='thead'>
+      <view class='flex_col_3'>商品</view>
+      <view class='flex_col_4'>规格</view>
+      <view class='flex_col_2'>单价</view>
+      <view class='flex_col_2'>单位</view>
+      <view class='flex_col_1'></view>
+    </view>
+    <view class='tbody'>
+      <view class='tabrows' wx:for="{{TableDataList}}" data-id="{{item.ItemID}}">
+        <view class='flex_col_3'>{{item.ItemName}}</view>
+        <view class='flex_col_4'>
+          <view>{{item.ItemNorms}}</view>
+          <view>({{item.ItemBrand}})</view>
+        </view>
+        <view class='flex_col_2'>{{item.ItemPrice}}</view>
+        <view class='flex_col_2'>{{item.ItemUnit}}</view>
+        <view class='flex_col_1'><image src="{{ArrowRight}}"/></view>
+      </view>
+    </view>
+  </view>
+  <view class='foot'>
+    <view class='foot_c_grp'>
+      <view class='btn' bindtap='ToBranks'>选品牌</view>
+      <view class='foot_btn btn' bindtap='ToShopCity'>辅材商城</view>
+    </view>
+  </view>
+</view>

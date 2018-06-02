@@ -12,7 +12,7 @@
     <view class='index_icongrp'>
       <image src='{{QRCode}}'></image>
       <image src='{{PhoneIcon}}'></image>
-      <image src='{{UserIcon}}' bindtap='getorderifo'></image>
+      <image src='{{msgIcon}}' bindtap='message'></image>
     </view>
   </view>
   <view class="customer-top">

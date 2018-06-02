@@ -1,0 +1,10 @@
+<!--pages/mine/wdqb/bill.wxml-->
+<view class='container'>
+  <view class='list'>
+    <view>
+      <view class='item_name'>零钱支付</view>
+      <view class='item_time'>2018-01-10 13:25:56</view>
+    </view>
+    <view class='item_price'>-5元/㎡</view>
+  </view>
+</view>

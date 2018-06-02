@@ -1,4 +1,5 @@
 // pages/mine/index.js
+//const app = getApp()
 Page({
 
   /**
@@ -11,26 +12,25 @@ Page({
     useraccount: 'LV252154541',
     setimgurl: '../../image/mine/seticon.png',
     itemlist: [{
-      itemimg: '../../image/mine/qb.png',
-      itemname: '我的钱包',
-      itemhref: 'bbkh'
+      itemimg: '../../image/mine/sh.png',
+      itemname: '我的套房',
+      itemhref: 'suite'
     },{
       itemimg: '../../image/mine/sh.png',
       itemname: '我的图纸',
-      itemhref: 'wdrw/list'
-    },{
-      itemimg: '../../image/mine/sh.png',
-      itemname: '水电验收',
-      itemhref: 'wdrw/list'
+      itemhref: 'drawing'
+    }, {
+      itemimg: '../../image/mine/qb.png',
+      itemname: '我的钱包',
+      itemhref: 'wdqb/info'
     },{
       itemimg: '../../image/mine/sh.png',
       itemname: '我的售后',
-      itemhref: 'wdrw/list'
-    },{
-      itemimg: '../../image/mine/lxkf.png',
-      itemname: '客服中心',
-      itemhref: 'wdrw/list'
+      itemhref: 'aftersale'
     }],
+    serviceicon: '../../image/mine/lxkf.png',
+    servicename: '客服中心',
+    servicephone: '15805959782',
     menurightimg: "../../image/jt1.png",
   },
 
@@ -53,7 +53,7 @@ Page({
 
 
   },
-
+  //跳转详情
   jumptodetail: function (e) {
     wx.navigateTo({
       url: e.currentTarget.dataset.ref,
@@ -62,7 +62,12 @@ Page({
       }
     })
   },
-
+  //拨打电话
+  ToPhoneCall: function(e) {
+    wx.makePhoneCall({
+      phoneNumber: e.currentTarget.dataset.phone //仅为示例，并非真实的电话号码
+    })
+  },
   /**
    * 生命周期函数--监听页面显示
    */

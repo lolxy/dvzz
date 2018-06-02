@@ -1,0 +1,22 @@
+<!--pages/categories/categories.wxml-->
+<view class='containers'>
+  <view class='cate-search'>
+    <search-box></search-box>  
+  </view>
+
+  <scroll-view class="cate-container" scroll-y="{{true}}">
+    <view class='cate-list'>
+      <block wx:for="{{cateList}}" wx:key="{{index}}">
+        <view class='cat-main-title'>
+          <image src="{{item.icon}}"></image>
+          <text>{{item.title}}</text>
+        </view>
+        <view class='cat-sub-list'>
+          <view wx:for="{{item.children}}" wx:for-index="childIndex" wx:for-item="childItem" wx:key="childIndex">
+            <navigator url="">{{childItem.title}}</navigator>
+          </view>
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,40 @@
+<!--pages/main/budget/index/index.wxml-->
+<view class='container'>
+  <view class='nav'>
+    <view class='item' data-id="{{item.id}}" wx:for="{{menuList}}" wx:key="{{index}}" bindtap='getCurrentMenuData'>
+      <image src='{{item.icon}}'></image>
+      <text class="{{currentMenu == item.id?'on':''}}">{{item.title}}</text>
+    </view>
+  </view>
+
+  <view class='xuancai-wrap'>
+    <view class='x-header'>
+      <text>建材装修</text>
+      <navigator url='/pages/main/budget/xuancai/index'>去选材</navigator>
+    </view>
+
+    <scroll-view class='list' scroll-y="{{true}}">
+      <view class='item' wx:for="{{xcList}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap='gotoPage'>
+        <view class='title'>
+          <image src="{{item.icon}}"></image>
+          <text>{{item.title}}<text class='badge'>2</text></text>
+        </view>
+        <view class='price'>￥{{item.price}}元</view>
+        <view class='right'>
+          <image src="{{rightIcon}}"></image>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class='footer'>
+    <view class='map'>
+      <image src='{{mapIcon}}'></image>
+      <text>路线图</text>
+    </view>
+    <view class='total'>
+      <text>合计：{{sumPrice}}元</text>
+      <navigator url=''>查看报价</navigator>
+    </view>
+  </view>
+</view>

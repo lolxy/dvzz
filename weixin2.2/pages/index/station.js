@@ -1,4 +1,5 @@
 // pages/index/station.js
+const app = getApp()
 Page({
 
   /**
@@ -98,7 +99,7 @@ Page({
     var APP = getApp()
     console.log(APP.globalData.location[1])
     wx.request({
-      url: 'https://www.dovzs.com/APPDWERP/app/shop/shoplist.do', //仅为示例，并非真实的接口地址
+      url: app.globalData.posturl + 'app/shop/shoplist.do', //仅为示例，并非真实的接口地址
       data: {
         page: that.data.page,
         lat: that.data.lat,

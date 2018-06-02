@@ -1,4 +1,5 @@
 // pages/index/find.js
+const app = getApp()
 Page({
 
   /**
@@ -69,7 +70,7 @@ Page({
   GetDataList: function(){
     var that = this
     wx.request({
-      url: 'https://www.dovzs.com/APPDWERP/wx/worker/queryWorkerList.do', //url 不能出现端口号
+      url: app.globalData.posturl + 'wx/worker/queryWorkerList.do', //url 不能出现端口号
       data: {
         keyword: that.data.Searchdata,
         num: that.data.num,
@@ -106,7 +107,7 @@ Page({
   getitemtype: function () {
     var that = this
     wx.request({
-      url: 'https://www.dovzs.com/APPDWERP/wx/worker/queryWorkerType.do', //url 不能出现端口号
+      url: app.globalData.posturl + 'wx/worker/queryWorkerType.do', //url 不能出现端口号
       header: {
         'content-type': 'application/json' // 默认值
       },

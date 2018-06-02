@@ -1,0 +1,26 @@
+<!--pages/index/auxiliary/brand.wxml-->
+<view class="container">
+  <form bindsubmit="formSubmit">
+    <view class='table table_border'>
+      <view class='thead'>
+        <view class='flex_col_1'>类别</view>
+        <view class='flex_col_2'>品牌</view>
+      </view>
+      <view class='tbody'>
+        <view class='tabrows' wx:for="{{TableDataList}}" wx:key="{{category.id}}" wx:for-item="category" wx:for-index="idx">
+          <view class='flex_col_1'>{{category.ItemName}}</view>
+          <view class='flex_col_2'>
+            <radio-group class="radio-group" bindchange="radioChange" name="{{'brand'+idx}}"  data-idx="{{idx}}">
+              <label class="radio {{idy==category.currentbrand?'active':''}}" wx:for="{{category.branlist}}" wx:key="{{brand.brandName}}" wx:for-item="brand" wx:for-index="idy"  data-idx="{{idy}}">
+                <radio value="{{brand.brandcode}}" checked="{{idy==category.currentbrand?true:false}}"/>{{brand.brandName}}
+              </label>
+            </radio-group>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='foot'>
+      <button formType="submit"> 确  定 </button>
+    </view>
+  </form>
+</view>

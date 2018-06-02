@@ -1,5 +1,5 @@
 /***** 一般设置 *****/
-view, image, text, form{
+view, image, text, form, checkbox-group, scroll-view{
   box-sizing: border-box;
 }
 .container {
@@ -88,7 +88,7 @@ view, image, text, form{
   height: 22rpx;
   margin-right: 10rpx;
   display: inline-block;
-  vertical-align: center; 
+  vertical-align: center;
 }
 .shop_cont_btngrp .btn {
   padding: 10rpx 40rpx;
@@ -110,6 +110,24 @@ view, image, text, form{
   color: #8bc24a;
   border-color: #8bc24a;
 }
+/**  横向滑动srcollhead  **/
+.scroll_x_head {
+  width: 100%;
+  /** 
+  //scroll-view 不能使用弹性盒模型
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow: hidden;
+    **/
+  background-color: #ffffff;
+}
+.scroll_x_head image{
+  max-width: 50rpx;
+  max-height: 50rpx; 
+}
 /**  带横向滚动条的list项目  **/
 .scorll_title {
   text-align: center;
@@ -120,4 +138,100 @@ view, image, text, form{
 }
 .scorll_list {
   width: 100%;
+}
+/****  fixed-footer  ****/
+.foot {
+  width: 100%;
+  height: 100rpx;
+  background-color: #ffffff;
+  bottom: 0;
+  position: fixed;
+}
+/****  flex等分策略   ****/
+.flex_col_1 {
+  flex: 1;
+}
+.flex_col_2 {
+  flex: 2;
+}
+.flex_col_3 {
+  flex: 3;
+}
+.flex_col_4 {
+  flex: 4;
+}
+/****  一般表格   ****/
+.table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  background-color: #ffffff;
+}
+.table_border {
+  border-top: 2rpx solid #ddd;
+  border-left: 2rpx solid #ddd;
+}
+.thead {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+.table_border .thead {
+  border-bottom: 2rpx solid #ddd;
+}
+.thead > view {
+  padding: 30rpx 20rpx; 
+  font-size: 24rpx;
+  line-height: 30rpx;
+  color: #333333;
+  text-align: center;
+}
+.table_border .thead > view {
+  border-right: 2rpx solid #ddd;
+}
+.tbody {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+.tabrows {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+.table_border .tabrows {
+  border-bottom: 2rpx solid #ddd;
+}
+.tabrows > view {
+  padding: 30rpx 20rpx; 
+  font-size: 24rpx;
+  line-height: 30rpx;
+  color: #666666;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.tabrows > view:last-child {
+  text-align: right;
+  align-items: flex-end;
+}
+.table_border .tabrows > view {
+  border-right: 2rpx solid #ddd;
+}
+.table image {
+  max-width: 30rpx;
+  max-height: 30rpx; 
+}
+radio {
+  transform: scale(0.6);
 }

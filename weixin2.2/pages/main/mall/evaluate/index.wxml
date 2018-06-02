@@ -1,0 +1,18 @@
+<!--pages/detail/detail.wxml-->
+<view class='evaluate'>
+  <view class='ev-item' wx:for="{{list}}" wx:key="{{index}}">
+    <image src="{{item.photo}}" class='photo'></image>
+    <view class='content'>
+      <view class='c-head'>
+        <text class='phone'>{{item.phone}}</text>
+        <text>{{item.time}}</text>
+      </view>
+      <view class='c-info'>
+        {{item.content}}
+      </view>
+      <view class='imglist'>
+        <image src="{{img}}" wx:for="{{item.imglist}}" wx:for-item="img" wx:for-index="keys" wx:key="{{keys}}" data-arr="{{item.imglist}}" data-url="{{img}}" bindtap='onPreview'></image>
+      </view>
+    </view>
+  </view>
+</view>

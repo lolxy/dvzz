@@ -1,0 +1,347 @@
+/* pages/main/budget/index/index.wxss */
+.containers{
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.nav{
+  height: 250rpx;
+  background-color: #fff;
+  position: absolute;
+  overflow: hidden;
+  top:0;
+  width: 100%;
+}
+
+.nav .menus{
+  width: 100%;
+  white-space: nowrap;
+  border-bottom: 1rpx solid #dedede;
+} 
+
+.nav .menus .item{
+  width: 140rpx;
+  height: 160rpx;
+  padding: 20rpx;
+  display: inline-block; 
+  box-sizing: border-box;
+}
+
+.nav .menus .item .item-wrap{
+  width: 100rpx;
+  height: 120rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: center;
+  align-items: center;
+}
+
+.nav .menus .item image{
+  width: 40rpx;
+  height: 40rpx;
+  vertical-align: top;
+}
+
+.nav .menus .item text{
+  color:#666;
+  font-size:26rpx;
+}
+
+.nav .menus .item text.on{
+  color:#ff6600;
+}
+
+.nav .menu-sub{
+  width: 100%;
+  white-space: nowrap;
+} 
+
+.nav .menu-sub .item{
+  height: 90rpx;
+  display: inline-block;
+  line-height: 85rpx;
+  font-size: 26rpx;
+  color:#666;
+  text-align: center;
+  padding: 0 30rpx;
+}
+
+.nav .menu-sub .item text.on{
+  color:#ff6600;
+}
+
+.nav .menu-sub .item text.on{
+  border-bottom: 5rpx solid #ff6600;
+  padding-bottom: 12rpx;
+}
+
+.xuancai-wrap{
+  background-color: #fff;
+  position: absolute;
+  top:270rpx;
+  bottom: 129rpx;
+  overflow: hidden;
+  width: 100%;
+}
+
+.x-header{
+  border-bottom: 1rpx solid #dedede;
+  height: 88rpx;
+  line-height: 88rpx;
+  font-size: 30rpx;
+  color:#333;
+  padding: 0 20rpx;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.x-header .main{
+  display: flex;
+}
+
+.x-header .main .add-btn{
+  width: 60rpx;
+  height: 86rpx;
+  display: flex;
+}
+
+.x-header .main .add-btn icon{
+  width: 40rpx;
+  height: 40rpx;
+  margin: 24rpx 20rpx 24rpx 0rpx;
+  vertical-align: top;
+}
+
+.x-header .main text{
+  font-weight: 500;
+  flex:1;
+}
+
+.x-header .action{
+  min-width: 480rpx;
+  color:#ff6600;
+  font-size:30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+
+.x-header .action .ac{
+  width: 120rpx;
+  line-height: 88rpx;
+  color:#ff6600;
+  font-size:30rpx;
+  text-align: center;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.x-header .action .acs{
+  width: 140rpx;
+  line-height: 48rpx;
+  height: 48rpx;
+  color:#fff;
+  font-size:30rpx;
+  text-align: center;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10rpx;
+  margin-right: 20rpx;
+}
+
+.x-header .action .acs image{
+  width: 40rpx;
+  height: 40rpx;
+  margin: 3rpx 5rpx 0 0;
+}
+
+.x-header .action .acs.cart{
+background-color: #03a9f5;
+}
+
+.x-header .action .acs.dell{
+background-color: #d32f2e;
+}
+
+.x-header .action .switch{
+  width: 160rpx;
+  height: 58rpx;
+  background-color: #dedede;
+  border-radius: 58rpx;
+  padding: 5rpx;
+  box-sizing: border-box;
+  display: flex;
+  margin: 15rpx 0;
+}
+
+.x-header .action .cance{
+  flex:1;
+  display: flex;
+  justify-content:flex-end;
+}
+
+.x-header .action .switch .tab{
+  width: 50%;
+  font-size: 26rpx;
+  color:#666;
+  line-height: 48rpx;
+  text-align: center;
+  transition: all cubic-bezier(1, 0, 0, 1) .3s;
+  border-radius: 48rpx;
+  height: 48rpx;
+}
+
+.x-header .action .switch .tab.on{
+  background-color: #ff6600;
+  color:#fff;
+}
+
+.x-header .action .ac image{
+  width: 40rpx;
+  height: 40rpx;
+  margin: 24rpx 10rpx;
+}
+
+.xuancai-wrap .list{
+  position: absolute;
+  top:88rpx;
+  bottom:0;
+  width: 100%;
+}
+
+.xuancai-wrap .list .item{
+display: flex;
+height: 88rpx;
+border-bottom: 1rpx solid #dedede;
+justify-content: space-between;
+font-size: 24rpx;
+line-height: 44rpx;
+color:#333;
+}
+
+.item .name{
+  width: 280rpx;
+  padding: 20rpx;
+}
+
+.item .price{
+  color:#d32f2e;
+  width: 150rpx;
+  padding: 20rpx;
+}
+
+.item .opbox{
+  display: flex;
+  justify-content: space-between;
+}
+
+.item .add-btn{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  width: 60rpx;
+  height: 88rpx;
+  justify-content: center;
+}
+
+.item .add-btn icon{
+  width: 40rpx;
+  height: 40rpx;
+  margin: 24rpx 0rpx 24rpx 20rpx;
+}
+
+.item .btn{
+  height: 58rpx;
+  border: 1rpx solid #ff6600;
+  line-height: 58rpx;
+  font-size: 20rpx;
+  color:#ff6600;
+  text-align: center;
+  margin: 15rpx;
+  width: 120rpx;
+  border-radius: 8rpx;
+}
+
+.item .sys{
+  width: 150rpx;
+  height: 88rpx;
+  text-align: center;
+}
+
+.item image{
+  width: 40rpx;
+  height: 40rpx;
+  margin: 24rpx;
+}
+
+.xuancai-wrap .list .item:last-child{
+  border-bottom: none;
+}
+
+.footer{
+  height: 98rpx;
+  box-shadow: 0 -5rpx 5rpx #e1e1e1;
+  background-color: #fff;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+
+.map{
+  display: flex;
+  font-size: 30rpx;
+  color:#666;
+  align-items: center;
+}
+.map image{
+width: 40rpx;
+height: 40rpx;
+margin-right: 20rpx;
+}
+
+.total{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size:30rpx;
+}
+
+.total text{
+  line-height: 98rpx;
+  color:#d32f2e;
+  margin-right: 20rpx;
+  font-weight: 550;
+}
+
+.total navigator,.total view{
+  line-height: 68rpx;
+  width: 260rpx;
+  border-radius: 68rpx;
+  font-weight: 500;
+  text-align: center;
+  color:#fff;
+}
+
+.total navigator{
+  border:1rpx solid #ff6600;
+  color:#fff;
+  background-color: #ff6600;
+}
+
+.total view{
+  border:1rpx solid #999;
+  background-color: #999;
+}

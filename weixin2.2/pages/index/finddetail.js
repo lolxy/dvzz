@@ -1,4 +1,5 @@
 // pages/index/finddetail.js
+const app = getApp()
 Page({
 
   /**

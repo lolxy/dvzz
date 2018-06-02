@@ -4,11 +4,11 @@ const app = getApp()
 
 Page({
   data: {
-    region:['福建省','泉州市','晋江市'],
+    region: app.globalData.location,
     LocalImage: '../../image/local.png',
     QRCode: '../../image/qrimg.png',
     PhoneIcon: '../../image/phone_icon.png',
-    UserIcon: '../../image/usr_icon.png',
+    msgIcon: '../../image/usr_icon.png',
     indicatorDots: false,
     autoplay: true, //banner  是否自动播放
     interval: 5000,//banner1 切换间隔
@@ -30,11 +30,10 @@ Page({
   },
   /*****  省市区选择   *****/
   bindRegionChange: function (e) {
-    var APP=getApp()
     this.setData({
       region: e.detail.value
     })
-    APP.globalData.location = e.detail.value
+    app.globalData.location = e.detail.value
   },
   /**
    * 生命周期函数--监听页面加载
@@ -52,7 +51,7 @@ Page({
     }); 
     //请求banner列表
     wx.request({
-      url: 'https://www.dovzs.com/APPDWERP/app/picture/loadBanner.do', //url 不能出现端口号
+      url: app.globalData.posturl + 'app/picture/loadBanner.do', //url 不能出现端口号
       data: { type: 5 },
       header: {
         'content-type': 'application/json' // 默认值
@@ -67,8 +66,7 @@ Page({
     });
     that.getmenudata()
     that.getorderinfo()
-    that.getshopinfo()
-    
+    that.getshopinfo()    
   },
 
   /**
@@ -127,16 +125,29 @@ Page({
       }
     })
   },
+  
+  /** 
+    * 跳转到各详情页面
+    */
+  message: function(e) {
+    wx.navigateTo({
+      url: message,
+      success: function (res) {
+        //console.log(res.data);        
+      }
+    })
+  },
   //请求菜单项
   getmenudata: function (e) {
     var that = this
     wx.request({
-      url: 'https://www.dovzs.com/APPDWERP/wx/shop/indexMenu.do', //url 不能出现端口号
+      url: app.globalData.posturl + 'wx/shop/indexMenu.do', //url 不能出现端口号
+      data: {flag: 1},
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        //console.log(res.data);
+        //console.log(res.data)
         that.setData({
           LinkList: res.data.data
         })
@@ -149,7 +160,7 @@ Page({
     var that = this
     //请求订单列表
     wx.request({
-      url: 'https://www.dovzs.com/APPDWERP/wx/shop/quereyOrder.do', //url 不能出现端口号
+      url: app.globalData.posturl + 'wx/shop/quereyOrder.do', //url 不能出现端口号
       data:{
         num:0
       },
@@ -182,7 +193,7 @@ Page({
             //请求服务器绑定信息
             success: function (res) {
               wx.request({
-                url: 'https://www.dovzs.com/APPDWERP/app/hruser/queryUserInfo.do',
+                url: app.globalData.posturl + 'app/hruser/queryUserInfo.do',
                 data: { openID: res.data.openid },
                 success: function (json) {
                   wx.setStorageSync('APPUserInfo', json.data.data)
@@ -206,7 +217,7 @@ Page({
       type: 'wgs84',
       success: function (res) {
         wx.request({
-          url: 'https://www.dovzs.com/APPDWERP/wx/shop/list.do', //url 不能出现端口号
+          url: app.globalData.posturl + 'wx/shop/list.do', //url 不能出现端口号
           data: {
             page: 0,
             lat: res.latitude,
@@ -219,6 +230,7 @@ Page({
             'content-type': 'application/json' // 默认值
           },
           success: function (json) {
+            console.log()
             that.setData({
               ShopList: json.data.data
             })

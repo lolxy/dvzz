@@ -1,0 +1,13 @@
+<!--components/searchBox/searchBox.wxml-->
+<view class='search-wrap'>
+  <view class='search'>
+    <view class='search-box'>
+      <image src="{{searchIcon}}"></image>
+      <input placeholder="搜索商品、店铺" placeholder-class="placecss" value='{{searchdata}}' confirm-type="search"/>
+    </view>
+    <view class='btn' bindtap='search'>搜索</view>
+  </view>
+  <view class='sys' bindtap='scan'>
+    <image src='{{qrCodeIcon}}'></image>
+  </view>
+</view>

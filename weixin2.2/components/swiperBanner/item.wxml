@@ -1,0 +1,9 @@
+<view class="customer-top">
+    <swiper class='customer-banner' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}">
+      <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+        <swiper-item wx:if="{{item.bPath }}">
+          <image src="{{item.bPath}}" class="slide-image" data-bUrl="{{item.bUrl}}" lazy-load/>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>

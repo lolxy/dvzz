@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "swiper-banner": "/components/swiperBanner/item",
+    "mall-list": "/components/mallList/item",
+    "copy-item": "/components/copy/item",
+    "comfirm-modal":"/components/modal/item"
+  }
+}

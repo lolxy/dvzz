@@ -6,14 +6,38 @@
     "pages/index/finddetail",
     "pages/index/aborprice",
     "pages/index/piclink",
+    "pages/index/message",
     "pages/index/piclist",
+    "pages/index/auxiliary/orderlist",
+    "pages/index/auxiliary/grkd",
+    "pages/index/auxiliary/brand",
     "pages/ysty/zxjc",
     "pages/ysty/shop",
     "pages/ysty/brand",
     "pages/ysty/detail",
-    "pages/main/index",
+    "pages/main/index/index",
+    "pages/main/mall/categories/index",
+    "pages/main/mall/list/index",
+    "pages/main/mall/fclist/index",
+    "pages/main/mall/detail/index",
+    "pages/main/mall/evaluate/index",
+    "pages/main/budget/index/index",
+    "pages/main/budget/xuancai/index",
+    "pages/main/budget/comfirm/index",
+    "pages/main/budget/bill/index",
+    "pages/main/budget/detail/index",
+    "pages/main/budget/detail2/index",
+    "pages/main/budget/productList/index",
     "pages/order/index",
-    "pages/mine/index"
+    "pages/order/list",
+    "pages/order/evaluate",
+    "pages/mine/index",
+    "pages/mine/suite",
+    "pages/mine/drawing",
+    "pages/mine/aftersale",
+    "pages/mine/wdqb/info",
+    "pages/mine/wdqb/recharge",
+    "pages/mine/wdqb/bill"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -35,7 +59,7 @@
       {
         "selectedIconPath": "image/zc2.png",
         "iconPath": "image/zc.png",
-        "pagePath": "pages/main/index",
+        "pagePath": "pages/main/index/index",
         "text": "主材"
       },
       {
@@ -52,5 +76,5 @@
       }
     ]
   }
-  
+
 }
