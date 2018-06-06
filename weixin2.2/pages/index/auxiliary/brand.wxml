@@ -7,12 +7,17 @@
         <view class='flex_col_2'>品牌</view>
       </view>
       <view class='tbody'>
+        <!-- 提交变量个数  -->
+        <input  name="categorynum" value="{{TableDataList.length}}" hidden='{{true}}'></input>
         <view class='tabrows' wx:for="{{TableDataList}}" wx:key="{{category.id}}" wx:for-item="category" wx:for-index="idx">
-          <view class='flex_col_1'>{{category.ItemName}}</view>
+          <view class='flex_col_1'>
+            <input  name="{{'category'+idx}}" value="{{category.fMatColor}}" hidden='{{true}}'></input>
+            {{category.fMatColor}}
+          </view>
           <view class='flex_col_2'>
-            <radio-group class="radio-group" bindchange="radioChange" name="{{'brand'+idx}}"  data-idx="{{idx}}">
-              <label class="radio {{idy==category.currentbrand?'active':''}}" wx:for="{{category.branlist}}" wx:key="{{brand.brandName}}" wx:for-item="brand" wx:for-index="idy"  data-idx="{{idy}}">
-                <radio value="{{brand.brandcode}}" checked="{{idy==category.currentbrand?true:false}}"/>{{brand.brandName}}
+            <radio-group class="radio-group" name="{{'brand'+idx}}" bindchange="radioChange">
+              <label class="radio {{brand.fIsDefault==1?'active':''}}" wx:for="{{category.list}}" wx:key="{{brand.fBrandName}}" wx:for-item="brand" wx:for-index="idy"  data-idx="{{idx}}" data-idy="{{idy}}" bindtap='changeindex'>
+                <radio value="{{brand.fBrandName}}" color="#ff6600" checked="{{brand.fIsDefault==1?true:false}}"/>{{brand.fBrandName}}
               </label>
             </radio-group>
           </view>

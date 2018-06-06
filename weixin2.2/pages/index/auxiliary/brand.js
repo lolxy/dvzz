@@ -1,54 +1,26 @@
 // pages/index/auxiliary/brand.js
+var app=getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    TableDataList:[{
-      ItemName: '电线类',
-      branlist: [{
-        brandName: '太阳',
-        brandcode: 'a01'
-      },{
-        brandName: '飞雕',
-        brandcode: 'a02'
-      }],
-      currentbrand: '0',
-      id:0
-    },{
-      ItemName: '线管类',
-      branlist: [{
-        brandName: '集友',
-        brandcode: 'b01'
-      },{
-        brandName: '伟星',
-        brandcode: 'b02'
-      },{
-        brandName: '亚通',
-        brandcode: 'b03'
-      }],
-      currentbrand: '0',
-      id: 1
-    },{
-      ItemName: '给水管',
-      branlist: [{
-        brandName: '日丰',
-        brandcode: 'c01'
-      },{
-        brandName: '伟星',
-        brandcode: 'c02'
-      }],
-      currentbrand: '0',
-      id: 2
-    }]
+    TableDataList:[],
+    fID: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    wx.setNavigationBarTitle({
+      title: '选择品牌',
+    })
+    this.setData({
+      fID: options.fID
+    })
+    this.GetBrandList()
   },
 
   /**
@@ -80,47 +52,66 @@ Page({
   },
   formSubmit:  function(e) {
     var that = this
-    //console.log(e.detail.value)
-    var postdata = {}
+    //特殊处理提交列表型表单
+    var postdata = {
+      fID: that.data.fID,
+      rels:[]
+    }
     //var APPUserInfo = wx.getStorageSync('APPUserInfo') || {}
     //console.log(APPUserInfo)
-    postdata.rateList = new Array()
-    postdata.fUserID = '0CB59692C4FE4143A174F2699F6FA911'
-    postdata.fSaleOrderID = that.data.fSaleOrderID
-    postdata.fRateContent = e.detail.value.fRateContent
-    for (var i = 0; i < e.detail.value.rateListlength; i++) {
-      //拼接key
-      var listkey = e.detail.value['rateListkey' + i]
-      //拼接value
-      var listvalue = e.detail.value['rateListvalue' + i]
+    for (var i = 0; i < e.detail.value['categorynum']; i++) {
+      
       //利用中间变量组成键值对
-      let listdata = {}
-      listdata['fEvaluateRateItemID'] = listkey
-      listdata['fEvaluateRateScoreID'] = listvalue
+      var listdata = {}
+      //fMatColor、fBrandName 为实际提交的list中各item对应的各项name
+      //category、brand 为页面中‘固定名称’+‘索引’name
+      listdata['fMatColor'] = e.detail.value['category' + i] 
+      listdata['fBrandName'] = e.detail.value['brand' + i] //fBrandName 为实际提交name
       //将键值对拼接到数组中
-      postdata.rateList[i] = listdata
+      postdata.rels[i] = listdata
     }
-    //console.log(postdata)
     wx.request({
-      url: app.globalData.posturl + 'wx/shopCity/addEvaluate.do', //url 不能出现端口号
+      url: app.globalData.posturl + 'wx/shop/confirmBrand.do', //url 不能出现端口号
       data: postdata,
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res)
+        //console.log(res.data);
       },
       method: 'POST'
     });
   },
   
   /**
-   * 页面相关事件处理函数----是否匿名提交
+   * 页面相关事件处理函数--get品牌选择
    */
-  radioChange: function(e) {
+  GetBrandList: function () {
     var that = this
-    var n = e.target.dataset.idx 
-    console.log(n)
+    wx.request({
+      url: app.globalData.posturl + 'wx/shop/queryBrandList.do', //url 不能出现端口号
+      data:{fID: that.data.fID},
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        that.setData({
+          TableDataList: res.data.data
+        })
+      },
+      method: 'GET'
+    });
+  },
+  /**
+   * 页面相关事件处理函数----changeactive
+   */
+  changeindex: function (e) {
+    var that = this
+    var nitem = 'TableDataList[' + e.target.dataset.idx + '].list[' + e.target.dataset.idy + '].fIsDefault'
+    that.setData({
+      [nitem]: 1
+    })
+    //console.log(that.data.TableDataList)
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作

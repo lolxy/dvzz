@@ -1,60 +1,17 @@
 // pages/index/auxiliary/grkd.js
+var app=getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-     tabs: [{
-      TabsName: '基础辅材',
-      TabIcon: '../../../image/default-img.png',
-      LinkUrl: 'base'
-    },{
-      TabsName: '水电辅材',
-      TabIcon: '../../../image/default-img.png',
-      LinkUrl: ''
-    },{
-      TabsName: '泥土辅材',
-      TabIcon: '../../../image/default-img.png',
-      LinkUrl: ''
-    },{
-      TabsName: '木作辅材',
-      TabIcon: '../../../image/default-img.png',
-      LinkUrl: ''
-    },{
-      TabsName: '油漆辅材',
-      TabIcon: '../../../image/default-img.png',
-      LinkUrl: ''
-    }],
-    StatusList: [{
-      StatusName: '电线类'
-    }, {
-      StatusName: '线管类'
-    }, {
-      StatusName: '给水管'
-    }, {
-      StatusName: '下水管类'
-    }, {
-      StatusName: '非常规水电'
-    }],
-    TableDataList:[{
-      ItemName:'热水管',
-      ItemNorms: '20*28（白）',
-      ItemBrand: '日丰',
-      ItemPrice: 25.5,
-      ItemUnit: '捆',
-      ItemID: '01'
-    },{
-      ItemName:'热水管',
-      ItemNorms: '25*25*4',
-      ItemBrand: '日丰',
-      ItemPrice: 25,
-      ItemUnit: '捆',
-      ItemID: '02'
-    }],
+    tabs: [],
+    StatusList: [],
+    fMPDItemlist:[[]],
     flag: 0,
     CurrentTab:0,
-    num:0,
+    CurrentfID: '',
     ArrowRight: '../../../image/jt1.png',
   },
 
@@ -65,6 +22,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '工人开单',
     })
+    this.GetBillType()
   },
 
   /**
@@ -102,17 +60,78 @@ Page({
   
   },
   /**
+   * 页面相关事件处理函数--get大类tabs
+   */
+  GetBillType: function () {
+    var that = this
+    wx.request({
+      url: app.globalData.posturl + 'wx/shop/openBillType.do', //url 不能出现端口号
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        that.setData({
+          tabs: res.data.data,
+          CurrentfID: res.data.data[0].fID
+        })
+        that.GetBillProject()
+      },
+      method: 'GET'
+    });
+  },
+  /**
+   * 页面相关事件处理函数--get项目tabs
+   */
+  GetBillProject: function () {
+    var that = this
+    wx.request({
+      url: app.globalData.posturl + 'wx/shop/openBillProject.do', //url 不能出现端口号
+      data: { fID: that.data.CurrentfID},
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        console.log(res.data.data)
+        that.setData({
+          StatusList: res.data.data
+        })
+        if (res.data.data.length > 0 && res.data.data[that.data.flag].list.length >0) {
+          var hold = res.data.data[that.data.flag].list[0].fMPDItem
+          let init = 'fMPDItemlist[' + that.data.flag + '][0]'
+          that.setData({
+            [init]: res.data.data[that.data.flag].list[0].fMPDItem
+          })
+          var n=1
+          for (let i = 1; i < res.data.data[that.data.flag].list.length;i++) {
+            if (res.data.data[that.data.flag].list[i].fMPDItem != hold) {
+              hold = res.data.data[that.data.flag].list[i].fMPDItem
+              let item = 'fMPDItemlist['+that.data.flag+'][' + n +']'
+              that.setData({
+                [item]: res.data.data[that.data.flag].list[i].fMPDItem
+              })
+              n++
+            }
+          }
+          console.log(that.data.fMPDItemlist)
+        }
+      },
+      method: 'GET'
+    });
+  },
+  /**
    * 页面相关事件处理函数--切换大类tabs
    */
   TabChange: function (e) {
     var that = this
     if (e.currentTarget.dataset.index === that.data.CurrentTab) {
-      that.setData({ num: 0 })
     } else {
       that.setData({
         CurrentTab: e.currentTarget.dataset.index,
-        num: 0
+        CurrentfID: e.currentTarget.dataset.fid,
+        flag: 0,
+        fMPDItemlist:[[]]
       })
+      that.GetBillProject()
     }
   },
   /**
@@ -128,6 +147,31 @@ Page({
         num: 0
       })
     }
+  },
+  /**
+  * 页面相关事件处理函数--跳转详情
+  */
+  ToDetail: function (e) {
+    var that = this
+    wx.navigateTo({
+      url: 'detail?fMatName=' + e.currentTarget.dataset.fmname + '&fNorms=' + e.currentTarget.dataset.fnorms + '&fPrice=' + e.currentTarget.dataset.fprice + '&fBrandName=' + e.currentTarget.dataset.fbname + '&fConf=' + e.currentTarget.dataset.fconf + '&fUrl=' + e.currentTarget.dataset.furl,
+      success: function (res) {
+        //console.log(res.data);       
+      }
+    })
+  },
+  
+  /**
+  * 页面相关事件处理函数--跳转详情
+  */
+  ToBranks: function(e) {
+    var that = this
+    wx.navigateTo({
+      url: 'brand?fID=' + e.currentTarget.dataset.fid,
+      success: function (res) {
+        //console.log(res.data);       
+      }
+    })
   },
   /**
    * 页面上拉触底事件的处理函数

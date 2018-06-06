@@ -11,9 +11,9 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.98",
+	"libVersion": "2.0.0",
 	"appid": "wxe25ed9f3e82519ef",
-	"projectname": "%E5%B0%8F%E7%A8%8B%E5%BA%8F2.2",
+	"projectname": "多维自装商城",
 	"isGameTourist": false,
 	"condition": {
 		"search": {
@@ -33,12 +33,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": -1,
 			"list": [
 				{
 					"id": 0,
 					"name": "内页模式",
-					"pathName": "pages/index/auxiliary/brand",
+					"pathName": "pages/index/auxiliary/grkd",
 					"query": "fSaleOrderID=ff808081616e748101616f0742f0000a"
 				},
 				{
@@ -52,6 +52,12 @@
 					"name": "评价",
 					"pathName": "pages/order/evaluate",
 					"query": "fSaleOrderID=ff808081616e748101616f0742f0000a"
+				},
+				{
+					"id": -1,
+					"name": "详情页",
+					"pathName": "pages/main/mall/detail/index",
+					"query": "id=ff8080815f482461015f567720b32059"
 				}
 			]
 		}

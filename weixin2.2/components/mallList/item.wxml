@@ -1,13 +1,18 @@
 <!--components/common/mallList/item.wxml-->
 <view class='mall-list'>
+  <view wx:if="{{mallList.length}}">
   <view class='mall-item' wx:for="{{mallList}}" wx:key="{{index}}">
-    <image src="{{item.imgurl}}"></image>
+    <image src="{{item.fImgUrl}}"></image>
     <view class='content'>
-      <view class='title'>{{item.title}}</view>
+      <view class='title'>{{item.fName}}</view>
       <view class='info'>
-        <text>店长：{{item.store}}</text>
-        <text>电话：{{item.tell}}</text>
+        <text>店长：{{item.fTitle}}</text>
+        <text>电话：{{item.fHotline}}</text>
       </view>
     </view>
+  </view>
+  </view>
+  <view wx:else class='nodata'>
+    暂无数据
   </view>
 </view>

@@ -1,12 +1,12 @@
 <!--components/mall/brandsList/item.wxml-->
-<view class='brand-list'>
-  <view class='brand-item' wx:for="{{brandList}}" wx:key="{{index}}">
-    <image src="{{item.imgurl}}"></image>
+<view class='brand-list' wx:if="{{brandList.length}}">
+  <view class='brand-item' wx:for="{{brandList}}" wx:key="{{index}}" wx:if="{{item.fBrandID}}">
+    <image src="{{item.fImageUrl?item.fImageUrl:loadImg}}"></image>
     <view class='content'>
-      <view class='title'>{{item.title}}</view>
+      <view class='title'>{{item.fBrandName}}</view>
       <view class='info'>
-        <text>{{item.store}}</text>
-        <text>{{item.area}}</text>
+        <text>{{item.fShopCityName}}</text>
+        <text>{{item.distance}}</text>
       </view>
     </view>
   </view>

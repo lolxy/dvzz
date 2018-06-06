@@ -90,3 +90,58 @@
   color: #ffffff!important;
   background-color: #ff6600;
 }
+/***** 特殊表格  *****/
+.thead .flex_column {
+  height: 100%;
+}
+.flex_col_200{
+  width: 200rpx;
+  flex-basis: 200rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.flex_col_125 {
+  width: 125rpx;  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.flex_col_100 {
+  width: 100rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.flex_col_550 {
+  width: 550rpx;
+  padding: 0!important;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch!important;
+}
+.flex_column {
+  padding: 0!important;
+  display: flex;
+  flex-direction: row!important;
+  justify-content: flex-start;
+  align-items: stretch!important;
+}
+.flex_col_550 .flex_column + .flex_column {
+  border-top: 2rpx solid #ddd;
+}
+.flex_col_550 .flex_column > view {
+  padding:30rpx 20rpx;
+  font-size:24rpx;
+  line-height: 100%;
+  color:#666666;
+  vertical-align: middle;
+  text-align: center;
+}
+.flex_col_550 .flex_column > view +view {
+  border-left: 2rpx solid #ddd;
+}

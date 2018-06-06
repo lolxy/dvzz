@@ -2,7 +2,7 @@
 <scroll-view class="containers" scroll-y="{{true}}">
   <view class='actionbox'>
     <view class='buy'>
-      <view><image src='{{buyIcon}}'></image>选材</view>
+      <view catchtap='gotoXuancai'><image src='{{buyIcon}}'></image>选材</view>
     </view>
     <view class='copy' catchtap='openCopyModal'>
       <view><image src='{{copyIcon}}'></image>复制</view>

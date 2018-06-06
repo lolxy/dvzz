@@ -22,7 +22,8 @@ Page({
       time: '2016年5月24日',
       timeEnd: '2022年5月4日'
     }],
-    num:0
+    num:0,
+    maxpage:0
   },
 
   /**
@@ -67,17 +68,18 @@ Page({
    */
   GetData: function () {
     var that = this
+    var APPUserInfo = wx.getStorageSync('APPUserInfo') || {}
     wx.request({
       url: app.globalData.posturl + 'app/order/queryService.do', //url 不能出现端口号
       data: {
-        fUserID: app.globalData.fCustomerID,
+        fUserID: APPUserInfo.fCustomerID,
         num: that.data.num,
       },
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        //console.log(res.data);
+        console.log(res.data);
         if (that.data.num > 0) {
           let n = that.data.datalist.length
           for (let i = 0; i < res.data.data.length; i++) {

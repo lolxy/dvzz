@@ -1,12 +1,12 @@
-// pages/mine/suite.js
-const app = getApp()
+// pages/index/auxiliary/detail.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    SuiteList: []
+    defaultimg: '../../../image/default-img.png',
+    infodata:{},
   },
 
   /**
@@ -14,15 +14,19 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({
-      title: '我的套房',
+      title: '辅料详情',
     })
+    this.setData({ 
+      infodata: options
+    })
+    console.log(this.data.infodata)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
   /**
@@ -45,27 +49,7 @@ Page({
   onUnload: function () {
   
   },
-  //请求订单列表轮播
-  getorderinfo: function (e) {
-    var that = this
-    //请求订单列表
-    wx.request({
-      url: app.globalData.posturl + 'wx/personalcenter/queryByCustomer.do', //url 不能出现端口号
-      data: {
-        fUserID: app.globalData.fUserID
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        //console.log(res.data);
-        that.setData({
-          SuiteList: res.data.data
-        })
-      },
-      method: 'GET'
-    });
-  },
+
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */

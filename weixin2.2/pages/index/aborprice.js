@@ -107,6 +107,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
+        console.log(res.data)
         that.setData({
           tabs: res.data.data,
           currentcode: res.data.data[that.data.currenttab].fCode

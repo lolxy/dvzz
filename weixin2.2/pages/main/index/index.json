@@ -1,6 +1,6 @@
 {
+  "navigationBarTitleText": "多维主材商城",
   "usingComponents": {
-    "swiper-banner": "/components/swiperBanner/item",
     "product-list": "/components/productList/item"
   }
 }

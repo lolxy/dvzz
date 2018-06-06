@@ -131,9 +131,40 @@ Page({
     */
   message: function(e) {
     wx.navigateTo({
-      url: message,
+      url: 'message',
       success: function (res) {
         //console.log(res.data);        
+      }
+    })
+  },
+  // 扫码功能
+  ScanCode: function () {
+    wx.scanCode({
+      success: function (res){
+        console.log(res.result)
+        if (res.result){
+          wx.request({
+            url: app.globalData.posturl + 'app/selectmat/scanCode.do', //url 不能出现端口号
+            data: { fMatCode: res.result },
+            header: {
+              'content-type': 'application/json' // 默认值
+            },
+            success: function (res2) {
+              console.log(res2.data.data.fMatID);
+              wx.navigateTo({
+                url: '../main/budget/detail/index?fMatID=' + res2.data.data.fMatID,//地址待修改ggggggggggggggggggggggggg
+                success: function (res) {
+                  console.log('成功');        
+                },
+                fail: function (res) {
+                  console.log('跳转失败');
+                }
+              })
+            },
+            method: 'GET'
+          });
+         
+        }
       }
     })
   },
@@ -176,37 +207,6 @@ Page({
       method: 'GET'
     });
   },
-  getcustomerifo: function (e) {
-    var that = this;
-    wx.login({
-      success: function (res) {
-        if (res.code) {
-          //发起网络请求
-          wx.request({
-            url: 'https://api.weixin.qq.com/sns/jscode2session',
-            data: {
-              appid: app.globalData.appid,
-              secret: app.globalData.secret,
-              js_code: res.code,
-              grant_type: 'authorization_code'
-            },
-            //请求服务器绑定信息
-            success: function (res) {
-              wx.request({
-                url: app.globalData.posturl + 'app/hruser/queryUserInfo.do',
-                data: { openID: res.data.openid },
-                success: function (json) {
-                  wx.setStorageSync('APPUserInfo', json.data.data)
-                }
-              });
-            }
-          })
-        } else {
-          console.log('登录失败！' + res.errMsg)
-        }
-      }
-    })
-  },
   //请求订单列表轮播
   getshopinfo: function () {
     var that = this
@@ -224,13 +224,13 @@ Page({
             lng: res.longitude,
             flag: 0,
             distance: 0,
-            fCityName: that.data.region[1]
+            fCityName: that.data.region[1].replace(/市/g,'')
           },
           header: {
             'content-type': 'application/json' // 默认值
           },
           success: function (json) {
-            console.log()
+            console.log(json)
             that.setData({
               ShopList: json.data.data
             })
@@ -247,7 +247,11 @@ Page({
   onPullDownRefresh: function () {
 
   },
-
+  phonecall:function(){
+    wx.makePhoneCall({
+      phoneNumber: '0595-85865088' //仅为示例，并非真实的电话号码
+    })
+  },
   /**
    * 页面上拉触底事件的处理函数
    */

@@ -326,6 +326,13 @@ Page({
     })
   },
 
+  // 跳转到当前所选商品的收藏页
+  gotoFavPage:function(){
+    wx.navigateTo({
+      url: '/pages/main/budget/detail2/index'
+    })
+  },
+
   // 跳转到选材商品列表页
   gotoXuancai:function(){
     wx.navigateTo({

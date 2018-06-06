@@ -8,18 +8,24 @@
 .main-cate{
   flex:1;
   display: flex;
-  justify-content: space-between;
 }
-.main-cate navigator{
- width: 20%;  
+.cate-header.main-border{
+border-bottom: 1rpx solid #dedede;
+}
+.main-cate .item{
+width: 20%;
+padding:  0 5rpx;
 height: 88rpx;
 line-height: 88rpx;
-text-align: center;
+text-align: center;  
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
 font-size:26rpx;
 color:#666;
 box-sizing: border-box;
 }
-.main-cate navigator.on text{
+.main-cate .item.on text{
   color:#ff6600;
   border-bottom:5rpx solid #ff6600;
   padding-bottom: 15rpx;
@@ -31,7 +37,7 @@ box-sizing: border-box;
   width: 100%;
   white-space:nowrap;
 }
-.main-cate .cate-list navigator{
+.main-cate .cate-list .item{
   display: inline-block; 
   padding: 0 20rpx;
   box-sizing: border-box;
@@ -81,7 +87,7 @@ box-sizing: border-box;
   box-sizing: border-box;
 }
 
-.cate-item navigator{
+.cate-item .item{
   display: block;
   width: 100%;
   height: 48rpx;
@@ -90,12 +96,21 @@ box-sizing: border-box;
   background-color:#dedede;
   color:#666;
   font-size:24rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   border-radius: 48rpx;
+  transition: all cubic-bezier(0.165, 0.84, 0.44, 1) .4s;
+}
+
+.cate-item .item.on{
+  background-color:#ff6600;
+  color:#fff;
 }
 
 .action-sheet{
   position: absolute;
-  top:88rpx;
+  top:86rpx;
   width: 100%;
   bottom: 0;
   border-top:1rpx solid #f3f3f3;
@@ -123,13 +138,19 @@ box-sizing: border-box;
   width: 100%;
 }
 
-.moreList navigator{
+.moreList .item{
   margin: 10rpx 0rpx;
   font-size: 26rpx;
   line-height: 60rpx;
   text-align: center;
   padding: 0 10rpx;
-  width: 16.6666%;
+  /* width: 16.6666%; */
   box-sizing: border-box;
   color:#666;
+}
+
+.moreList .item.on text{
+  color:#ff6600;
+  border-bottom:5rpx solid #ff6600;
+  padding-bottom: 15rpx;
 }

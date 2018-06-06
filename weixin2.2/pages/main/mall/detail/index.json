@@ -1,6 +1,5 @@
 {
   "usingComponents": {
-    "swiper-banner": "/components/swiperBanner/item",
     "mall-list": "/components/mallList/item"
   }
 }

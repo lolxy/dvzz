@@ -1,20 +1,21 @@
 <!--components/productItem/productItem.wxml-->
-<view class='pro-list'>
-<block  wx:for='{{productList}}' wx:key='{{index}}'>
-  <view class='pro-item' data-id="{{item.id}}" bindtap='gotoPage'>
-    <image src="{{item.imgurl}}"></image>
-    <view class='title'>{{item.title}}</view>
+<view class='pro-list' wx:if="{{list.length}}">
+<block  wx:for='{{list}}' wx:key='{{index}}'>
+  <view class='pro-item' data-id="{{item.fMatID}}" data-title="{{item.fMatName}}" bindtap='gotoPage' wx:if="{{item.fMatID}}">
+    <image src="{{item.fThumbnailUrl?item.fThumbnailUrl:loadimg}}" wx:if="{{!displayType}}"></image>
+    <image src="{{item.fUrl?item.fUrl:loadimg}}" wx:else></image>
+    <view class='title'>{{item.fMatName}}</view>
     <view class='budget price' wx:if="{{displayType == 'budget'}}">
-      <view class='sale'>￥<text>{{item.price}}</text>元/个</view>
-      <view class='sum'>总价：{{item.oldPrice}}元</view>
+      <view class='sale'>￥<text>{{item.fPrice}}</text>元/{{item.fUnitName}}</view>
+      <view class='sum'>总价：{{item.fAmount}}元</view>
     </view>
     <view class='mall price' wx:else>
-      <view class='sale'>￥<text>{{item.price}}</text>元</view>
-      <view class='old' wx:if="{{displayType == 'mall'}}">原价：￥{{item.oldPrice}}元</view>
+      <view class='sale'>￥<text>{{item.fPrice}}</text>元</view>
+      <view class='old' wx:if="{{displayType == 'mall' && item.fOldPrice != 0}}">原价：￥{{item.fOldPrice}}元</view>
     </view>
     <view class='info'>
-      <view class='store'>{{item.store}}</view>
-      <view class='area'>{{item.area}}</view>
+      <view class='store'>{{item.fShopCityName}}</view>
+      <view class='area'>{{item.distance}}</view>
     </view>
   </view> 
   </block>

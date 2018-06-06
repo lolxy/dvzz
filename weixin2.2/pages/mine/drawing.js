@@ -20,7 +20,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '我的图纸',
     })
-    
+    this.GetData()
   },
 
   /**
@@ -76,6 +76,27 @@ Page({
         curretimg: that.data.curretimg + 1
       })
     }
+  },
+  //获取图片
+  GetData: function () {
+    var that = this
+    var APPUserInfo = wx.getStorageSync('APPUserInfo') || {}
+    wx.request({
+      url: app.globalData.posturl + 'wx/personalcenter/wallet.do', //url 不能出现端口号
+      data: {
+        fCustomerID: APPUserInfo.fUserID
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        console.log(res.data);
+        that.setData({
+          ImgList: res.data.data
+        })
+      },
+      method: 'GET'
+    });
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作

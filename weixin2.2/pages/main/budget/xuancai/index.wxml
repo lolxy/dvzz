@@ -33,11 +33,11 @@
       <view class='item' wx:for="{{attrList}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap='gotoPage'>
         <view class='main'>{{item.name}}</view>
         <view class='children'>
-          <view class='child-item' wx:for="{{item.children}}" wx:for-item="subitem" wx:for-index="subindex" wx:key="{{subindex}}">
+          <view class='child-item' wx:for="{{item.children}}" wx:for-item="subitem" wx:for-index="subindex" wx:key="{{subindex}}" bindtap="gotoFavPage">
             <view class='name'>{{subitem.name}}</view>
             <view class='price'>{{subitem.price}}元</view>
             <block wx:if="{{switchType == 1}}">
-              <view class='btn' bindtap='gotoXuancai'>线上选材</view>
+              <view class='btn' catchtap='gotoXuancai'>线上选材</view>
             </block>
             <block wx:else>
               <view class='sys'><image src='{{sysIcon}}'></image></view>

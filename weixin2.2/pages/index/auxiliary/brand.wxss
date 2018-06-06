@@ -25,6 +25,3 @@
 .radio.active {
   color: #ff6600;
 }
-radio {
-  color: #ff6600;
-}

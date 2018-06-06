@@ -1,4 +1,5 @@
 // pages/mine/wdqb/info.js
+var app=getApp()
 Page({
 
   /**
@@ -6,7 +7,8 @@ Page({
    */
   data: {
     fAmount:0,
-    Cash_Icon:'../../../image/mine/default-img.png'
+    Cash_Icon:'../../../image/mine/default-img.png',
+    nocash:1
   },
 
   /**
@@ -16,6 +18,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '我的钱包',
     })
+    this.GetData()
   },
 
   /**
@@ -44,7 +47,34 @@ Page({
   onUnload: function () {
   
   },
-
+  //获取余额
+  GetData: function () {
+    var that = this
+    var APPUserInfo = wx.getStorageSync('APPUserInfo') || {}
+    wx.request({
+      url: app.globalData.posturl + 'wx/personalcenter/wallet.do', //url 不能出现端口号
+      data: {
+        fUserID: APPUserInfo.fUserID
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        console.log(res.data);
+        if (res.data.data.fAmount){
+          that.setData({
+            fAmount: res.data.data.fAmount, //待修改
+            nocash: 1
+          })
+        }else {
+          that.setData({
+            nocash:0 //待修改
+          })
+        }
+      },
+      method: 'GET'
+    });
+  },
   /**
    * 充值跳转
    */
@@ -73,7 +103,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+    this.GetData()
   },
 
   /**

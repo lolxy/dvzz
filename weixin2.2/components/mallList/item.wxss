@@ -50,3 +50,11 @@
   color:#666;
   font-size: 24rpx;
 }
+
+.nodata{
+  line-height: 80rpx;
+  padding: 30rpx;
+  font-size: 24rpx;
+  color:#999;
+  text-align: center
+}

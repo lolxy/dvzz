@@ -24,3 +24,8 @@ background-color: #f3f3f3;
 .mb20{
   margin-bottom: 20rpx;
 }
+
+.navigator-hover {
+background-color:#fff;
+opacity:1;
+}

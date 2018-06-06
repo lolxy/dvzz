@@ -1,5 +1,5 @@
 // pages/mine/index.js
-//const app = getApp()
+const app = getApp()
 Page({
 
   /**
@@ -11,23 +11,7 @@ Page({
     //username: '吕女士',
     useraccount: 'LV252154541',
     setimgurl: '../../image/mine/seticon.png',
-    itemlist: [{
-      itemimg: '../../image/mine/sh.png',
-      itemname: '我的套房',
-      itemhref: 'suite'
-    },{
-      itemimg: '../../image/mine/sh.png',
-      itemname: '我的图纸',
-      itemhref: 'drawing'
-    }, {
-      itemimg: '../../image/mine/qb.png',
-      itemname: '我的钱包',
-      itemhref: 'wdqb/info'
-    },{
-      itemimg: '../../image/mine/sh.png',
-      itemname: '我的售后',
-      itemhref: 'aftersale'
-    }],
+    itemlist: [],
     serviceicon: '../../image/mine/lxkf.png',
     servicename: '客服中心',
     servicephone: '15805959782',
@@ -40,10 +24,10 @@ Page({
   onLoad: function (options) {
     var uinfo = wx.getStorageSync('APPUserInfo') || {}
     this.setData({ userInfo: uinfo})  
-    console.log(this.data.userInfo)
     wx.setNavigationBarTitle({
       title: '个人中心',
     })
+    this.GetData()
   },
 
   /**
@@ -55,18 +39,36 @@ Page({
   },
   //跳转详情
   jumptodetail: function (e) {
-    wx.navigateTo({
-      url: e.currentTarget.dataset.ref,
-      success: function (res) {
-        //console.log(res.data);        
-      }
-    })
+    if (e.currentTarget.dataset.title=='客服中心'){
+      wx.makePhoneCall({
+        phoneNumber: e.currentTarget.dataset.ref //仅为示例，并非真实的电话号码
+      })
+    }else {
+      wx.navigateTo({
+        url: e.currentTarget.dataset.ref,
+        success: function (res) {
+          //console.log(res.data);        
+        }
+      })
+    }
   },
-  //拨打电话
-  ToPhoneCall: function(e) {
-    wx.makePhoneCall({
-      phoneNumber: e.currentTarget.dataset.phone //仅为示例，并非真实的电话号码
-    })
+  
+  //获取列表data
+  GetData: function () {
+    var that = this
+    wx.request({
+      url: app.globalData.posturl + 'wx/personalcenter/queryUserInfoCenter.do', //url 不能出现端口号
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        that.setData({
+          itemlist: res.data.data.list,
+          topbg: res.data.data.topBgUrl
+        })
+      },
+      method: 'GET'
+    });
   },
   /**
    * 生命周期函数--监听页面显示

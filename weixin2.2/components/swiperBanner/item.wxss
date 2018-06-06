@@ -1,9 +1,0 @@
-/* components/swiperBanner/swiperBanner.wxss */
-.customer-top{
-  width: 100%;
-  background-color: #fff;
-}
-
-.customer-banner,swiper-item,.customer-top .slide-image{
-  width: 100%;
-}

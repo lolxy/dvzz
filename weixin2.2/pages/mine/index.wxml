@@ -8,17 +8,10 @@
     </view>
     <view class='seticon' data-userid="{{useraccount}}" bindtap='user-set'><image src="{{setimgurl}}"></image></view>
   </view>
-  <view class='list' wx:for="{{itemlist}}" data-ref="{{item.itemhref}}" bindtap='jumptodetail'>
+  <view class='list' wx:for="{{itemlist}}" data-ref="{{item.fUrl}}" data-title="{{item.fTitle}}" bindtap='jumptodetail'>
     <view class='items'>
-      <image src='{{item.itemimg}}'></image>
-      <view>{{item.itemname}}</view>
-    </view>
-    <image src="{{menurightimg}}"></image>
-  </view>
-  <view class='list' data-phone="{{servicephone}}"bindtap='ToPhoneCall'>
-    <view class='items'>
-      <image src='{{serviceicon}}'></image>
-      <view>{{servicename}}</view>
+      <image src='{{item.fImgUrl}}'></image>
+      <view>{{item.fTitle}}</view>
     </view>
     <image src="{{menurightimg}}"></image>
   </view>

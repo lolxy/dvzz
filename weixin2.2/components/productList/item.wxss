@@ -2,7 +2,6 @@
 .pro-list{
   display: flex;
   flex-wrap: wrap;
-  background-color: #fff;
 }
 
 .pro-item{
@@ -12,6 +11,7 @@
   padding: 20rpx 20rpx 10rpx;
   box-sizing: border-box;
   border-bottom: 1rpx solid #dedede;
+  background-color: #fff;
 }
 
 .pro-item:nth-child(odd){

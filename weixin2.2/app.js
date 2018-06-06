@@ -14,7 +14,7 @@ App({
     wx.login({
       success: function (res) {
         if (res.code) {
-          //发起网络请求
+          //发起网络请求微信授权
           wx.request({
             url: 'https://api.weixin.qq.com/sns/jscode2session',
             data: {
@@ -24,14 +24,14 @@ App({
               grant_type: 'authorization_code'
             },
             //请求服务器绑定信息
-            success: function (res) {
-              //console.log(res.data);
+            success: function (res2) {
+              console.log(res2.data);
               wx.request({
                 url: self.globalData.posturl+'/app/hruser/queryUserInfo.do',
-                data: { openID: res.data.openid },
+                data: { openID: res2.data.openid },
                 success: function (json) {
+                  console.log(json.data);
                   wx.setStorageSync('APPUserInfo', json.data.data)
-                  console.log(json.data)
                 }
               });
             }
@@ -67,16 +67,29 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-
+  },
+  // 获取当前位置信息
+  getLocationInfo: function () {
+    const self = this;
+    return new Promise(function(resolve,reject){
+      wx.getLocation({
+        type: 'wgs84',
+        success: function (res) {
+          self.globalData.area = res
+          resolve(res); 
+        }
+      });
+    })
   },
   globalData: {
     userInfo: null,
-    fCustomerID:'',
-    location: ['福建省','泉州市','晋江市'],
-    posturl:'https://www.dovzs.com/APPDWERP/',
-    appid:'wx5d6a6e22ab9f16fe',
+    fCustomerID: '',
+    location: ['福建省', '泉州市', '晋江市'],
+    area: '',
+    posturl: 'https://www.dovzs.com/APPDWERP/',
+    appid: 'wxe25ed9f3e82519ef',
     // appid:'wxe9985e67fdf19328',//我的测试appID
-    secret:'33f27321c7050ba838efd8817da17847',
-    gaodekey:'7dbfb8aa7eaa2349fc4c31e080ea94f9'
+    secret: 'cb85a1be394fba94ceadaf02b87081b4',
+    gaodekey: '7dbfb8aa7eaa2349fc4c31e080ea94f9'
   }
 })

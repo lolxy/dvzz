@@ -1,22 +1,23 @@
 <!--components/mall/filter/item.wxml-->
 <view class='filter-wrap'>
   <scroll-view class='filter-data-list' scroll-y>
+    <block wx:if="{{filterList.length}}">
     <view class='panel' wx:for="{{filterList}}" wx:key="{{index}}">
       <view class='panel-header'>
-        <text>{{item.name}}</text>
+        <text>{{item.title}}</text>
         <view class="down {{currentIndex == index && isOpen?'open':''}}" data-index="{{index}}" bindtap='togglePanel'>
         <image src="{{downIcon}}"></image>
         </view>
       </view>
       <view class="panel-body {{currentIndex == index && isOpen?'open':''}}">
         <view class='list'>
-          <view class='item on'>不限</view>
-          <view class='item' wx:for="{{item.list}}" wx:for-index="dindex" wx:for-item="ditem" wx:key="{{dindex}}">
-            {{ditem.name}}
+          <view class="item {{ditem.checked?'on':''}}" wx:for="{{item.list}}" wx:for-index="dindex" wx:for-item="ditem" wx:key="{{dindex}}" data-index="{{index}}" data-dindex="{{dindex}}" data-value="{{ditem.fValue}}" data-key="{{item.key}}" data-checked="{{ditem.checked}}" bindtap='getCurrentSpec'>
+             {{ditem.fName}}
           </view>
         </view>
       </view>
     </view>
+    </block>
 
     <view class='panel'>
       <view class='panel-header'>
@@ -24,11 +25,11 @@
       </view>
       <view class="panel-body">
         <view class='list'>
-          <view class='item on'>不限</view>
+          <view class="item {{minPrice && maxPrice?'':'on'}}">不限</view>
           <view class='price'>
-            <input type="digit"/>
+            <input type="digit" value="{{minPrice}}" bindinput='getMinPrice'/>
             <text> — </text>
-            <input type="digit"/>
+            <input type="digit" value="{{maxPrice}}" bindinput='getMaxPrice'/>
           </view>
         </view>
       </view>
@@ -52,7 +53,7 @@
     </view>
   </scroll-view>
   <view class='action-box'>
-    <view><button class='reset'>重置</button></view>
-    <view><button class='submit'>确定</button></view>
+    <view bindtap='resetFilter'><button class='reset'>重置</button></view>
+    <view bindtap='submitFilter'><button class='submit'>确定</button></view>
   </view>
 </view>

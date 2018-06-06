@@ -1,4 +1,5 @@
 /* pages/detail/detail.wxss */
+@import "../../../../wxParse/wxParse.wxss";
 .containers{
   background-color:#f3f3f3;
   position: absolute;
@@ -16,6 +17,15 @@
 
 .swriper-contains swiper,.swriper-contains swiper image{
   height: 750rpx;
+}
+
+.customer-top{
+  width: 100%;
+  background-color: #f8f8f9;
+}
+
+.customer-banner,swiper-item,.customer-top .slide-image{
+  width: 100%;
 }
 
 .detail-base{
@@ -85,6 +95,9 @@
   font-size: 26rpx;
   color:#666;
   line-height: 60rpx;
+  text-overflow: ellipsis;
+  white-space:nowrap;
+  overflow: hidden;
 }
 
 .evaluate{
@@ -189,6 +202,14 @@ line-height: 40rpx;
 .tab-content image{
   width: 100%; 
   vertical-align: top;
+}
+
+.tab-content .nodata{
+  line-height: 80rpx;
+  padding: 20rpx;
+  font-size: 24rpx;
+  color:#999999;
+  text-align: center;
 }
 
 .bth-add{

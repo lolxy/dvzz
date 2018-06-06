@@ -68,7 +68,6 @@ Page({
 
   // 打开复制弹窗
   openCopyModal:function() {
-    console.log("123")
     this.setData({
       hiddenModal: false
     })
@@ -78,6 +77,13 @@ Page({
   actionModal: function (e) {
     this.setData({
       hiddenModal: e.detail
+    })
+  },
+
+  // 跳到选材页面
+  gotoXuancai:function(){
+    wx.navigateTo({
+      url: '/pages/main/budget/productList/index'
     })
   },
 

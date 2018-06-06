@@ -12,17 +12,25 @@
     <view class='index_icongrp'>
       <image src='{{qRCode}}' bindtap='scanCode'></image>
       <image src='{{phoneIcon}}' bindtap='callPhone'></image>
-      <image src='{{userIcon}}' bindtap='gotoMyHome'></image>
+      <image src='{{userIcon}}' bindtap='gotoMessage'></image>
     </view>
   </view>
 
   <view class='swriper-contains'>
-      <swiper-banner imgUrls="{{imgUrls}}"></swiper-banner>
+      <view class="customer-top">
+        <swiper class='customer-banner' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}">
+          <block wx:for="{{banner}}" wx:key="{{index}}">
+            <swiper-item wx:if="{{item.bPath }}">
+              <image src="{{item.bPath}}" class="slide-image" data-bUrl="{{item.bUrl}}" lazy-load/>
+            </swiper-item>
+          </block>
+        </swiper>
+  </view>
   </view>
 
   <view class='menu'>
     <block wx:for='{{menuList}}' wx:key='{{index}}'>
-      <view class='menu-item' data-id='{{item.id}}' bindtap="goToPage">
+      <view class='menu-item' data-fUrl='{{item.fUrl}}' bindtap="goToPage">
         <image src='{{item.fImgUrl}}'></image>
         <text>{{item.fTitle}}</text>
       </view>
@@ -51,11 +59,11 @@
 
   <!-- 推荐模块 -->
   <view class='recom-list'>
-    <navigator url="">
+    <view class='recom'>
       <image src='{{shopIcon}}'></image>
       <text>为您推荐</text>
-    </navigator>
+    </view>
 
-    <product-list></product-list>
+    <product-list list="{{recommonList}}"></product-list>
   </view>
 </scroll-view>

@@ -3,7 +3,7 @@
   <view class='search'>
     <view class='search-box'>
       <image src="{{searchIcon}}"></image>
-      <input placeholder="搜索商品、店铺" placeholder-class="placecss" value='{{searchdata}}' confirm-type="search"/>
+      <input placeholder="搜索商品、店铺" placeholder-class="placecss" value='{{searchdata}}' confirm-type="search" bindinput="searchInput" bindconfirm="search"/>
     </view>
     <view class='btn' bindtap='search'>搜索</view>
   </view>

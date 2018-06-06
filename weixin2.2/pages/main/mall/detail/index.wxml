@@ -1,44 +1,58 @@
 <!--pages/detail/detail.wxml-->
+<import src="../../../../wxParse/wxParse.wxml"/>
 <scroll-view class="containers" scroll-y="{{true}}">
-  <view class='swriper-contains'>
-      <swiper-banner imgUrls="{{imgUrls}}"></swiper-banner> 
+  <view class='swriper-contains' wx:if="{{detail.list.length}}">
+      <view class="customer-top">
+        <swiper class='customer-banner' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}">
+          <block wx:for="{{detail.list}}" wx:key="{{index}}">
+            <swiper-item>
+              <image src="{{item.fUrl?item.fUrl:loadImg}}" class="slide-image" data-burl="{{item.fUrl?item.fUrl:loadImg}}" lazy-load="true" catchtap='viewBigImg'/>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
   </view>
   <view class='detail-base mb20'>
         <view class='d-head'>
-          <view class='title'>瓷砖背景墙卫生间地砖瓷砖背景墙卫生间地砖瓷砖背景墙卫生间地砖瓷砖背景墙卫生间地砖</view>
-          <view class="favicon" bindtap='toggleCollect'>
+          <view class='title'>{{detail.fMatAllName}}</view>
+          <!-- <view class="favicon" bindtap='toggleCollect'>
             <image src="{{isCollect?faviconed:favicon}}"></image>
-          </view>
+          </view> -->
         </view>
         <view class='price'>
           <view>
-              优惠价：<text>108元/m<text class='sup'>2</text></text>
+              优惠价：<text>{{detail.fPrice}}元/{{detail.fUnitName2}}</text>
           </view>
           <view>
-              单价：<text>55元/片</text>
+              单价：<text>{{detail.fPrice2}}元/{{detail.fUnitName}}</text>
           </view>
         </view>
       </view>
 
       <view class='datail-params mb20'>
-        <view class='item' wx:for="{{paramsList}}" wx:key="{{index}}">{{item.title}}：{{item.value}}</view>
+        <view class='item'>品牌：{{detail.fBrandName}}</view>
+        <view class='item'>材质：{{detail.fQuality}}</view>
+        <view class='item'>品名：{{detail.fMatName}}</view>
+        <view class='item'>颜色：{{detail.fMatColor}}</view>
+        <view class='item'>规格：{{detail.fNorms}}</view>
+        <view class='item'>编码：{{detail.fMatCode}}</view>
       </view>
 
-      <view class='evaluate mb20'>
+      <view class='evaluate mb20' wx:if="{{evaluate.num}}">
           <navigator url='/pages/main/mall/evaluate/index'>
           <view class='ev-header'>
-              <text>商品评价（53）</text>
-              <navigator url="">更多 > </navigator>
+              <text>商品评价（{{evaluate.num}}）</text>
+              <view>更多 > </view>
           </view>
           <view class='ev-info'>
-            <image src="{{photo}}"></image>
+            <image src="{{evaluate.eval.fHeadUrl}}"></image>
             <view class='content'>
               <view class='c-head'>
-                <text class='phone'>138****5261</text>
-                <text>2018-5-2</text>
+                <text class='phone'>{{evaluate.eval.fPhoneNo}}</text>
+                <text>{{evaluate.eval.fDatetime}}</text>
               </view>
               <view class='c-info'>
-                瓷砖的仿真程度很高，玉纹的裂纹看着很真实，瓷砖印得很清晰，没 有杂牌模糊的感觉，可以放心购买，挺高档的。
+                 {{evaluate.eval.fRateContent}}
               </view>
             </view>
           </view>
@@ -53,16 +67,17 @@
                 <swiper current="{{currentTab}}" duration="300" bindchange="switchTabs" class='swiper-wrap'>
                   <swiper-item>
                     <scroll-view class="tab-content" scroll-y="{{true}}">
-                      <image src="./image/detail.png"></image>
-                      <image src="./image/detail.png"></image>
-                      <image src="./image/detail.png"></image>
-                      <image src="./image/detail.png"></image>
-                      <image src="./image/detail.png"></image>
-                      </scroll-view>
+                      <block wx:if="{{detail.fDesc}}">
+                        <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+                      </block>
+                      <block wx:else>
+                        <view class='nodata'>您还没有对该商品进行描述！</view>
+                      </block>
+                    </scroll-view>
                     </swiper-item>
                     <swiper-item>
                     <scroll-view class="tab-content" scroll-y="{{true}}">
-                      <mall-list></mall-list>
+                      <mall-list mallList="{{mallList}}"></mall-list>
                     </scroll-view>
                   </swiper-item>
             </swiper>
