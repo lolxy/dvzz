@@ -1,7 +1,7 @@
 // pages/list/list.js
 const app = getApp()
-const api = require('../../../../utils/api.js');
-const util = require('../../../../utils/util.js');
+const api = require('../../../utils/api.js');
+
 Page({
 
   /**

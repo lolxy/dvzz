@@ -1,4 +1,3 @@
-/* components/common/mallList/item.wxss */
 .mall-list{
   width: 100%;
   display: flex;

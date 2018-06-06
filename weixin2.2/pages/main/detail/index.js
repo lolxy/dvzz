@@ -1,9 +1,9 @@
 // pages/detail/detail.js
 //获取应用实例
 const app = getApp()
-const api = require('../../../../utils/api.js');
-const util = require('../../../../utils/util.js');
-const WxParse = require('../../../../wxParse/wxParse.js');
+const api = require('../../../utils/api.js');
+const util = require('../../../utils/util.js');
+const WxParse = require('../../../wxParse/wxParse.js');
 
 Page({
 

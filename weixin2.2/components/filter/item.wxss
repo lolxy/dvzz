@@ -1,4 +1,3 @@
-/* components/mall/filter/item.wxss */
 .filter-wrap{
   height: 88vh;
   width: 100%;

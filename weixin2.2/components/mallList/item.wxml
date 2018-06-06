@@ -1,4 +1,3 @@
-<!--components/common/mallList/item.wxml-->
 <view class='mall-list'>
   <view wx:if="{{mallList.length}}">
   <view class='mall-item' wx:for="{{mallList}}" wx:key="{{index}}">

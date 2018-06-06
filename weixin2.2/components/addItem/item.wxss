@@ -1,4 +1,3 @@
-/* components/budget/addItem/item.wxss */
 .modal{
   position: fixed;
   top:0;

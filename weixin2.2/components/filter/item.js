@@ -1,6 +1,5 @@
-// components/mall/filter/item.js
 const api = require('../../utils/api.js');
-const util = require('../../utils/util.js');
+
 Component({
   /**
    * 组件的属性列表

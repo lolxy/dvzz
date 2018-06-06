@@ -1,4 +1,3 @@
-/* components/mall/brandsList/item.wxss */
 .brand-list{
   width: 100%;
   display: flex;

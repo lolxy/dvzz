@@ -1,5 +1,5 @@
 <!--pages/detail/detail.wxml-->
-<import src="../../../../wxParse/wxParse.wxml"/>
+<import src="../../../wxParse/wxParse.wxml"/>
 <scroll-view class="containers" scroll-y="{{true}}">
   <view class='swriper-contains' wx:if="{{detail.list.length}}">
       <view class="customer-top">
@@ -39,7 +39,7 @@
       </view>
 
       <view class='evaluate mb20' wx:if="{{evaluate.num}}">
-          <navigator url='/pages/main/mall/evaluate/index'>
+          <navigator url='/pages/main/evaluate/index'>
           <view class='ev-header'>
               <text>商品评价（{{evaluate.num}}）</text>
               <view>更多 > </view>

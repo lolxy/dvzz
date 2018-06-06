@@ -1,5 +1,5 @@
 /* pages/detail/detail.wxss */
-@import "../../../../wxParse/wxParse.wxss";
+@import "../../../wxParse/wxParse.wxss";
 .containers{
   background-color:#f3f3f3;
   position: absolute;

@@ -13,8 +13,8 @@
         </view>
         <view class='cat-sub-list'>
           <view wx:for="{{item.data2}}" wx:for-index="childIndex" wx:for-item="childItem" wx:key="childIndex">
-            <!-- <navigator url="/pages/main/mall/list/index?code1={{item.fTypeCode1}}&&code2={{childItem.fTypeCode2}}&&code3={{childItem.data3[0].fTypeCode}}">{{childItem.fType2}}</navigator> -->
-             <navigator url="/pages/main/mall/list/index?code1={{item.fTypeCode1}}&&code2={{childItem.fTypeCode2}}">{{childItem.fType2}}</navigator>
+            <!-- <navigator url="/pages/main/list/index?code1={{item.fTypeCode1}}&&code2={{childItem.fTypeCode2}}&&code3={{childItem.data3[0].fTypeCode}}">{{childItem.fType2}}</navigator> -->
+             <navigator url="/pages/main/list/index?code1={{item.fTypeCode1}}&&code2={{childItem.fTypeCode2}}">{{childItem.fType2}}</navigator>
           </view>
         </view>
       </block>

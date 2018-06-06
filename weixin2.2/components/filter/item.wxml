@@ -1,4 +1,3 @@
-<!--components/mall/filter/item.wxml-->
 <view class='filter-wrap'>
   <scroll-view class='filter-data-list' scroll-y>
     <block wx:if="{{filterList.length}}">

@@ -26,7 +26,7 @@ Component({
   methods: {
     gotoPage: function (e) {
       wx.navigateTo({
-        url: `/pages/main/mall/detail/index?id=${e.currentTarget.dataset.id}&title=${e.currentTarget.dataset.title}`
+        url: `/pages/main/detail/index?id=${e.currentTarget.dataset.id}&title=${e.currentTarget.dataset.title}`
       })
     }
   }

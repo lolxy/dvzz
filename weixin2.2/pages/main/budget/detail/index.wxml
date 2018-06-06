@@ -25,7 +25,7 @@
       </view>
 
       <view class='evaluate mb20'>
-          <navigator url='/pages/main/mall/evaluate/index'>
+          <navigator url='/pages/main/evaluate/index'>
           <view class='ev-header'>
               <text>商品评价（53）</text>
               <navigator url="">更多 > </navigator>

@@ -1,4 +1,3 @@
-<!--components/mall/subCateList/item.wxml-->
 <view class='cate-list-wrap' wx:if="{{currentCategory && currentCategory.data2.length}}">
   <view class="cate-header {{!currentSubCategory.length?'main-border':''}}" wx:if="{{type !='fucai'}}">
     <view class="main-cate">

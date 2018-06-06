@@ -45,7 +45,7 @@
     </view>
     <view class='submain'>
       <view>
-        <navigator url="/pages/main/mall/categories/index">
+        <navigator url="/pages/main/categories/index">
           <image src='{{lanmu.lanmu2}}'></image>
         </navigator>
       </view>

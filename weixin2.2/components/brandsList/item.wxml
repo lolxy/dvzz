@@ -1,4 +1,3 @@
-<!--components/mall/brandsList/item.wxml-->
 <view class='brand-list' wx:if="{{brandList.length}}">
   <view class='brand-item' wx:for="{{brandList}}" wx:key="{{index}}" wx:if="{{item.fBrandID}}">
     <image src="{{item.fImageUrl?item.fImageUrl:loadImg}}"></image>

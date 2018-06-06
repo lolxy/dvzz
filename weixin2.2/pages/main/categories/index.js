@@ -1,7 +1,6 @@
 // pages/categories/categories.js
 const app = getApp()
-const api = require('../../../../utils/api.js');
-const util = require('../../../../utils/util.js');
+const api = require('../../../utils/api.js');
 
 Page({
 
@@ -26,7 +25,7 @@ Page({
   // 搜索商品列表
   onSearch:function(e){
     wx.navigateTo({
-      url: `/pages/main/mall/list/index?keyword=${e.detail}`
+      url: `/pages/main/list/index?keyword=${e.detail}`
     })
   },
 

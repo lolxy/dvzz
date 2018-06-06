@@ -1,4 +1,3 @@
-<!--components/budget/addItem/item.wxml-->
 <view class='modal' bindtap='colseModal'>
   <view class='modal-wrap' catchtap='openModal'>
     <view class='modal-head'>新增</view>

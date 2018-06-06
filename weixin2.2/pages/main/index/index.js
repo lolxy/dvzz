@@ -2,7 +2,6 @@
 //获取应用实例
 const app = getApp()
 const api = require('../../../utils/api.js');
-const util = require('../../../utils/util.js');
 
 Page({
   data: {
@@ -43,7 +42,7 @@ Page({
   // 跳转分类页面
   goToPage: function(e) {
     wx.navigateTo({
-      url: `/pages/main/mall/list/index?code1=${e.currentTarget.dataset.furl}`
+      url: `/pages/main/list/index?code1=${e.currentTarget.dataset.furl}`
     })
   },
 
