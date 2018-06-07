@@ -11,7 +11,7 @@
   box-sizing: border-box;
   padding: 30rpx;
   display: flex;
-  border-bottom: 1rpx solid #d1d1d1;
+  border-bottom: 1rpx solid #dedede;
 }
 
 .mall-item image{
@@ -19,6 +19,7 @@
   height: 150rpx;
   border-radius: 10rpx;
   border: 1rpx solid #dedede;
+  background-color: #f8f8f9;
 }
 
 .mall-item .content{

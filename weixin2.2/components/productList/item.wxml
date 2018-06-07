@@ -2,8 +2,8 @@
 <view class='pro-list' wx:if="{{list.length}}">
 <block  wx:for='{{list}}' wx:key='{{index}}'>
   <view class='pro-item' data-id="{{item.fMatID}}" data-title="{{item.fMatName}}" bindtap='gotoPage' wx:if="{{item.fMatID}}">
-    <image src="{{item.fThumbnailUrl?item.fThumbnailUrl:loadimg}}" wx:if="{{!displayType}}"></image>
-    <image src="{{item.fUrl?item.fUrl:loadimg}}" wx:else></image>
+    <image src="{{item.fThumbnailUrl?item.fThumbnailUrl:loadimg}}" lazy-load='true' wx:if="{{!displayType}}"></image>
+    <image src="{{item.fUrl?item.fUrl:loadimg}}" lazy-load='true' wx:else></image>
     <view class='title'>{{item.fMatName}}</view>
     <view class='budget price' wx:if="{{displayType == 'budget'}}">
       <view class='sale'>￥<text>{{item.fPrice}}</text>元/{{item.fUnitName}}</view>

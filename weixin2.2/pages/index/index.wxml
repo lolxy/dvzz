@@ -30,7 +30,7 @@
       <view class='linkname'>{{item.fTitle}}</view>
     </view>
   </view>
-  <view class='statusgrp'>
+  <view class='statusgrp' wx:if="{{fCustomerID}}">
     <view class='stathead'>
       <image src='{{StutImage}}'></image>
       <span>工地材料进度</span>
@@ -71,9 +71,9 @@
         </view>
         <view class='shop_cont_uname'>{{item.fShopPsn}}</view>
         <view class='shop_cont_btngrp'>
-          <view class='btn btn_call' data-phone="{{item.fMobile}}"><image src="{{CallIcon}}"></image>联系</view>
-          <view class='btn btn_navi'><image src="{{NaviIcon}}"></image>导航</view>
-          <view class='btn btn_praise'><image src="{{AppraiseIcon}}"></image>评价</view>
+          <view class='btn btn_call' data-phone="{{item.fMobile}}" bindtap='CallMobile'><image src="{{CallIcon}}"></image>联系</view>
+          <view class='btn btn_navi' data-lat="{{item.lat}}" data-lng="{{item.lng}}" data-add="{{item.fShopName}}" bindtap='tomap'><image src="{{NaviIcon}}"></image>导航</view>
+          <view class='btn btn_praise' bindtap='toeva'><image src="{{AppraiseIcon}}"></image>评价</view>
         </view>
       </view>      
     </view>

@@ -10,7 +10,7 @@ Page({
     interval: 5000,//banner1 切换间隔
     duration: 500,//切换动画持续时间
     circular: true,//是否采用衔接滑动
-    region: app.globalData.location,
+    region:[],
     windowWidth: app.systemInfo.windowWidth,
     windowHeight: app.systemInfo.windowHeight,
     localImage:"../../../image/local.png",
@@ -22,6 +22,7 @@ Page({
     banner: [],
     menuList: [],
     recommonList:[],
+    cityList:[],
     latitude: app.globalData.area.latitude,
     longitude: app.globalData.area.longitude,
     lanmu:{
@@ -29,6 +30,26 @@ Page({
       "lanmu2": "../../../image/lanmu2.png",
       "lanmu3": "../../../image/lanmu3.png"
     }
+  },
+
+  // 获取城市列表
+  getCurrentCityInfo:function(){
+    api.getCurrentCityInfo({
+      data:{
+        key: app.globalData.qqmapkey,
+        location: `${this.data.latitude},${this.data.longitude}`
+      },
+      success: (res) => {
+        let addInfo = res.data.result.ad_info
+        let province = addInfo.province
+        let city = addInfo.city
+        let district = addInfo.district
+        console.log(Array.of(province, city, district))
+        this.setData({
+          region: Array.of(province, city, district)
+        })
+      }
+    });
   },
 
   //选择地区城市
@@ -41,9 +62,15 @@ Page({
 
   // 跳转分类页面
   goToPage: function(e) {
-    wx.navigateTo({
-      url: `/pages/main/list/index?code1=${e.currentTarget.dataset.furl}`
-    })
+    if (e.currentTarget.dataset.index == 3){
+      wx.navigateTo({
+        url: `/pages/main/list/index?code1=${e.currentTarget.dataset.furl}&fShopCityID=ff8080816165d3c6016168d1502f0236&catname=${e.currentTarget.dataset.title}`
+      })
+    }else{
+      wx.navigateTo({
+        url: `/pages/main/list/index?code1=${e.currentTarget.dataset.furl}&catname=${e.currentTarget.dataset.title}`
+      })
+    }
   },
 
   // 获取广告轮播图
@@ -119,6 +146,7 @@ Page({
     this.getMallMenu()
     if (this.data.latitude && this.data.longitude){
       this.getHomeRecommonList()
+      this.getCurrentCityInfo()
     }else{
       app.getLocationInfo().then(res => {
         this.setData({
@@ -126,6 +154,7 @@ Page({
           longitude: res.longitude
         })
         this.getHomeRecommonList()
+        this.getCurrentCityInfo()
       });
     }
   },

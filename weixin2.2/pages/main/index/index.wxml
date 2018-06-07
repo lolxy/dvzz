@@ -30,7 +30,7 @@
 
   <view class='menu'>
     <block wx:for='{{menuList}}' wx:key='{{index}}'>
-      <view class='menu-item' data-fUrl='{{item.fUrl}}' bindtap="goToPage">
+      <view class='menu-item' data-fUrl='{{item.fUrl}}' data-title='{{item.fTitle}}' data-index='{{index}}' bindtap="goToPage">
         <image src='{{item.fImgUrl}}'></image>
         <text>{{item.fTitle}}</text>
       </view>

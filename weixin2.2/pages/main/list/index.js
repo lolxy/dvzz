@@ -14,6 +14,8 @@ Page({
     currentGoodsPage: 0,
     loadedBrand:false,
     loadedGoods: false,
+    currentBrandLoaded: false,
+    currentGoodsLoaded: false,
     keyword:'',
     code:{
       currentCode1: '',
@@ -96,6 +98,9 @@ Page({
 
   // 获取当前分类的品牌列表
   getBrandList:function(){
+    this.setData({
+      currentBrandLoaded: true,
+    })
     if(!this.data.loadedBrand){
       wx.showLoading({
         title: '加载中',
@@ -115,11 +120,16 @@ Page({
             }, 500)
             let brandList = res.data.data
             this.setData({
+              currentBrandLoaded: false,
               brandList: this.data.brandList.concat(brandList)
             })
             if (brandList && brandList.length < 10) {
               this.setData({
                 loadedBrand: true
+              })
+            }else{
+              this.setData({
+                currentBrandPage: this.data.currentBrandPage + 1
               })
             }
           },
@@ -150,6 +160,9 @@ Page({
 
   // 获取当前分类的商品列表
   getGoodsList: function () {
+    this.setData({
+      currentGoodsLoaded: true,
+    })
     if (!this.data.loadedGoods) {
       wx.showLoading({
         title: '加载中',
@@ -174,11 +187,16 @@ Page({
           }, 500)
           let goodsList = res.data.data
           this.setData({
+            currentGoodsLoaded: false,
             goodsList: this.data.goodsList.concat(goodsList)
           })
           if (goodsList && goodsList.length < 10) {
             this.setData({
               loadedGoods: true,
+            })
+          }else{
+            this.setData({
+              currentGoodsPage: this.data.currentGoodsPage + 1
             })
           }
         },
@@ -258,13 +276,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.setNavigationBarTitle({
+      title: options.catname
+    })
     this.setData({
       code:{
         currentCode1: options.code1 || "",
         currentCode2: options.code2 || "",
         currentCode3: options.code3 || ""
       },
-      keyword: options.keyword || ""
+      keyword: options.keyword || "",
+      fShopCityID: options.fShopCityID||""
     })
     this.getFilterField()
     this.getGoodsList()
@@ -272,11 +294,9 @@ Page({
 
   scrollLower:function(e){
     if (this.data.currentType == "brand") {
-      this.setData({
-        currentBrandPage: this.data.currentBrandPage + 1
-      })
-      this.getBrandList()
-      if (this.data.loadedBrand && e.detail.direction == 'bottom'){
+      if (!this.data.loadedBrand && e.detail.direction == 'bottom') {
+        if (!this.data.currentBrandLoaded) { this.getBrandList()}
+      }else{
         wx.showToast({
           title: '已经到底了！',
           icon: 'none',
@@ -284,11 +304,9 @@ Page({
         })
       }
     }else{
-      this.setData({
-        currentGoodsPage: this.data.currentGoodsPage + 1
-      })
-      this.getGoodsList()
-      if (this.data.loadedGoods && e.detail.direction == 'bottom') {
+      if (!this.data.loadedGoods && e.detail.direction == 'bottom') {
+        if (!this.data.currentGoodsLoaded) { this.getGoodsList() }
+      }else{
         wx.showToast({
           title: '已经到底了！',
           icon: 'none',

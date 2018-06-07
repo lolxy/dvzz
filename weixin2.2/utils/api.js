@@ -28,6 +28,11 @@ const wxRequest = (params, url) => {
   });
 };
 
+// 获取当前城市列表名称
+const getCurrentCityInfo = (params) => {
+  wxRequest(params, 'https://apis.map.qq.com/ws/geocoder/v1/');
+};
+
 // 获取主材商城首页banner图片
 const getMallBanner = (params) => {
   wxRequest(params, `${apiURL}/app/picture/loadBanner.do`);
@@ -53,6 +58,11 @@ const getDetail = (params) => {
   wxRequest(params, `${apiURL}/wx/shopmat/queryMatByID.do`);
 };
 
+// 获取当前商品的评论列表
+const getCurrentGoodsEvaluate = (params) => {
+  wxRequest(params, `${apiURL}/wx/shopCity/queryMatEvaluete.do`);
+};
+
 // 获取商品详情信息的商城列表
 const getDetailMallList = (params) => {
   wxRequest(params, `${apiURL}/wx/shopmat/queryMatByShopcity.do`);
@@ -73,7 +83,22 @@ const getFilterField = (params) => {
   wxRequest(params, `${apiURL}/wx/shopmat/morefilterinit.do`);
 };
 
+/**************
+ *  预算接口 **
+ * ************/
+
+//  获取预算首页分类
+const getBudgetCate = (params) => {
+  wxRequest(params, `${apiURL}/wx/mainBudget/queryType.do`);
+};
+
+// 获取预算首页分类列表
+const getBudgetCatList = (params) => {
+  wxRequest(params, `${apiURL}/wx/mainBudget/queryTypeList.do`);
+}; 
+
 module.exports = {
+  getCurrentCityInfo,
   getMallBanner,
   getMallMenu,
   getHomeRecommonList,
@@ -82,5 +107,8 @@ module.exports = {
   getDetailMallList,
   getBrandList,
   getGoodsList,
-  getFilterField
+  getFilterField,
+  getCurrentGoodsEvaluate,
+  getBudgetCate,
+  getBudgetCatList
 };

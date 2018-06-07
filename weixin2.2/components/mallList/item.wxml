@@ -1,7 +1,7 @@
 <view class='mall-list'>
   <view wx:if="{{mallList.length}}">
   <view class='mall-item' wx:for="{{mallList}}" wx:key="{{index}}">
-    <image src="{{item.fImgUrl}}"></image>
+    <image src="{{item.fImgUrl?item.fImgUrl:loadImg}}"></image>
     <view class='content'>
       <view class='title'>{{item.fName}}</view>
       <view class='info'>

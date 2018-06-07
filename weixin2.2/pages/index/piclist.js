@@ -19,7 +19,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.Type == 0) {
+    if (options.Type == 1) {
       wx.setNavigationBarTitle({
         title: '家装案例',
       })

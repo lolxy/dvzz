@@ -1,69 +1,66 @@
 // pages/detail/detail.js
+const api = require('../../../utils/api.js');
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    list:[
-      {
-        "id":1,
-        "photo":"./image/photo.png",
-        "time":"2018-05-12",
-        "phone":"13456787654",
-        "content":"瓷砖的仿真程度很高，玉纹的裂纹看着很真实，瓷砖印得很清晰，没 有杂牌模糊的感觉，可以放心购买，挺高档的。",
-        "imglist":[
-          "./image/img1.jpg", "./image/img2.jpg", "./image/img3.jpg", "./image/img5.jpg", "./image/img6.jpg"
-        ]
-      },
-      {
-        "id": 1,
-        "photo": "./image/photo.png",
-        "time": "2018-05-12",
-        "phone": "13456787654",
-        "content": "瓷砖的仿真程度很高，玉纹的裂纹看着很真实，瓷砖印得很清晰，没 有杂牌模糊的感觉，可以放心购买，挺高档的。",
-        "imglist": [
-          "./image/img1.jpg", "./image/img2.jpg", "./image/img3.jpg", "./image/img4.jpg", "./image/img5.jpg", "./image/img6.jpg"
-        ]
-      },
-      {
-        "id": 1,
-        "photo": "./image/photo.png",
-        "time": "2018-05-12",
-        "phone": "13456787654",
-        "content": "瓷砖的仿真程度很高，玉纹的裂纹看着很真实，瓷砖印得很清晰，没 有杂牌模糊的感觉，可以放心购买，挺高档的。",
-        "imglist": [
-          "./image/img1.jpg", "./image/img2.jpg", "./image/img3.jpg", "./image/img4.jpg", "./image/img5.jpg", "./image/img6.jpg"
-        ]
-      },
-      {
-        "id": 1,
-        "photo": "./image/photo.png",
-        "time": "2018-05-12",
-        "phone": "13456787654",
-        "content": "瓷砖的仿真程度很高，玉纹的裂纹看着很真实，瓷砖印得很清晰，没 有杂牌模糊的感觉，可以放心购买，挺高档的。",
-        "imglist": [
-          "./image/img1.jpg", "./image/img2.jpg", "./image/img3.jpg", "./image/img4.jpg", "./image/img5.jpg", "./image/img6.jpg"
-        ]
-      },
-      {
-        "id": 1,
-        "photo": "./image/photo.png",
-        "time": "2018-05-12",
-        "phone": "13456787654",
-        "content": "瓷砖的仿真程度很高，玉纹的裂纹看着很真实，瓷砖印得很清晰，没 有杂牌模糊的感觉，可以放心购买，挺高档的。",
-        "imglist": [
-          "./image/img1.jpg", "./image/img2.jpg", "./image/img3.jpg", "./image/img4.jpg", "./image/img5.jpg", "./image/img6.jpg"
-        ]
-      }
-    ]
+    evaluateList:[],
+    currentGoodsId:null,
+    pageSize:10,
+    currentPage:0,
+    loading:true,
+    hasMore:false
   },
 
   // 查看图片大图
   onPreview:function(e){
+    let arr = e.currentTarget.dataset.arr
+    let urls = arr.map(item=>{
+      return item.fUrl
+    })
     wx.previewImage({
-      current: "", // 当前显示图片的http链接
-      urls: [] // 需要预览的图片http链接列表
+      current: e.currentTarget.dataset.url, // 当前显示图片的http链接
+      urls: urls // 需要预览的图片http链接列表
+    })
+  },
+
+  // 获取当前商品的评价列表
+  getCurrentGoodsEvaluate:function(){
+    const self = this
+    self.setData({
+      loading:true
+    })
+    wx.showLoading({
+      title: '加载中'
+    })
+    api.getCurrentGoodsEvaluate({
+      data:{
+        fMatID: self.data.currentGoodsId,
+        num: self.data.pageSize,
+        page:self.data.currentPage
+      },
+      success: (res) => {
+        setTimeout(function () {
+          wx.hideLoading()
+        }, 500)
+        let evaluateList = res.data.data
+        self.setData({
+          loading:false,
+          evaluateList: self.data.evaluateList.concat(evaluateList)
+        })
+        if (evaluateList && evaluateList.length < self.data.pageSize) {
+          self.setData({
+            hasMore: true
+          })
+        }else{
+          this.setData({
+            currentPage: this.data.currentPage + 1
+          })
+        }
+      }
     })
   },
 
@@ -71,49 +68,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
+    this.setData({
+      currentGoodsId:options.id
+    })
+    this.getCurrentGoodsEvaluate()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+    if (!this.data.hasMore) {
+      if (!this.data.loading){
+        this.getCurrentGoodsEvaluate()
+      }
+    }else{
+      wx.showToast({
+        title: '已经到底了！',
+        icon: 'none',
+        duration: 1500
+      })
+    }
   },
 
   /**

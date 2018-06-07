@@ -25,6 +25,12 @@ background-color: #f3f3f3;
   align-content: center;
 }
 
+.cat-main-title navigator{
+  color:#333;
+  font-size: 30rpx;
+  background: none;
+}
+
 .cat-main-title image{
   width: 40rpx;
   height: 40rpx;

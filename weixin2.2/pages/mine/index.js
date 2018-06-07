@@ -16,13 +16,51 @@ Page({
     servicename: '客服中心',
     servicephone: '15805959782',
     menurightimg: "../../image/jt1.png",
+    showstat:0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var uinfo = wx.getStorageSync('APPUserInfo') || {}
+    var that=this
+    // 登录
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+          //发起网络请求微信授权
+          wx.request({
+            url: 'https://api.weixin.qq.com/sns/jscode2session',
+            data: {
+              appid: app.globalData.appid,
+              secret: app.globalData.secret,
+              js_code: res.code,
+              grant_type: 'authorization_code'
+            },
+            //请求服务器绑定信息
+            success: function (res2) {
+              wx.request({
+                url: app.globalData.posturl + 'wx/personalcenter/queryUserInfo.do',
+                data: { openID: res2.data.openid },
+                success: function (json) {
+                  console.log(json.data)
+                  if (json.data.data.length > 0){
+                    wx.setStorageSync('APPUserInfo', json.data.data)
+                  }else {
+                    that.setData({
+                      showstat: 1
+                    })
+                  }
+                }
+              });
+            }
+          })
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
+    })
+    //var uinfo = wx.getStorageSync('APPUserInfo') || {}
     this.setData({ userInfo: uinfo})  
     wx.setNavigationBarTitle({
       title: '个人中心',

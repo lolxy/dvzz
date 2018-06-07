@@ -30,16 +30,16 @@
       </view>
 
       <view class='datail-params mb20'>
-        <view class='item'>品牌：{{detail.fBrandName}}</view>
-        <view class='item'>材质：{{detail.fQuality}}</view>
-        <view class='item'>品名：{{detail.fMatName}}</view>
-        <view class='item'>颜色：{{detail.fMatColor}}</view>
-        <view class='item'>规格：{{detail.fNorms}}</view>
-        <view class='item'>编码：{{detail.fMatCode}}</view>
+        <view class='item' wx:if="{{detail.fBrandName}}">品牌：{{detail.fBrandName}}</view>
+        <view class='item' wx:if="{{detail.fQuality}}">材质：{{detail.fQuality}}</view>
+        <view class='item' wx:if="{{detail.fMatName}}">品名：{{detail.fMatName}}</view>
+        <view class='item' wx:if="{{detail.fMatColor}}">颜色：{{detail.fMatColor}}</view>
+        <view class='item' wx:if="{{detail.fNorms}}">规格：{{detail.fNorms}}</view>
+        <view class='item' wx:if="{{detail.fMatCode}}">编码：{{detail.fMatCode}}</view>
       </view>
 
       <view class='evaluate mb20' wx:if="{{evaluate.num}}">
-          <navigator url='/pages/main/evaluate/index'>
+          <navigator url='/pages/main/evaluate/index?id={{currentGoodsId}}'>
           <view class='ev-header'>
               <text>商品评价（{{evaluate.num}}）</text>
               <view>更多 > </view>

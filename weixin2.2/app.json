@@ -8,6 +8,7 @@
     "pages/index/piclink",
     "pages/index/message",
     "pages/index/piclist",
+    "pages/index/map",
     "pages/index/auxiliary/orderlist",
     "pages/index/auxiliary/grkd",
     "pages/index/auxiliary/brand",

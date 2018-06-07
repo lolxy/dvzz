@@ -26,7 +26,8 @@ Page({
     ShopIcon:'../../image/shopicon.png',
     CallIcon: '../../image/callicon.png',
     NaviIcon: '../../image/navicon.png',
-    AppraiseIcon: '../../image/AppraiseIcon.png'
+    AppraiseIcon: '../../image/AppraiseIcon.png',
+    fCustomerID:''
   },
   /*****  省市区选择   *****/
   bindRegionChange: function (e) {
@@ -41,6 +42,10 @@ Page({
   onLoad: function (options) {
     var that = this;
     //获取系统信息 
+    var APPUserInfo = wx.getStorageSync('APPUserInfo') || {}
+    that.setData({
+      fCustomerID: APPUserInfo.fCustomerID
+    })
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
@@ -190,9 +195,11 @@ Page({
   getorderinfo: function (e) {
     var that = this
     //请求订单列表
+    
     wx.request({
       url: app.globalData.posturl + 'wx/shop/quereyOrder.do', //url 不能出现端口号
       data:{
+        fCustomerID: that.data.fCustomerID,
         num:0
       },
       header: {
@@ -207,12 +214,10 @@ Page({
       method: 'GET'
     });
   },
-  //请求订单列表轮播
+  //请求服务站列表
   getshopinfo: function () {
     var that = this
-    //请求订单列表
-
-    //获取位置信息
+    //获取位置信息----服务站列表
     wx.getLocation({
       type: 'wgs84',
       success: function (res) {
@@ -230,7 +235,7 @@ Page({
             'content-type': 'application/json' // 默认值
           },
           success: function (json) {
-            console.log(json)
+            console.log(json.data)
             that.setData({
               ShopList: json.data.data
             })
@@ -249,7 +254,31 @@ Page({
   },
   phonecall:function(){
     wx.makePhoneCall({
-      phoneNumber: '0595-85865088' //仅为示例，并非真实的电话号码
+      phoneNumber: '0595-85865088' //固定服务电话
+    })
+  },
+  //拨打服务店联系电话
+  CallMobile:function(e) {
+    wx.makePhoneCall({
+      phoneNumber: e.target.dataset.phone //仅为示例，并非真实的电话号码
+    })
+  },
+  tomap: function (e) {
+    wx.navigateTo({
+      url: 'map?lat=' + e.target.dataset.lat + '&lng=' + e.target.dataset.lng + '&add=' + e.target.dataset.add,
+      success: function (res) {
+        //console.log(res.data);        
+      }
+    })
+  },
+  //评价----开发中…………
+  toeva: function(e) {
+    wx.showModal({
+      title: '温馨提示',
+      content: '服务站评价功能开发中，敬请期待',
+      success: function (res) {
+        
+      }
     })
   },
   /**

@@ -1,0 +1,6 @@
+/* pages/index/map.wxss */
+#map{
+  box-sizing: border-box;
+  padding: 0;
+  position: absolute;
+}
