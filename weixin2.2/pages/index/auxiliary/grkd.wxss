@@ -3,7 +3,6 @@
 .container {
   height: 100%;
   background-color: #f3f3f3;
-  position: absolute;
 }
 .head {
   height: 160rpx;

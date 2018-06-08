@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 5,
 			"list": [
 				{
 					"id": 0,
@@ -55,9 +55,21 @@
 				},
 				{
 					"id": -1,
-					"name": "详情页",
-					"pathName": "pages/main/mall/detail/index",
-					"query": "id=ff8080815f482461015f567720b32059"
+					"name": "预算详情页",
+					"pathName": "pages/main/budget/detail/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "预算详情页2",
+					"pathName": "pages/main/budget/detail2/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "游客体验",
+					"pathName": "pages/main/budget/index/index",
+					"query": ""
 				}
 			]
 		}

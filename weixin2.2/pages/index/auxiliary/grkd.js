@@ -10,9 +10,10 @@ Page({
     StatusList: [],
     fMPDItemlist:[[]],
     flag: 0,
-    CurrentTab:0,
+    CurrentCode:0,
     CurrentfID: '',
     ArrowRight: '../../../image/jt1.png',
+    DataType:1
   },
 
   /**
@@ -36,7 +37,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    var that = this
+    if (that.data.DataType == 1) {
+      var itemtype = that.data.CurrentCode
+      console.log(itemtype)
+      console.log(appuserinfo)
+    } else {
+      that.GetBillProject()
+    }
   },
 
   /**
@@ -70,11 +78,12 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
+        console.log(res.data.data)
         that.setData({
           tabs: res.data.data,
-          CurrentfID: res.data.data[0].fID
+          CurrentfID: res.data.data[0].fID, //初始化当前大类
+          CurrentCode: res.data.data[0].fCode 
         })
-        that.GetBillProject()
       },
       method: 'GET'
     });
@@ -93,27 +102,10 @@ Page({
       success: function (res) {
         console.log(res.data.data)
         that.setData({
-          StatusList: res.data.data
+          StatusList: res.data.data,
+          DataType: 0
         })
-        if (res.data.data.length > 0 && res.data.data[that.data.flag].list.length >0) {
-          var hold = res.data.data[that.data.flag].list[0].fMPDItem
-          let init = 'fMPDItemlist[' + that.data.flag + '][0]'
-          that.setData({
-            [init]: res.data.data[that.data.flag].list[0].fMPDItem
-          })
-          var n=1
-          for (let i = 1; i < res.data.data[that.data.flag].list.length;i++) {
-            if (res.data.data[that.data.flag].list[i].fMPDItem != hold) {
-              hold = res.data.data[that.data.flag].list[i].fMPDItem
-              let item = 'fMPDItemlist['+that.data.flag+'][' + n +']'
-              that.setData({
-                [item]: res.data.data[that.data.flag].list[i].fMPDItem
-              })
-              n++
-            }
-          }
-          console.log(that.data.fMPDItemlist)
-        }
+        
       },
       method: 'GET'
     });
@@ -123,10 +115,10 @@ Page({
    */
   TabChange: function (e) {
     var that = this
-    if (e.currentTarget.dataset.index === that.data.CurrentTab) {
+    if (e.currentTarget.dataset.CurrentfID === that.data.CurrentfID) {
     } else {
       that.setData({
-        CurrentTab: e.currentTarget.dataset.index,
+        fCode: e.currentTarget.dataset.fCode,
         CurrentfID: e.currentTarget.dataset.fid,
         flag: 0,
         fMPDItemlist:[[]]
@@ -168,6 +160,15 @@ Page({
     var that = this
     wx.navigateTo({
       url: 'brand?fID=' + e.currentTarget.dataset.fid,
+      success: function (res) {
+        //console.log(res.data);       
+      }
+    })
+  },
+  ToShopCity: function(e) {
+    var that = this
+    wx.navigateTo({
+      url: 'pages/main/list/index?fID=' + e.currentTarget.dataset.fid,
       success: function (res) {
         //console.log(res.data);       
       }

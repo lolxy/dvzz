@@ -9,7 +9,7 @@
   <view class='typelist'>
     <view class="{{index==flag?'active':''}}"  wx:for="{{StatusList}}" data-flag="{{index}}" bindtap='ChangeFlags'>{{item.StatusName}}</view>
   </view>
-  <checkbox-group class='order_list' bindchange="checkboxChange">
+  <checkbox-group class='order_list' bindchange="checkboxChange" wx:if="{{OrderList.length>0}}">
     <view class='order_item' wx:for="{{OrderList}}" >
       <view class='order_item_head'>
         <view>{{item.fCustomerName}}</view>
@@ -43,7 +43,12 @@
       </view>
     </view>
   </checkbox-group>
-  <view class='foot' wx:if="{{flag==0}}">
+  <view class='tipsgrp'>
+    <image src="{{Visibleicon}}"></image>
+    <view class='tip_title'>暂无辅材订单</view>
+    <view class='tip_cont'>需由工人或店长开单，生成订单</view><view class='tip_cont'>请先逛逛“工人开单”的项目</view><view class='tip_cont'>及辅材商城</view>
+  </view>
+  <view class='foot' wx:if="{{IsVisible && flag==0}}">
     <checkbox-group bindchange="SelectAll">
       <label class="checkbox">
         <checkbox value="1" checked="{{SelectAll}}" color="#ff6600"/>全选

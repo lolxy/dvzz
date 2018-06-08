@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "mall-list": "/components/mallList/item",
+    "add-item": "/components/addItem/item"
+  }
+}

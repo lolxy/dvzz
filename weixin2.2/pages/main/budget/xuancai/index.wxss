@@ -21,7 +21,6 @@
 } 
 
 .nav .menus .item{
-  width: 140rpx;
   height: 160rpx;
   padding: 20rpx;
   display: inline-block; 
@@ -29,7 +28,6 @@
 }
 
 .nav .menus .item .item-wrap{
-  width: 100rpx;
   height: 120rpx;
   display: flex;
   flex-direction: column;
@@ -102,12 +100,39 @@
   font-weight: 500;
 }
 
+.x-header .main{
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+
+.x-header .main .add-btn{
+  width: 70rpx;
+  height: 88rpx;
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+
+.x-header .main .add-btn icon{
+  width: 40rpx;
+  height: 40rpx;
+  margin-top: -10rpx;
+}
+
+.x-header .main text{
+  font-weight: 500;
+  flex:1;
+}
+
 .x-header .action{
   min-width: 480rpx;
   color:#ff6600;
   font-size:30rpx;
   display: flex;
   justify-content: space-between;
+  align-content: center;
+  align-items: center;
 }
 
 .x-header .action .ac{
@@ -122,6 +147,35 @@
   justify-content: center;
 }
 
+.x-header .action .acs{
+  width: 140rpx;
+  line-height: 48rpx;
+  height: 48rpx;
+  color:#fff;
+  font-size:30rpx;
+  text-align: center;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10rpx;
+  margin-right: 20rpx;
+}
+
+.x-header .action .acs image{
+  width: 40rpx;
+  height: 40rpx;
+  margin: 3rpx 5rpx 0 0;
+}
+
+.x-header .action .acs.cart{
+background-color: #03a9f5;
+}
+
+.x-header .action .acs.dell{
+background-color: #d32f2e;
+}
+
 .x-header .action .switch{
   width: 160rpx;
   height: 58rpx;
@@ -131,6 +185,12 @@
   box-sizing: border-box;
   display: flex;
   margin: 15rpx 0;
+}
+
+.x-header .action .cance{
+  flex:1;
+  display: flex;
+  justify-content:flex-end;
 }
 
 .x-header .action .switch .tab{
@@ -177,21 +237,30 @@ display: flex;
   justify-content: center;
   writing-mode:vertical-lr;
   font-weight: 600;
+  padding: 10rpx;
   border-right:1rpx solid #dedede;
 }
 
 .xuancai-wrap .list .children{
   flex:1;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .child-item{
-  height: 88rpx;
+  min-height: 88rpx;
   border-bottom: 1rpx solid #dedede;
   display: flex;
   justify-content: space-between;
   font-size: 24rpx;
   line-height: 44rpx;
   color:#333;
+  align-content: center;
+  align-items: center;
 }
 
 .child-item .name{
@@ -220,17 +289,106 @@ display: flex;
 .child-item .sys{
   width: 150rpx;
   height: 88rpx;
-  text-align: center;
+}
+
+.child-item .right{
+  width: 100rpx;
+}
+
+.child-item .sys,.child-item .right{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .child-item image{
   width: 40rpx;
   height: 40rpx;
-  margin: 24rpx;
 }
 
-.xuancai-wrap .list .item:last-child,.child-item:last-child{
+.child-item:last-child{
   border-bottom: none;
+}
+
+.xuancai-wrap .list-line{
+  position: absolute;
+  top:88rpx;
+  bottom:0;
+  width: 100%;
+}
+
+.xuancai-wrap .list-line .item{
+display: flex;
+border-bottom: 1rpx solid #dedede;
+justify-content: space-between;
+align-content: center;
+align-items: center;
+font-size: 24rpx;
+line-height: 44rpx;
+color:#333;
+}
+
+.list-line .name{
+  width: 280rpx;
+  padding: 20rpx;
+}
+
+.list-line .price{
+  color:#d32f2e;
+  width: 150rpx;
+  padding: 20rpx;
+}
+
+.list-line .opbox{
+  display: flex;
+  justify-content: space-between;
+}
+
+.list-line .add-btn{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  width: 60rpx;
+  height: 88rpx;
+  justify-content: center;
+}
+
+.list-line .add-btn icon{
+  width: 40rpx;
+  height: 40rpx;
+  margin: 24rpx 0rpx 24rpx 20rpx;
+}
+
+.list-line .btn{
+  height: 58rpx;
+  border: 1rpx solid #ff6600;
+  line-height: 58rpx;
+  font-size: 20rpx;
+  color:#ff6600;
+  text-align: center;
+  margin: 15rpx;
+  width: 120rpx;
+  border-radius: 8rpx;
+}
+
+.list-line .sys{
+  width: 150rpx;
+  height: 88rpx;
+  text-align: center;
+}
+
+.list-line .sys,.list-line .right{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.list-line image{
+  width: 40rpx;
+  height: 40rpx;
+  margin: 24rpx;
 }
 
 .footer{
@@ -253,6 +411,7 @@ display: flex;
   color:#666;
   align-items: center;
 }
+
 .map image{
 width: 40rpx;
 height: 40rpx;
@@ -273,13 +432,27 @@ margin-right: 20rpx;
   font-weight: 550;
 }
 
-.total navigator{
-  border:1rpx solid #ff6600;
+.total .btn,.total view{
   line-height: 68rpx;
   width: 260rpx;
   border-radius: 68rpx;
-  color:#ff6600;
   font-weight: 500;
-  background-color: #fff;
   text-align: center;
+  color:#fff;
+}
+
+.total .btn{
+  border:1rpx solid #ff6600;
+  color:#ff6600;
+}
+
+.total .btn-confirm{
+  background-color: #ff6600;
+  color:#fff;
+}
+
+.total .disabled{
+  border:1rpx solid #999;
+  background-color: #999;
+  color:#fff;
 }

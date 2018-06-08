@@ -70,14 +70,18 @@ Page({
       //将键值对拼接到数组中
       postdata.rels[i] = listdata
     }
+
     wx.request({
       url: app.globalData.posturl + 'wx/shop/confirmBrand.do', //url 不能出现端口号
+      //url: 'http://dwzs.4kb.cn/APPDWERP/wx/shop/confirmBrand.do',
       data: postdata,
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {
-        //console.log(res.data);
+      complete: function (res) {
+        console.log(res);
+        
+        wx.navigateBack()
       },
       method: 'POST'
     });
@@ -95,6 +99,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
+        console.log(res.data)
         that.setData({
           TableDataList: res.data.data
         })
@@ -107,7 +112,13 @@ Page({
    */
   changeindex: function (e) {
     var that = this
-    var nitem = 'TableDataList[' + e.target.dataset.idx + '].list[' + e.target.dataset.idy + '].fIsDefault'
+    for (let i = 0; i < that.data.TableDataList[e.currentTarget.dataset.idx].list.length;i++) {
+      var mitem = 'TableDataList[' + e.currentTarget.dataset.idx + '].list[' + i + '].fIsDefault'
+      that.setData({
+        [mitem]: 0
+      })
+    }
+    var nitem = 'TableDataList[' + e.currentTarget.dataset.idx + '].list[' + e.currentTarget.dataset.idy + '].fIsDefault'
     that.setData({
       [nitem]: 1
     })

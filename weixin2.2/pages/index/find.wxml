@@ -2,15 +2,15 @@
 <view class="container">
   <view class='searchgrp'>
     <view class="search-item">
-      <input placeholder="搜索" auto-focus value='{{Searchdata}}' />
+      <input placeholder="搜索" auto-focus="{{false}}" value='{{Searchdata}}' confirm-type="search" bindconfirm="GetSearch"/>
     </view>
   </view>
   <view class='typelist'>
-    <view class="{{index==currenttab?'active':''}}"  wx:for="{{tabs}}" data-fid="{{item.fOrgID}}" data-index="{{index}}" bindtap='TabsChange'>{{item.fOrgName}}</view>
+    <view class="{{item.fOrgID==currentid?'active':''}}"  wx:for="{{tabs}}" data-fid="{{item.fOrgID}}" data-index="{{index}}" bindtap='TabsChange'>{{item.fOrgName}}</view>
   </view>
-  <view class='find_lst' bindtap='ToFindDetail' wx:for="{{datalist}}" data-feid="{{item.fEmployID}}" data-name="{{item.fEmployName}}" data-fyear="{{item.fYear}}" data-phone='{{item.fMobile}}' data-discript="{{item.fIntroduce}}" data-fphoto="{{item.fPhoto}}" data-photo="{{item.fPhoto}}">
-    <image class="find_item_pic" src="{{item.fPhoto}}"/>
-    <view class='sec_item'>
+  <view class='find_lst' wx:for="{{datalist}}" >
+    <image class="find_item_pic" src="{{item.fPhoto}}" data-url="{{item.fPhoto}}" bindtap='showimg'/>
+    <view class='sec_item'bindtap='ToFindDetail' data-feid="{{item.fEmployID}}" data-name="{{item.fEmployName}}" data-fyear="{{item.fYear}}" data-phone='{{item.fMobile}}' data-discript="{{item.fIntroduce}}" data-fphoto="{{item.fPhoto}}">
       <view>姓名：{{item.fEmployName}}</view>
       <view>工龄：{{item.fYear}}年</view>
     </view>

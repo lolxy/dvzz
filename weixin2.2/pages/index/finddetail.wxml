@@ -8,7 +8,7 @@
         <view>工龄：{{detail.fYear}}年</view>
       </view>
       <view class='fd_phone'>电话：{{detail.fMobile}}</view>
-      <view class='fd_discript'>{{detail.fIntroduce}}</view>
+      <view class='fd_discript'>{{discript}}</view>
     </view>
   </view>
   <view class='scorll_title'wx:if="{{false}}">

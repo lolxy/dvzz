@@ -33,6 +33,11 @@ const getCurrentCityInfo = (params) => {
   wxRequest(params, 'https://apis.map.qq.com/ws/geocoder/v1/');
 };
 
+// 获取扫码数据
+const getScanCode = (params) => {
+  wxRequest(params, `${apiURL}/app/selectmat/scanCode.do`);
+};
+
 // 获取主材商城首页banner图片
 const getMallBanner = (params) => {
   wxRequest(params, `${apiURL}/app/picture/loadBanner.do`);
@@ -86,6 +91,10 @@ const getFilterField = (params) => {
 /**************
  *  预算接口 **
  * ************/
+// 获取游客信息
+const getTouristExpInfo = (params) => {
+  wxRequest(params, `${apiURL}/wx / mainBudget / addTouristExp.do`);
+};
 
 //  获取预算首页分类
 const getBudgetCate = (params) => {
@@ -97,7 +106,28 @@ const getBudgetCatList = (params) => {
   wxRequest(params, `${apiURL}/wx/mainBudget/queryTypeList.do`);
 }; 
 
+// 获取预算分类
+const getBudgetByIdCatList = (params) => {
+  wxRequest(params, `${apiURL}/wx/mainBudget/queryfSeriesList.do`);
+}; 
+
+// 获取主材预算列表
+const getBudgetGoodsList = (params) => {
+  wxRequest(params, `${apiURL}/wx/mainBudget/querySelectMatList.do`);
+}; 
+
+// 获取新增选材参数列表
+const getParamList = (params) => {
+  wxRequest(params, `${apiURL}/app/data/query.do`);
+}; 
+
+// 新增选材提交
+const postAddSelectMat = (params) => {
+  wxRequest(params, `${apiURL}/wx/mainBudget/addSelectMatDetail.do`);
+}; 
+
 module.exports = {
+  getScanCode,
   getCurrentCityInfo,
   getMallBanner,
   getMallMenu,
@@ -110,5 +140,10 @@ module.exports = {
   getFilterField,
   getCurrentGoodsEvaluate,
   getBudgetCate,
-  getBudgetCatList
+  getBudgetCatList,
+  getTouristExpInfo,
+  getBudgetByIdCatList,
+  getBudgetGoodsList,
+  getParamList,
+  postAddSelectMat
 };

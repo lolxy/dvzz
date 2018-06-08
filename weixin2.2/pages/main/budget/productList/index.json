@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "search-box": "/components/searchBox/item",
-    "product-list":"/components/productList/item",
-    "brands-list": "/components/brandsList/item",
-    "filter-action-sheet":"/components/filter/item"
-  }
-}

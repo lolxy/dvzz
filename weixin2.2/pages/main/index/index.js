@@ -120,7 +120,7 @@ Page({
   // 拨打联系电话
   callPhone:function(){
     wx.makePhoneCall({
-      phoneNumber: '15759518702'
+      phoneNumber: '0595-85865088'
     })
   },
 
@@ -132,10 +132,28 @@ Page({
   },
 
   // 扫码功能
-  scanCode:function(){
+  scanCode: function () {
     wx.scanCode({
-      success: (res) => {
-       
+      success: function (res) {
+        if (res.result) {
+          api.getScanCode({
+            data:{
+              fMatCode: res.result
+            },
+            success:(res)=>{
+              if (res.data.data.fMatID){
+                wx.navigateTo({
+                  url: '/pages/main/detail/index?fMatID=' + res.data.data.fMatID
+                })
+              }else{
+                wx.showToast({
+                  title: '扫码有误，请重新扫码！',
+                  icon:'none'
+                })
+              }
+            }
+          })
+        }
       }
     })
   },

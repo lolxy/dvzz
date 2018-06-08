@@ -9,39 +9,7 @@ App({
         self.systemInfo = res;
       }
     });
-
-    // 登录
-    wx.login({
-      success: function (res) {
-        if (res.code) {
-          //发起网络请求微信授权
-          wx.request({
-            url: 'https://api.weixin.qq.com/sns/jscode2session',
-            data: {
-              appid: self.globalData.appid,
-              secret: self.globalData.secret,
-              js_code: res.code,
-              grant_type: 'authorization_code'
-            },
-            //请求服务器绑定信息
-            success: function (res2) {
-              console.log(res2)
-              wx.request({
-                url: self.globalData.posturl +'wx/personalcenter/queryUserInfo.do',
-                data: { openID: res2.data.openid },
-                success: function (json) {
-                  wx.setStorageSync('APPUserInfo', json.data.data)
-                }
-              });
-            }
-          })
-        } else {
-          console.log('登录失败！' + res.errMsg)
-        }
-      }
-    })
-
-    
+       
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())

@@ -13,7 +13,7 @@
       </view>
     </view>
     <view class='shopcont' wx:for="{{itemdetail}}">
-      <image src="{{item.fMainPicPath}}" class='shop_cont_pic'></image>
+      <image src="{{item.fMainPicPath}}" class='shop_cont_pic' bindtap='showimg' data-url="{{item.fMainPicPath}}"></image>
       <view class='shop_cont_r'>
         <view class='shop_cont_title'>
           <view class='shop_cont_name'>{{item.fShopName}}</view>

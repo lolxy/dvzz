@@ -72,6 +72,10 @@ Component({
           self.setData({
             currentSubCategory: currentSubCategory,
           })
+        }else{
+          self.setData({
+            currentSubCategory: []
+          })
         }
       } 
     },

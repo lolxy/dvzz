@@ -4,7 +4,7 @@
     <view class='user-avatar'><open-data type="userAvatarUrl"></open-data></view>
     <view class='user-text'>
       <open-data type="userNickName" class="uname"></open-data>
-      <view class='uaccount'>账号： {{useraccount}}</view>
+      <view class='uaccount'>账号： {{userInfo.fUserNo}}</view>
     </view>
     <view class='seticon' data-userid="{{useraccount}}" bindtap='user-set'><image src="{{setimgurl}}"></image></view>
   </view>
@@ -15,4 +15,5 @@
     </view>
     <image src="{{menurightimg}}"></image>
   </view>
+  
 </view>

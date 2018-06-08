@@ -2,7 +2,6 @@
 //获取应用实例
 const app = getApp()
 const api = require('../../../utils/api.js');
-const util = require('../../../utils/util.js');
 const WxParse = require('../../../wxParse/wxParse.js');
 
 Page({
@@ -51,12 +50,6 @@ Page({
           detail: res.data.data.mat,
           evaluate: res.data.data.evaluate
         })
-        // if (res.data.data.evaluate && res.data.data.evaluate.eval && res.data.data.evaluate.eval.fDatetime) {
-        //   self.data.evaluate.eval.fDatetime = util.formatDate(new Date(res.data.data.evaluate.eval.fDatetime))
-        // }
-        // self.setData({
-        //   evaluate: res.data.data.evaluate
-        // })
       }
     });
   },

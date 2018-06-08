@@ -5,9 +5,9 @@
       <view class='form'>
         <view class='form-group'>
           <text>空间：</text>
-          <picker bindchange="bindPickerChange" range-key="{{'name'}}" value="{{objectArray[index].id}}" range="{{objectArray}}">
+          <picker bindchange="bindPickerSpaceChange" range-key="{{'fValue'}}" value="{{spaceIndex}}" range="{{spaceList}}">
             <view class="picker">
-              {{objectArray[index].name?objectArray[index].name:'请选择空间'}}
+              {{spaceList[spaceIndex].fValue?spaceList[spaceIndex].fValue:'请选择空间'}}
               <image src="{{downIcon}}"></image>
             </view>
           </picker>
@@ -15,9 +15,19 @@
 
         <view class='form-group'>
           <text>位置：</text>
-           <picker bindchange="bindPickerChange" range-key="{{'name'}}" value="{{objectArray[index].id}}" range="{{objectArray}}">
+           <picker bindchange="bindPickerPositionChange" range-key="{{'fValue'}}" value="{{positionIndex}}" range="{{positionList}}">
             <view class="picker">
-              {{objectArray[index].name?objectArray[index].name:'请选择位置'}}
+              {{positionList[positionIndex].fValue?positionList[positionIndex].fValue:'请选择位置'}}
+              <image src="{{downIcon}}"></image>
+            </view>
+          </picker>
+        </view>
+
+        <view class='form-group'>
+          <text>单位：</text>
+           <picker bindchange="bindPickerUnitChange" range-key="{{'fValue'}}" value="{{unitIndex}}" range="{{unitList}}">
+            <view class="picker">
+              {{unitList[unitIndex].fValue?unitList[unitIndex].fValue:'请选择位置'}}
               <image src="{{downIcon}}"></image>
             </view>
           </picker>
@@ -26,14 +36,7 @@
         <view class='form-group'>
           <text>数量：</text>
           <view class='inputbox'>
-            <input type='number' placeholder='请输入数量' placeholder-class='placecss' bindinput="getNumber"></input>
-          </view>
-        </view>
-
-        <view class='form-group'>
-          <text>单位：</text>
-          <view class='inputbox'>
-            <input type='text' placeholder='请输入单位' placeholder-class='placecss' bindinput="getUnit"></input>
+            <input type='number' placeholder='请输入数量' placeholder-class='placecss' bindinput="getNumber" value='{{num}}'></input>
           </view>
         </view>
 

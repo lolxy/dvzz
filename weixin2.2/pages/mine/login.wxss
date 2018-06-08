@@ -1,98 +1,44 @@
-/* pages/mine/index.wxss */
+/* pages/mine/login.wxss */
 view, image, text,form ,input{
   box-sizing: border-box;
 }
-image {
+.container {
   width: 100%;
   height: 100%;
-}
-.user-info-top {
-  width: 100%;
-  height: 230rpx;
-  padding: 45rpx 30rpx;
-  background-repeat: no-repeat;
-  background-size: cover;
+  padding: 340rpx 135rpx;
+  position: absolute;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  position: reltive;
-  z-index: 100;
+  background-color: #f3f3f3;
 }
-.user-avatar {
-  width: 140rpx;
-  height: 140rpx;
-  overflow: hidden;
-  border-radius: 50%;
+.logo {
+  width: 450rpx;
+  height: 280rpx;
+  margin-bottom: 180rpx;
 }
-.user-avatar open-data {
-  width: 140rpx;
-  height: 140rpx;
-  overflow: hidden;
-  display: block; 
-}
-.user-text {
-  height: 140rpx;
-  margin-left: 30rpx;
-  padding: 15rpx 0;
-}
-.uname {
-  padding: 15rpx 0;
-  font-size: 34rpx;
+.btn {
+  width: 480rpx;
+  height: 68rpx;
+  padding: 19rpx 0;
+  border-radius: 34rpx;
+  font-size: 32rpx;
   line-height: 1em;
-  color: #fff;
+  color: #ffffff;
+  border: 1rpx solid transparent;
+  text-align: center;
 }
-.uaccount {
-  padding: 15rpx 0;
-  font-size: 28rpx;
-  line-height: 1em;
-  color: #fff;
+.btn + .btn {
+  margin-top: 50rpx;
 }
-.seticon {
-  width: 40rpx;
-  height: 40rpx;
-  align-self: flex-start;
-  top: 30rpx;
-  right: 30rpx;
-  position: absolute;
-  z-index: 170;
+.btn_wxlogin {
+  background-color: #8BC24A;
 }
-.list {
-  width: 100%;
-  height: 90rpx;
-  padding: 24rpx 30rpx;
-  border-bottom: 2rpx solid #ddd;
-  line-height: 40rpx;
-  background-color: #fff;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+.btn_phlogin {
+  background-color: #ff6600;
 }
-.list:nth-child(5){
-  margin-bottom: 20rpx;
-}
-.list .items {
-  height: 40rpx;
-  line-height: 40rpx;
-}
-.list .items image{
-  width: 40rpx;
-  height: 40rpx; 
-  margin-right: 28rpx;
-  display: inline-block;
-  vertical-align:top;
-}
-.list .items view {
-  font-size: 28rpx;
-  line-height: 40rpx;
-  display: inline-block;
-  vertical-align:top;
-}
-.list > image {
-  width:16rpx;
-  height:30rpx;
-}
+
 /*****  模态框  *****/
 .modal {
   width: 100%;
@@ -136,7 +82,7 @@ image {
 .form_grp {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-between!important;
   align-items: stretch;
 }
 .form_grp input {
@@ -154,6 +100,7 @@ image {
 }
 .input_b {
   width: 220rpx;
+  flex-basis: 220rpx;
 }
 .normal-btn {
   width: 140rpx;

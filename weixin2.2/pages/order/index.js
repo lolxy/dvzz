@@ -135,10 +135,11 @@ Page({
     }else {
       fcode = that.data.flag
     }
+    var uinfo = wx.getStorageSync('APPUserInfo') || {}
     wx.request({
       url: app.globalData.posturl + 'wx/shopOrder/queryOrderList.do', //url 不能出现端口号
       data: {
-        fCustomerID: app.globalData.fCustomerID,
+        fCustomerID: uinfo.fCustomerID,
         fType: that.data.CurrentCode,
         flag: that.data.flag,
         num: that.data.num

@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    detail:{}
+    detail:{},
+    Discript:''
   },
 
   /**
@@ -16,8 +17,10 @@ Page({
     wx.setNavigationBarTitle({
       title: options.fEmployName,
     })
+    var discript = options.fIntroduce.replace(/<p>/g, '').replace(/<\/p>/g, '')
     this.setData({
-      detail: options
+      detail: options,
+      Discript: discript
     })
     console.log(this.data)
   },

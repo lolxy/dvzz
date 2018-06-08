@@ -8,107 +8,97 @@ Page({
    * 页面的初始数据
    */
   data: {
-    currentTab: 0,
-    isCollect:true,
-    hiddenModal:true,
+    hiddenComfirmModal: true,
+    modalContent: "",
+    hiddenModal: true,
     windowWidth: app.systemInfo.windowWidth,
     windowHeight: app.systemInfo.windowHeight - 10,
+    dellIcon:'./image/dell.png',
+    copyIcon: './image/copy.png',
+    buyIcon:'./image/buy.png',
     imgUrls: [],
-    favicon:"./image/favicon.png",
-    faviconed:"./image/faviconed.png",
-    photo: "./image/photo.png",
-    paramsList:[
+    collectList:[
       {
         "id":1,
-        "title":"品牌",
-        "value":"马可波罗"
+        "title":"多层黑色立柜",
+        "price":"2330",
+        "imgurl":"./image/fav.png"
       },
       {
-        "id": 2,
-        "title": "材质",
-        "value": "抛光砖"
+        "id": 1,
+        "title": "多层黑色立柜",
+        "price": "2330",
+        "imgurl": "./image/fav.png"
       },
       {
-        "id": 3,
-        "title": "品名",
-        "value": "LD8913聚晶"
+        "id": 1,
+        "title": "多层黑色立柜",
+        "price": "2330",
+        "imgurl": "./image/fav.png"
       },
       {
-        "id": 4,
-        "title": "颜色",
-        "value": "黄色"
+        "id": 1,
+        "title": "多层黑色立柜",
+        "price": "2330",
+        "imgurl": "./image/fav.png"
       },
       {
-        "id": 5,
-        "title": "规格",
-        "value": "800*800"
+        "id": 1,
+        "title": "多层黑色立柜",
+        "price": "2330",
+        "imgurl": "./image/fav.png"
       },
       {
-        "id": 6,
-        "title": "编码",
-        "value": "ZA010092"
+        "id": 1,
+        "title": "多层黑色立柜",
+        "price": "2330",
+        "imgurl": "./image/fav.png"
       }
     ]
-  },
-
-  // 滚动切换标签样式
-  switchTabs: function (e) {
-    this.setData({
-      currentTab: e.detail.current
-    });
-  },
-  // 点击标题切换当前页时改变样式
-  swichNav: function (e) {
-    var cur = e.currentTarget.dataset.current;
-    if (this.data.currentTaB == cur) { return false; }
-    else {
-      this.setData({
-        currentTab: cur
-      })
-    }
-  },
-  // 切换收藏
-  toggleCollect:function(e){
-    this.setData({
-      isCollect: !this.data.isCollect
-    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.id){
-      wx.setNavigationBarTitle({
-        title: `当前页面Id${options.id}`
-      })
-    } 
-  },
-
-  // 加入预算
-  join:function(){
-    this.setData({
-      hiddenModal:false
+    wx.setNavigationBarTitle({
+      title: `当前页面Id${options.id}`
     })
   },
 
-  // 关闭提示弹窗
-  // closeModal:function(){
-  //   this.setData({
-  //     hiddenModal: true
-  //   })
-  // },
-
-  // comfirm:function(){
-  //   this.setData({
-  //     hiddenModal: true
-  //   })
-  // },
+  // 打开复制弹窗
+  openCopyModal:function() {
+    this.setData({
+      hiddenModal: false
+    })
+  },
 
   // 执行弹窗的状态切换
   actionModal: function (e) {
     this.setData({
       hiddenModal: e.detail
+    })
+  },
+
+  // 跳到选材页面
+  gotoXuancai:function(){
+    wx.navigateTo({
+      url: '/pages/main/budget/productList/index'
+    })
+  },
+
+  // 是否删除
+  dellItem: function () {
+    this.setData({
+      hiddenComfirmModal: false,
+      modalContent: "确定要删除吗？"
+    })
+  },
+
+  // 执行提示框确认动作
+  actionComfirmModal: function (e) {
+    this.setData({
+      hiddenComfirmModal: e.detail
     })
   },
 

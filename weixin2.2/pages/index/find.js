@@ -8,7 +8,6 @@ Page({
   data: {
     Searchdata:'',
     tabs:[],
-    currenttab: 0,
     currentid:'',
     datalist:[],
     num: 0,
@@ -58,11 +57,24 @@ Page({
    */
   TabsChange: function(e) {
     this.setData({
-      currenttab: e.currentTarget.dataset.index,
       currentid: e.currentTarget.dataset.fid,
       num: 0
     })
     this.GetDataList() 
+  },
+  //搜索
+  GetSearch: function (e) {
+    this.setData({
+      Searchdata: e.detail.value
+    })
+    this.getitemtype()
+  },
+  //图片点击放大
+  showimg: function (e) {
+    wx.previewImage({
+      current: '', // 当前显示图片的http链接
+      urls: [e.target.dataset.url] // 需要预览的图片http链接列表
+    })
   },
   /**
    * 页面相关事件处理函数--获取data列表
@@ -80,7 +92,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        //console.log(res.data);
+        console.log(res.data);
         if (that.data.num > 0){
           let n = that.data.datalist.length
           for (let i=0;i<res.data.data.length;i++) {
@@ -112,10 +124,10 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        //console.log(res.data);
+        console.log(res.data);
         that.setData({
           tabs: res.data.data,
-          currentid: res.data.data[that.data.currenttab].fOrgID
+          currentid: res.data.data[0].fOrgID
         })
         that.GetDataList() 
       },
@@ -127,7 +139,7 @@ Page({
    */
   ToFindDetail: function (e) {
     wx.navigateTo({
-      url: 'finddetail?fEmployID=' + e.currentTarget.dataset.feid + '&fEmployName=' + e.currentTarget.dataset.name + '&fYear=' + e.currentTarget.dataset.fyear + '&fMobile=' + e.currentTarget.dataset.phone + '&fIntroduce=' + e.currentTarget.dataset.discript + '&fPhoto=' + e.currentTarget.dataset.photo,
+      url: 'finddetail?fEmployID=' + e.currentTarget.dataset.feid + '&fEmployName=' + e.currentTarget.dataset.name + '&fYear=' + e.currentTarget.dataset.fyear + '&fMobile=' + e.currentTarget.dataset.phone + '&fIntroduce=' + e.currentTarget.dataset.discript + '&fPhoto=' + e.currentTarget.dataset.fphoto,
       success: function (res) {
         //console.log(res.data);        
       }

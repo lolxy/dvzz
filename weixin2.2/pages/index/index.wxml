@@ -19,7 +19,7 @@
     <swiper class='customer-banner' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <block wx:for="{{imgUrls}}">
         <swiper-item>
-          <image src="{{item.bPath}}" class="slide-image" data-ftype="{{item.fType}}" data-bUrl="{{item.bUrl}}"/>
+          <image src="{{item.bPath}}" class="slide-image" data-ftype="{{item.fType}}" data-bUrl="{{item.bUrl}}" bindtap='tourl'/>
         </swiper-item>
       </block>
     </swiper>
@@ -30,7 +30,7 @@
       <view class='linkname'>{{item.fTitle}}</view>
     </view>
   </view>
-  <view class='statusgrp' wx:if="{{fCustomerID}}">
+  <view class='statusgrp' wx:if="{{fCustomerID&&StutList.length>0}}">
     <view class='stathead'>
       <image src='{{StutImage}}'></image>
       <span>工地材料进度</span>
@@ -63,11 +63,11 @@
       <span>多维自装服务站</span>
     </view>
     <view class='shopcont' wx:for="{{ShopList}}">
-      <image src="{{item.fUrl}}" class='shop_cont_pic'></image>
+      <image src="{{item.fUrl}}" class='shop_cont_pic' bindtap='showimg' data-url="{{item.fUrl}}"></image>
       <view class='shop_cont_r'>
         <view class='shop_cont_title'>
           <view class='shop_cont_name'>{{item.fShopName}}</view>
-          <view class='shop_cont_range'>{{item.distance}}km</view>
+          <view class='shop_cont_range'>{{item.distance}}</view>
         </view>
         <view class='shop_cont_uname'>{{item.fShopPsn}}</view>
         <view class='shop_cont_btngrp'>

@@ -1,8 +1,8 @@
 <!--pages/main/budget/index/index.wxml-->
 <view class='container'>
   <view class='nav'>
-    <view class='item' data-code="{{item.fCode}}" wx:for="{{menuList}}" wx:key="{{index}}" data-name="{{item.fValue}}" bindtap='getCurrentMenuData'>
-      <image src='{{item.icon}}'></image>
+    <view class='item' data-code="{{item.fCode}}" wx:for="{{menuList}}" wx:key="{{index}}" data-fvalue="{{item.fValue}}" bindtap='getCurrentMenuData'>
+      <image src='{{item.fUrl}}'></image>
       <text class="{{currentCode == item.fCode?'on':''}}">{{item.fValue}}</text>
     </view>
   </view>
@@ -10,16 +10,16 @@
   <view class='xuancai-wrap'>
     <view class='x-header'>
       <text>{{currentMenu}}</text>
-      <navigator url='/pages/main/budget/xuancai/index'>去选材</navigator>
+      <navigator url='/pages/main/budget/xuancai/index?code={{currentCode}}&fSelectMatID={{fSelectMatID}}' wx:if="{{xcList.length}}">去选材</navigator>
     </view>
 
     <scroll-view class='list' scroll-y="{{true}}">
-      <view class='item' wx:for="{{xcList}}" wx:key="{{index}}" data-id="{{item.id}}" bindtap='gotoPage'>
+      <view class='item' wx:for="{{xcList}}" wx:key="{{index}}" data-subcode="{{item.fCode}}" bindtap='gotoPage'>
         <view class='title'>
-          <image src="{{item.icon}}"></image>
-          <text>{{item.title}}<text class='badge'>2</text></text>
+          <image src="{{item.fUrl}}"></image>
+           <text>{{item.fValue}}<text class='badge' wx:if="{{item.num}}">{{item.num}}</text></text> 
         </view>
-        <view class='price'>￥{{item.price}}元</view>
+        <view class='price'>￥{{item.fAmount}}元</view>
         <view class='right'>
           <image src="{{rightIcon}}"></image>
         </view>
@@ -34,7 +34,7 @@
     </view>
     <view class='total'>
       <text>合计：{{sumPrice}}元</text>
-      <navigator url=''>查看报价</navigator>
+      <navigator url='/pages/main/budget/bill/index'>查看报价</navigator>
     </view>
   </view>
 </view>

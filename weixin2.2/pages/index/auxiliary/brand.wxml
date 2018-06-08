@@ -15,7 +15,7 @@
             {{category.fMatColor}}
           </view>
           <view class='flex_col_2'>
-            <radio-group class="radio-group" name="{{'brand'+idx}}" bindchange="radioChange">
+            <radio-group class="radio-group" name="{{'brand'+idx}}">
               <label class="radio {{brand.fIsDefault==1?'active':''}}" wx:for="{{category.list}}" wx:key="{{brand.fBrandName}}" wx:for-item="brand" wx:for-index="idy"  data-idx="{{idx}}" data-idy="{{idy}}" bindtap='changeindex'>
                 <radio value="{{brand.fBrandName}}" color="#ff6600" checked="{{brand.fIsDefault==1?true:false}}"/>{{brand.fBrandName}}
               </label>

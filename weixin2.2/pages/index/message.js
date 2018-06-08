@@ -1,4 +1,5 @@
 // pages/index/message.js
+var app = getApp()
 Page({
 
   /**
@@ -7,28 +8,31 @@ Page({
   data: {
     tabs: [{
       fType: '个人消息',
-      fCode: 'A01',
+      flag: '2',
     },{
       fType: '活动消息',
-      fCode: 'A01',
+      flag: '3',
     },{
       fType: '系统消息',
-      fCode: 'A01',
+      flag: '1',
     }],
     CurrentTab: 0,//默认显示个人消息
+    Currentflag: 2,//默认显示个人消息
+    num: 0,//默认显示第一页
     msglist:[{
-      msgcont:'中骏四季花城水电完工',
-      msgdate: '2018-05-04',
-      id: 0
+      fTitle:'中骏四季花城水电完工',
+      time: '2018-05-04',
+      fContent: ''
     },{
-      msgcont:'中骏四季花城水电完工',
-      msgdate: '2018-05-04',
-      id: 1
+      fTitle:'中骏四季花城水电完工',
+      time: '2018-05-04',
+      fContent: 1
     },{
-      msgcont:'中骏四季花城水电完工',
-      msgdate: '2018-05-04',
-      id: 2
-    }]
+      fTitle:'中骏四季花城水电完工',
+      time: '2018-05-04',
+      fContent: 2
+    }],
+    maxpage: 1
   },
 
   /**
@@ -38,6 +42,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '消息中心',
     })
+    this.GetMessageInfo()
   },
 
   /**
@@ -77,24 +82,78 @@ Page({
     } else {
       that.setData({
         CurrentTab: e.currentTarget.dataset.index,
-        CurrentCode: e.currentTarget.dataset.code,
+        Currentflag: e.currentTarget.dataset.flag,
         num: 0
       })
     }
-    that.GetOrderInfo()
+    that.GetMessageInfo()
+  },
+  GetMessageInfo: function () {
+    var that = this
+    var APPUserInfo = wx.getStorageSync('APPUserInfo') || {}
+    wx.request({
+      url: app.globalData.posturl + 'wx/personalcenter/queryMessage.do', //url 不能出现端口号
+      data: { 
+        flag: that.data.Currentflag,
+        fUserID: APPUserInfo.fUserID,
+        page: that.data.num
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        if (that.data.num>0){
+          console.log(res.data)
+          var n = that.data.msglist.length
+          var item = new Array()
+          item=that.data.msglist
+          for (let i = 0; i < res.data.data.length; i++){
+            item[i+n] = res.data.data[i]
+          }
+          that.setData({
+            msglist: item,
+            maxpage: res.data.totalPage
+          })
+        }else {
+          that.setData({
+            msglist: res.data.data,
+            maxpage: res.data.totalPage
+          })
+        }
+      },
+      method: 'GET'
+    });
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+    that.setData({
+      num: 0
+    })
+    that.GetDataList() 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+    var that = this
+    if (that.data.num == that.data.maxpage) {
+      wx.showLoading({
+        title: '已经到底了',
+        mask: true
+      })
+
+      setTimeout(function () {
+        wx.hideLoading()
+      }, 2000)
+    } else {
+      that.setData({
+        num: that.data.num + 1
+      })
+      that.GetOrderInfo()
+    }
   },
 
   /**

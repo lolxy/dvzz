@@ -39,6 +39,8 @@ Page({
         CurrentCode: 'A01'
       })
     }
+    console.log(this.data.CurrentType)
+    console.log(this.data.CurrentCode)
     this.GetItemType()
   },
 
@@ -92,7 +94,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        if (res.data.data > 0) {
+        if (res.data.data.length > 0) {
           that.setData({
             tabs: res.data.data,
             CurrentCode: res.data.data[that.data.currenttab].fCode

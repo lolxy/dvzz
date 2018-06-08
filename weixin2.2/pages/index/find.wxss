@@ -27,7 +27,7 @@
   background-color: #ffffff;
 }
 .typelist  view {
-  font-size: 24rpx;
+  font-size: 28rpx;
   line-height: 60rpx;
   color: #999999;
   border-bottom-width: 4rpx;
@@ -55,8 +55,8 @@
 }
 
 .sec_item view {
-  margin: 16rpx 20rpx 20rpx;
-  font-size: 24rpx;
+  margin: 14rpx 20rpx 18rpx;
+  font-size: 28rpx;
   line-height: 1em;
   color: #333333;
 }

@@ -39,7 +39,7 @@
 
   <view class='lanmu'>
     <view class='main'>
-      <navigator url="/pages/main/budget/index/index">
+      <navigator url="/pages/main/budget/index/index?type=virtual">
         <image src='{{lanmu.lanmu1}}'></image>
       </navigator>
     </view>
@@ -50,7 +50,7 @@
         </navigator>
       </view>
       <view>
-        <navigator url="">
+        <navigator url="/pages/main/budget/index/index?type=my">
           <image src='{{lanmu.lanmu3}}'></image>
         </navigator>
       </view>

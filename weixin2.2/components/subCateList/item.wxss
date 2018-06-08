@@ -138,11 +138,11 @@ box-sizing: border-box;
 }
 
 .moreList .item{
-  margin: 10rpx 0rpx;
+  margin: 10rpx 5rpx;
   font-size: 26rpx;
   line-height: 60rpx;
   text-align: center;
-  padding: 0 10rpx;
+  padding: 0 20rpx;
   /* width: 16.6666%; */
   box-sizing: border-box;
   color:#666;
@@ -151,5 +151,5 @@ box-sizing: border-box;
 .moreList .item.on text{
   color:#ff6600;
   border-bottom:5rpx solid #ff6600;
-  padding-bottom: 15rpx;
+  padding-bottom: 12rpx;
 }

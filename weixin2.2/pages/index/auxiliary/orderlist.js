@@ -8,12 +8,12 @@ Page({
   data: {
     tabs: [{
       TabsName: '工人开单',
-      TabIcon: '',
+      TabIcon: '../../../image/auxiliary/grkd.png',
       LinkUrl: 'grkd'
     },{
       TabsName: '辅材商城',
-      TabIcon: '',
-      LinkUrl: ''
+      TabIcon: '../../../image/auxiliary/fcsc.png',
+      LinkUrl: '../../main/list/index'
     }],
     StatusList: [{
       StatusName: '未付款'
@@ -26,36 +26,17 @@ Page({
     }, {
       StatusName: '全部'
     }],
-    OrderList: [{
-      CustomerName: '新天城市广场1#2306',
-      OrderStatus: '未付款',
-      Selected: false,
-      OrderPic: '../../../image/default-img.png',
-      OrderType: '水电领料单',
-      Accont: 6554,
-      Cont: 25,
-      OrderId: 'SD17080083',
-      CrateDate: '2018-5-24'
-    }, {
-      CustomerName: '新天城市广场1#2306',
-      OrderStatus: '未付款',
-      Selected: false,
-      OrderPic: '../../../image/default-img.png',
-      OrderType: '泥土领料单',
-      Accont: 6545,
-      Cont: 25,
-      OrderId: 'SD17080082',
-      CrateDate: '2018-5-24'
-    }],
+    OrderList: [],
     CurrentCode: '',//默认显示装修建材
     Currentsum: 0,//默认显示装修建材
-    flag: 4,//默认显示未付款
+    flag: 0,//默认显示未付款
     num: 0,//默认显示第一页
     maxpage: 1, //最大页码(每个页面单独页码)
     menuimg: '../../../image/jt1.png',
     SelectAll: 0,
     totle: 0,
-    IsVisible:true
+    IsVisible:true,
+    Visibleicon: '../../../image/auxiliary/dd-del.png'
   },
 
   /**

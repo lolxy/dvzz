@@ -26,9 +26,11 @@
 .order_tabs image {
   max-width: 72rpx;
   max-height:72rpx;
+  margin-bottom: 16rpx;
 }
 .order_tabs view {
-  font-size: 24rpx;
+  font-size: 24rpx;  
+  font-weight: normal;
   line-height: 1em;
   color: #333333;
 }
@@ -45,6 +47,7 @@
 .typelist  view {
   font-size: 24rpx;
   line-height: 60rpx;
+  font-weight: bold;
   color: #999999;
   border-bottom-width: 4rpx;
   border-bottom-style: solid;
@@ -216,4 +219,33 @@
   text-align: center;
   color: #ffffff;
   background-color: #FF6600;
+}
+/**** 提示 ****/
+.tipsgrp {
+  width: 470rpx;
+  height: 360rpx;
+  margin: 230rpx auto;
+  padding: 40rpx 0 30rpx;
+  background-color: #ffffff;
+}
+.tipsgrp image {
+  margin: 0 auto;
+  width: 70rpx;
+  height: 70rpx;
+  display: block;
+}
+.tip_title {
+  margin: 30rpx 0;
+  font-size: 30rpx;
+  line-height: 1em;
+  color: #ff6600;
+  text-align: center;
+}
+.tip_cont {
+  margin: 0 auto;
+  max-width: 360rpx;
+  font-size: 24rpx;
+  line-height: 1.5em;
+  color: #333333;
+  text-align: center;
 }

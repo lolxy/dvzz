@@ -11,7 +11,7 @@
   background-color: #ffffff;
 }
 .typelist  view {
-  font-size: 24rpx;
+  font-size: 28rpx;
   line-height: 60rpx;
   color: #999999;
   border-bottom-width: 4rpx;
@@ -19,8 +19,8 @@
   border-bottom-color: transparent;
 }
 .typelist  view.active {
-  color: #1F80CD;
-  border-bottom-color: #1F80CD;
+  color: #ff6600;
+  border-bottom-color: #ff6600;
 }
 .find_lst {
   width:100%;

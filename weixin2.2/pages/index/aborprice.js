@@ -52,6 +52,13 @@ Page({
   onUnload: function () {
   
   },
+  //图片点击放大
+  showimg: function (e) {
+    wx.previewImage({
+      current: '', // 当前显示图片的http链接
+      urls: [e.target.dataset.url] // 需要预览的图片http链接列表
+    })
+  },
   //切换tabs
   TabsChange: function (e) {
     this.setData({
@@ -75,7 +82,7 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {        
+      success: function (res) {
         if (that.data.num > 0) {
           let n = that.data.datalist.length
           for (let i = 0; i < res.data.data.length; i++) {
@@ -107,7 +114,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data)
         that.setData({
           tabs: res.data.data,
           currentcode: res.data.data[that.data.currenttab].fCode
@@ -117,18 +123,6 @@ Page({
       method: 'GET'
     });
   },
-  /**
-   * 页面相关事件处理函数--跳转到详情页
-   */
-  ToFindDetail: function (e) {
-    wx.navigateTo({
-      url: 'finddetail?fEmployID=' + e.currentTarget.dataset.feid,
-      success: function (res) {
-        //console.log(res.data);        
-      }
-    })
-  },
-
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */

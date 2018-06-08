@@ -42,10 +42,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     //获取系统信息 
-    var APPUserInfo = wx.getStorageSync('APPUserInfo') || {}
-    that.setData({
-      fCustomerID: APPUserInfo.fCustomerID
-    })
+    
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
@@ -62,7 +59,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        //console.log(res.data);
         that.setData({
           imgUrls: res.data.data
         })
@@ -85,7 +81,24 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that = this
+    wx.getStorage({
+      key: 'OpenID',
+      success: function (res) {
+        if (res.data != '') {
+          wx.getStorage({
+            key: 'APPUserInfo',
+            success: function (res) {
+              if (res.data.fUserID) {
+                that.setData({
+                  fCustomerID: res.data.fCustomerID
+                })
+              }
+            }
+          })
+        }
+      }
+    })
   },
 
   /**
@@ -115,7 +128,14 @@ Page({
     wx.navigateTo({
       url: 'station',
       success: function (res) {
-        //console.log(res.data);        
+      }
+    })
+  },
+  //banner跳转
+  tourl: function (e) {
+    wx.navigateTo({
+      url: e.target.dataset.bUrl,
+      success: function (res) {  
       }
     })
   },
@@ -125,8 +145,7 @@ Page({
   JumpTo: function (e) {
     wx.navigateTo({
       url: e.currentTarget.dataset.url,
-      success: function (res) {
-        //console.log(res.data);        
+      success: function (res) {    
       }
     })
   },
@@ -138,7 +157,6 @@ Page({
     wx.navigateTo({
       url: 'message',
       success: function (res) {
-        //console.log(res.data);        
       }
     })
   },
@@ -146,7 +164,6 @@ Page({
   ScanCode: function () {
     wx.scanCode({
       success: function (res){
-        console.log(res.result)
         if (res.result){
           wx.request({
             url: app.globalData.posturl + 'app/selectmat/scanCode.do', //url 不能出现端口号
@@ -155,14 +172,9 @@ Page({
               'content-type': 'application/json' // 默认值
             },
             success: function (res2) {
-              console.log(res2.data.data.fMatID);
               wx.navigateTo({
-                url: '../main/budget/detail/index?fMatID=' + res2.data.data.fMatID,//地址待修改ggggggggggggggggggggggggg
-                success: function (res) {
-                  console.log('成功');        
-                },
-                fail: function (res) {
-                  console.log('跳转失败');
+                url: '../main/detail/index?fMatID=' + res2.data.data.fMatID,//地址待修改
+                success: function (res) {        
                 }
               })
             },
@@ -183,7 +195,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        //console.log(res.data)
         that.setData({
           LinkList: res.data.data
         })
@@ -206,7 +217,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        //console.log(res.data);
         that.setData({
           StutList: res.data.data
         })
@@ -235,7 +245,6 @@ Page({
             'content-type': 'application/json' // 默认值
           },
           success: function (json) {
-            console.log(json.data)
             that.setData({
               ShopList: json.data.data
             })
@@ -267,7 +276,6 @@ Page({
     wx.navigateTo({
       url: 'map?lat=' + e.target.dataset.lat + '&lng=' + e.target.dataset.lng + '&add=' + e.target.dataset.add,
       success: function (res) {
-        //console.log(res.data);        
       }
     })
   },
@@ -279,6 +287,13 @@ Page({
       success: function (res) {
         
       }
+    })
+  },
+  //图片点击放大
+  showimg: function (e) {
+    wx.previewImage({
+      current: '', // 当前显示图片的http链接
+      urls: [e.target.dataset.url] // 需要预览的图片http链接列表
     })
   },
   /**

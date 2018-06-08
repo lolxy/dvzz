@@ -1,0 +1,281 @@
+/* pages/detail/detail.wxss */
+.containers{
+  background-color:#f3f3f3;
+  position: absolute;
+  bottom: 98rpx;
+  top:0;
+  width: 100%;
+}
+
+/* 详情轮播图模块 */
+.swriper-contains{
+  width: 100%;
+  height: 750rpx;
+  overflow: hidden;
+}
+
+.swriper-contains swiper,.swriper-contains swiper image{
+  height: 750rpx;
+}
+
+.detail-base{
+  background-color: #fff;
+  height: 180rpx;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+
+.detail-base .d-head{
+  height: 50rpx;
+  line-height: 50rpx;
+  margin-bottom: 10rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail-base .d-head .title{
+  flex:1;
+  font-size: 36rpx;
+  color:#666;
+  font-weight:bolder;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space:nowrap;
+  margin-right: 20rpx;
+}
+
+.detail-base .d-head .favicon,.detail-base .d-head .favicon image{
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.detail-base .price{
+  height: 60rpx;
+  line-height: 60rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail-base .price view{
+  font-size:26rpx;
+  color:#666;
+}
+
+.detail-base .price text{
+  color:#ff0101;
+  font-size: 30rpx;
+  font-weight: bold;
+}
+
+.detail-base .price text.sup{
+  vertical-align: super;
+  font-size: 18rpx;
+}
+
+.datail-params{
+  background-color: #fff;
+  display: flex;
+  padding: 30rpx;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+}
+
+.datail-params .item{
+  width: 50%;
+  font-size: 26rpx;
+  color:#666;
+  line-height: 60rpx;
+}
+
+.evaluate{
+  background-color: #fff;
+}
+
+.evaluate .ev-header{
+  border-bottom: 1rpx solid #dedede;
+  height: 88rpx;
+  line-height: 88rpx;
+  display: flex;
+  justify-content: space-between;
+  color: #666;
+  font-size:24rpx;
+  padding: 0 20rpx 0 30rpx;
+}
+
+.evaluate .ev-header text{
+  font-size: 26rpx;
+}
+
+.ev-info{
+  display: flex;
+  padding: 20rpx;
+}
+
+.ev-info image{
+  border-radius: 80rpx;
+  width: 80rpx;
+  height: 80rpx;
+  margin: 0 20rpx;
+}
+
+.ev-info .content{
+  flex:1;
+  color:#666;
+  font-size: 20rpx;
+}
+
+.c-head{
+line-height: 50rpx;
+display: flex;
+justify-content: space-between;
+}
+
+.c-head .phone{
+color:#333;
+font-size: 26rpx;
+font-weight: bold;
+}
+
+.c-info{
+line-height: 40rpx;
+}
+
+.detail-info{
+  background-color: #fff;
+  height: 100%;
+  overflow: hidden;
+}
+
+.tabs .tab-nav{
+  display: flex;
+  height: 88rpx;
+  line-height: 88rpx;
+  border-bottom: 1rpx solid #eeeeee;
+}
+
+.tabs .tab-nav view{
+  flex:1;
+  font-size: 26rpx;
+  color:#666;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  display: flex;
+  height: 100%；
+}
+
+.tabs .tab-nav view text{
+  height: 60rpx;
+  line-height: 50rpx;
+  display: block;
+  text-align: center;
+}
+
+.tabs .tab-nav view.on text{
+  color:#ff6600;
+  border-bottom: 5rpx solid #ff6600
+}
+
+.swiper-wrap{
+  width: 100%;
+  height: calc(100% - 88rpx);
+}
+
+.swiper-wrap .tab-content{
+  width: 100%;
+  height: 100%;
+}
+
+.tab-content image{
+  width: 100%; 
+  vertical-align: top;
+}
+
+.bth-add{
+  position: absolute;
+  bottom: 0;
+  height: 98rpx;
+  width: 100%;
+  padding: 15rpx 30rpx;
+  box-sizing: border-box;
+  background-color:#fff;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.bth-add text{
+  margin-right: 30rpx;
+  font-size: 32rpx;
+  line-height: 68rpx;
+  color:#d32f2e;
+  font-weight: bold;
+}
+
+.bth-add .btn{
+  height: 68rpx;
+  /* width: 100%; */
+  width: 345rpx;
+  margin: 0;
+  border-radius:68rpx;
+  overflow: hidden;
+  background-color: #ff6600;
+  font-size:32rpx;
+  font-weight: 500;
+  text-align: center;
+  line-height: 68rpx;
+  color:#fff;
+}
+
+/* 弹窗框 */
+.modal-wrap{
+  position: fixed;
+  top:0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.modal-wrap .mask{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(0,0,0,.5);
+}
+
+.modal-wrap .modal{
+  width:80%;
+  background-color: #ffffff;
+  border-radius: 20rpx;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 5;
+}
+
+.modal .modal-content{
+  padding: 30rpx;
+  min-height: 180rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  box-sizing: border-box;
+  color:#333;
+  font-size:30rpx;
+}
+
+.modal .modal-content text{
+  flex:1;
+}
+
+.modal .modal-footer{
+  border-top:1rpx solid #d1d1d1;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color:#ff6600;
+}

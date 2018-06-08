@@ -18,7 +18,7 @@
   </view>
 
    <scroll-view class="cate-container" scroll-y="{{isScroll}}" scroll-top="{{scrollTop}}" enable-back-to-top="{{true}}" bindscrolltolower="scrollLower">
-  <view class='sub-cate'>
+  <view class='sub-cate' wx:if="{{displayType != 'budget'}}">
     <sub-cate-list code="{{code}}" 
     bindcustomevent="onUpdateScrollStatus"
     bindchangecurrentcate="onChangeCurrentCate"/>
@@ -34,6 +34,6 @@
   </scroll-view>
 
  <action-sheet hidden="{{actionSheetHidden}}" bindchange="actionSheetChange">
-    <filter-action-sheet filterList="{{filterList}}" bindfiltersearch="filterSearch" bindresetsearch="resetFilterSearch"></filter-action-sheet>
+    <filter-action-sheet filterList="{{filterList}}" displayType="{{displayType}}" bindfiltersearch="filterSearch" bindresetsearch="resetFilterSearch"></filter-action-sheet>
 </action-sheet>
 </view>

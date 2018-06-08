@@ -7,7 +7,7 @@
     </view>
     <view class='btn' bindtap='search'>搜索</view>
   </view>
-  <view class='sys' bindtap='scan'>
+  <view class='sys' bindtap='scanCode'>
     <image src='{{qrCodeIcon}}'></image>
   </view>
 </view>

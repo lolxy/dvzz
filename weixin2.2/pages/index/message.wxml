@@ -2,13 +2,13 @@
 <view class='container'>
   <view class='head'>
     <view class='order_tabs'>
-      <view class="order_tab_item {{CurrentTab==index?'active':''}}" wx:for="{{tabs}}" data-index="{{index}}" data-code="{{item.fCode}}" bindtap='ChangeTabs'>
+      <view class="order_tab_item {{CurrentTab==index?'active':''}}" wx:for="{{tabs}}" data-index="{{index}}" data-flag="{{item.flag}}" bindtap='ChangeTabs'>
         {{item.fType}}
       </view>
     </view>
   </view>
   <view class='cont_list_item' wx:for="{{msglist}}">
-    <view class='cont_item_name'>{{item.msgcont}}</view>
-    <view class='cont_item_date'>{{item.msgdate}}</view>
+    <view class='cont_item_name'>{{item.fTitle}}</view>
+    <view class='cont_item_date'>{{item.time}}</view>
   </view>
 </view>

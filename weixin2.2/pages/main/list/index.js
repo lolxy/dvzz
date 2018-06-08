@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    displayType:'',
     isScroll:true,
     scrollTop:0,
     currentBrandPage:0,
@@ -61,6 +62,13 @@ Page({
   onChangeCurrentCate:function(e){
     this.setData({
       code: e.detail,
+      keyword: '',
+      fBrandName: '',
+      fMatColor: '',
+      fNorms: '',
+      fPrice: '',
+      fQuality: '',
+      fShopCityID: '',
       loadedBrand: false,
       currentBrandPage: 0,
       loadedGoods: false,
@@ -107,12 +115,10 @@ Page({
       })
         api.getBrandList({
           data: {
-            fType1Code: this.data.code.currentCode1,
-            fType2Code: this.data.code.currentCode2,
-            fType3Code: this.data.code.currentCode3,
+            fType3Code: this.data.code.currentCode3 || this.data.code.currentCode2 || this.data.code.currentCode1,
             num: this.data.currentBrandPage,
-            lat: app.globalData.area.latitude,
-            lng: app.globalData.area.longitude
+            lat: app.globalData.area.latitude || '',
+            lng: app.globalData.area.longitude || ''
           },
           success: (res) => {
             setTimeout(function () {
@@ -178,8 +184,8 @@ Page({
           fPrice: this.data.fPrice,
           fQuality: this.data.fQuality,
           fShopCityID: this.data.fShopCityID,
-          lat: app.globalData.area.latitude,
-          lng: app.globalData.area.longitude
+          lat: app.globalData.area.latitude || '',
+          lng: app.globalData.area.longitude || ''
         },
         success: (res) => {
           setTimeout(function () {
@@ -286,7 +292,8 @@ Page({
         currentCode3: options.code3 || ""
       },
       keyword: options.keyword || "",
-      fShopCityID: options.fShopCityID||""
+      fShopCityID: options.fShopCityID||"",
+      displayType: options.displayType || ""
     })
     this.getFilterField()
     this.getGoodsList()

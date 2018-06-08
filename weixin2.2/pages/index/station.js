@@ -70,7 +70,13 @@ Page({
   onUnload: function () {
   
   },
-
+  //图片点击放大
+  showimg: function (e) {
+    wx.previewImage({
+      current: '', // 当前显示图片的http链接
+      urls: [e.target.dataset.url] // 需要预览的图片http链接列表
+    })
+  },
   /**
      * 监听点击事件--切换距离、综合
      */
