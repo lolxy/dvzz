@@ -44,7 +44,6 @@ Page({
         let province = addInfo.province
         let city = addInfo.city
         let district = addInfo.district
-        console.log(Array.of(province, city, district))
         this.setData({
           region: Array.of(province, city, district)
         })
@@ -143,7 +142,7 @@ Page({
             success:(res)=>{
               if (res.data.data.fMatID){
                 wx.navigateTo({
-                  url: '/pages/main/detail/index?fMatID=' + res.data.data.fMatID
+                  url: `/pages/main/detail/index?id=${res.data.data.fMatID}&displayType=mall`
                 })
               }else{
                 wx.showToast({

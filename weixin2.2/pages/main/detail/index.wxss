@@ -212,7 +212,7 @@ line-height: 40rpx;
   text-align: center;
 }
 
-.bth-add{
+.bth-add,.bth-select-mat{
   position: absolute;
   bottom: 0;
   height: 98rpx;
@@ -222,9 +222,13 @@ line-height: 40rpx;
   background-color:#fff;
 }
 
-.bth-add .btn{
+.bth-select-mat{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.bth-add .btn,.bth-select-mat .btn{
   height: 68rpx;
-  width: 100%;
   border-radius:68rpx;
   overflow: hidden;
   background-color: #ff6600;
@@ -233,6 +237,27 @@ line-height: 40rpx;
   text-align: center;
   line-height: 68rpx;
   color:#fff;
+}
+
+.bth-select-mat .btn{
+  width: 345rpx;
+  margin: 0;
+}
+
+.bth-select-mat .btn.disabled{
+  background-color: #999999;
+}
+
+.bth-add .btn{
+  width: 100%;
+}
+
+.bth-select-mat text{
+  margin-right: 30rpx;
+  font-size: 32rpx;
+  line-height: 68rpx;
+  color:#d32f2e;
+  font-weight: bold;
 }
 
 /* 弹窗框 */

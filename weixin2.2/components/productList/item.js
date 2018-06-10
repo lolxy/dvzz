@@ -26,7 +26,7 @@ Component({
   methods: {
     gotoPage: function (e) {
       wx.navigateTo({
-        url: `/pages/main/detail/index?id=${e.currentTarget.dataset.id}&title=${e.currentTarget.dataset.title}`
+        url: `/pages/main/detail/index?id=${e.currentTarget.dataset.id}&displayType=${this.data.displayType}&amount=${e.currentTarget.dataset.amount}&selectMatDetailId=${e.currentTarget.dataset.selectid}`
       })
     }
   }

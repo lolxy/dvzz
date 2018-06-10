@@ -19,8 +19,8 @@
   <view class='xuancai-wrap'>
     <view class='x-header'>
       <view class='main'>
-      <view class="add-btn" catchtap="selectAll" wx:if="{{isComfirm || isManager}}">
-          <icon type="{{item.checked ? 'success' : 'circle'}}"  size="18" color="#ff6600"></icon>
+      <view class="add-btn" catchtap="selectAllItem" wx:if="{{isComfirm || isManager}}">
+          <icon type="{{ checkAll ? 'success' : 'circle'}}"  size="18" color="#ff6600"></icon>
         </view>
         <text>{{currentSubMenuName}}</text>
       </view>
@@ -43,14 +43,14 @@
       <view class='item' wx:for="{{goodsList}}" wx:key="{{index}}">
         <view class='main'>{{item.spaceName}}</view>
         <view class='children'>
-          <view class='child-item' wx:for="{{item.children}}" wx:for-item="subitem" wx:for-index="subindex" wx:key="{{subindex}}" data-selectid="{{subitem.fSelectMatDetailID}}" bindtap="gotoSelectMatDetail">
+          <view class='child-item' wx:for="{{item.children}}" wx:for-item="subitem" wx:for-index="subindex" wx:key="{{subindex}}" data-title="{{subitem.fSpace}}{{subitem.fPosition}}选材明细" data-selectid="{{subitem.fSelectMatDetailID}}" bindtap="gotoSelectMatDetail">
             <view class='name'>{{subitem.fPosition}}</view>
-            <view class='price'>{{subitem.fAmount}}元</view>
+            <view class='price'>{{subitem.fAmount || 0}}元</view>
             <block wx:if="{{switchType == 1}}">
-              <view class='btn' catchtap='gotoCatList'>线上选材</view>
+              <view class='btn' data-selectid="{{subitem.fSelectMatDetailID}}" catchtap='gotoGoodsList'>线上选材</view>
             </block>
             <block wx:else>
-              <view class='sys'><image src='{{sysIcon}}'></image></view>
+              <view class='sys' catchtap='scanCode' data-selectid='{{subitem.fSelectMatDetailID}}'  data-amount="{{subitem.fAmount}}"><image src='{{sysIcon}}'></image></view>
             </block>
             <view class='right'><image src="{{rightIcon}}"></image></view>
           </view>
@@ -59,18 +59,18 @@
     </scroll-view>
 
     <scroll-view class='list-line' scroll-y="{{true}}" wx:else>
-      <view class='item' wx:for="{{managerGoodsList}}" wx:key="{{index}}" data-selectid="{{item.fSelectMatDetailID}}" bindtap="gotoSelectMatDetail">
-        <view class="add-btn" catchtap="select" data-dish="{{item.fMatID}}" data-index="{{index}}">
+      <view class='item' wx:for="{{managerGoodsList}}" wx:key="{{index}}" data-selectid="{{item.fSelectMatDetailID}}"  data-title="{{item.fSpace}}{{item.fPosition}}选材明细" bindtap="gotoSelectMatDetail">
+        <view class="add-btn" catchtap="selectItem" data-checked="{{item.fSelectMatDetailID}}" data-index="{{index}}">
           <icon type="{{item.checked ? 'success' : 'circle'}}"  size="18" color="#ff6600"></icon>
         </view>
         <view class='name'>{{item.fSpace}}{{item.fPosition}}</view>
-        <view class='price'>{{item.fAmount}}元</view>
+        <view class='price'>{{item.fAmount || 0}}元</view>
         <view class='opbox'>
           <block wx:if="{{switchType == 1}}">
-            <view class='btn' catchtap='gotoCatList'>线上选材</view>
+            <view class='btn' data-selectid="{{item.fSelectMatDetailID}}" catchtap='gotoGoodsList'>线上选材</view>
           </block>
           <block wx:else>
-            <view class='sys'><image src='{{sysIcon}}'></image></view>
+            <view class='sys' catchtap='scanCode' data-amount="{{item.fAmount}}" data-selectid='{{item.fSelectMatDetailID}}'><image src='{{sysIcon}}'></image></view>
           </block>
           <view class='right'><image src="{{rightIcon}}"></image></view>
         </view>
@@ -90,7 +90,7 @@
       <view class='btn' bindtap='comfirmOrder'>生成订单</view>
       </block>
       <block wx:else>
-      <view class='btn btn-confirm' wx:if="{{!isManager}}">确定生成</view>
+      <view class='btn btn-confirm' wx:if="{{!isManager && !orderStatus}}" bindtap='addSaleorder'>确定生成</view>
       <view class='btn disabled' wx:else>确定生成</view>
       </block>
     </view>
@@ -99,10 +99,10 @@
 
 <!-- 新增弹窗 -->
 <view hidden='{{hiddenModal}}'>
-   <add-item bindcustomevent="actionModal" bindupdate="onUpdateList" currentCatId="{{currentSubMenuId}}" fSelectMatID="{{fSelectMatID}}"></add-item>   
+   <add-item bindcustomevent="actionModal" bindupdate="onUpdateList" currentCatId="{{currentSubMenuId}}"></add-item>   
 </view>
 
 <!-- 提示弹窗 -->
 <view hidden="{{hiddenComfirmModal}}">
-<comfirm-modal content="{{modalContent}}" bindcustomevent="actionComfirmModal"></comfirm-modal>
+<comfirm-modal comfirmType="{{comfirmType}}" selectArr="{{selectArr}}" content="{{modalContent}}" bindcomfirm="actionComfirm" bindclose="actionClose"></comfirm-modal>
 </view>

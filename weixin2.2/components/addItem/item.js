@@ -1,4 +1,5 @@
-const api = require('../../utils/api.js');
+const api = require('../../utils/api.js')
+const app = getApp()
 
 Component({
   /**
@@ -6,9 +7,6 @@ Component({
    */
   properties: {
     currentCatId:{
-      type:String
-    },
-    fSelectMatID:{
       type:String
     }
   },
@@ -130,13 +128,13 @@ Component({
           icon: 'none'
         })
       } else {
-        api.postAddSelectMat({
+        api.addSelectMat({
           data:{
-            fSelectMatID: this.data.fSelectMatID,
+            fSelectMatID: app.globalData.fSelectMatID,
             fUnitID: this.data.unitList[this.data.unitIndex].fID,
             fPosition: this.data.positionList[this.data.positionIndex].fValue,
             fSpace: this.data.spaceList[this.data.spaceIndex].fValue,
-            fQuantity:parseInt(this.data.num),
+            fQuantity:parseFloat(this.data.num),
             fSeriesID:this.data.currentCatId
           },
           success:(res)=>{

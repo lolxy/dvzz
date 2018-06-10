@@ -15,6 +15,8 @@ Page({
     servicename: '客服中心',
     servicephone: '15805959782',
     menurightimg: "../../image/jt1.png",
+    loged:0,
+    binded:0,
   },
 
   /**
@@ -71,33 +73,39 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that=this
+    var that = this
     wx.getStorage({
       key: 'OpenID',
       success: function (res) {
-        if(res.data!=''){
-          console.log(res.data)
+        console.log(res)
+        if (res.data != '') {
           wx.getStorage({
             key: 'APPUserInfo',
             success: function (res) {
-              console.log(res.data.fUserID)
               if (res.data.fUserID) {
                 that.setData({
-                  userInfo: res.data
+                  userInfo: res.data,
+                  loged: 1,
+                  binded: 1
+                })
+              }else {
+                that.setData({
+                  binded: 0
                 })
               }
+              console.log(res)
             },
-            fail: function() {
-              wx.navigateTo({
-                url: 'bind',
+            fail: function (res) {
+              that.setData({
+                loged: 0
               })
             }
           })
         }
       },
-      fail:function(){
-        wx.navigateTo({
-          url: 'login',
+      fail: function (res) {
+        that.setData({
+          loged: 0
         })
       }
     })
@@ -116,7 +124,49 @@ Page({
   onUnload: function () {
 
   },
-  
+  //未登录状态跳转登录
+  tologin: function () {
+    var that = this
+    wx.getStorage({
+      key: 'OpenID',
+      success: function (res) {
+        console.log(res)
+        if (res.data != '') {
+          wx.getStorage({
+            key: 'APPUserInfo',
+            success: function (res) {
+              if (res.data.fUserID) {
+                that.setData({
+                  userInfo: res.data,
+                  loged: 1,
+                  binded: 1
+                })
+              }else {
+                wx.navigateTo({
+                  url: 'bind',
+                })
+              }
+            },
+            fail: function (res) {
+              wx.navigateTo({
+                url: 'bind',
+              })
+            }
+          })
+        }
+      },
+      fail: function (res) {
+        wx.navigateTo({
+          url: 'login',
+        })
+      }
+    })
+  },
+  dowm: function () {
+    wx.navigateTo({
+      url: 'bind',
+    })
+  },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */

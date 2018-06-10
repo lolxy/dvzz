@@ -5,7 +5,7 @@
       <text>{{content}}</text>
     </view>
     <view class='modal-footer'>
-      <view class='comfirm' catchtap='comfirm'>确定</view>
+      <view class='comfirm' data-type='{{comfirmType}}' catchtap='confirm'>确定</view>
       <view class='cance' catchtap='colseModal'>取消</view>
     </view>
   </view>

@@ -1,7 +1,7 @@
 <!--components/productItem/productItem.wxml-->
 <view class='pro-list' wx:if="{{list.length}}">
 <block  wx:for='{{list}}' wx:key='{{index}}'>
-  <view class='pro-item' data-id="{{item.fMatID}}" data-title="{{item.fMatName}}" bindtap='gotoPage' wx:if="{{item.fMatID}}">
+  <view class='pro-item' data-id="{{item.fMatID}}" data-selectid="{{item.fSelectMatDetailID}}" data-amount="{{item.fAmount}}" bindtap='gotoPage' wx:if="{{item.fMatID}}">
     <image src="{{item.fThumbnailUrl?item.fThumbnailUrl:loadimg}}" lazy-load='true' wx:if="{{!displayType}}"></image>
     <image src="{{item.fUrl?item.fUrl:loadimg}}" lazy-load='true' wx:else></image>
     <view class='title'>{{item.fMatName}}</view>

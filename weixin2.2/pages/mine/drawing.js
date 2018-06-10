@@ -6,21 +6,36 @@ Page({
    * 页面的初始数据
    */
   data: {
-    ImgList: ['../../image/default-img.png', '../../image/jzal.png','../../image/qwdz.png'],
+    ImgList: [{}],
     curretimg:0,
     totleimage: 3,
     TouchOrigin: 0,
     TouchMove: 0, 
+    userInfo:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this
     wx.setNavigationBarTitle({
       title: '我的图纸',
     })
-    this.GetData()
+    wx.getStorage({
+      key: 'APPUserInfo',
+      success: function (res) {
+        console.log(res.data)
+        if (res.data) {
+          that.setData({
+            userInfo: res.data
+          })
+        }
+      },
+      complete: function (res) {
+        that.GetData()
+      }
+    })
   },
 
   /**
@@ -80,19 +95,21 @@ Page({
   //获取图片
   GetData: function () {
     var that = this
-    var APPUserInfo = wx.getStorageSync('APPUserInfo') || {}
+    
+    console.log(that.data.userInfo)
     wx.request({
-      url: app.globalData.posturl + 'wx/personalcenter/wallet.do', //url 不能出现端口号
+      url: app.globalData.posturl + 'wx/personalcenter/myDrawings.do', //url 不能出现端口号
       data: {
-        fCustomerID: APPUserInfo.fUserID
+        fCustomerID: that.data.userInfo.fCustomerID
       },
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data);
+        console.log(res.data)
         that.setData({
-          ImgList: res.data.data
+          ImgList: res.data.data,
+          totleimage: res.data.data.length
         })
       },
       method: 'GET'

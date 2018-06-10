@@ -24,7 +24,7 @@
     bindchangecurrentcate="onChangeCurrentCate"/>
   </view>
   <view class='listbox' wx:if="{{currentType == 'goods'}}">
-    <product-list list="{{goodsList}}" displayType="mall" wx:if="{{goodsList.length}}"></product-list>
+    <product-list list="{{goodsList}}" displayType="{{displayType}}" wx:if="{{goodsList.length}}"></product-list>
     <view class='loaded' wx:if="{{loadedGoods}}">没有更多数据了！</view>
   </view>
    <view class='listbox' wx:else>

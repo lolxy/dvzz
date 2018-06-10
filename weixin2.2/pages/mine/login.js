@@ -68,10 +68,11 @@ Page({
               grant_type: 'authorization_code'
             },
             success: function (res2) {
+              console.log(res2)
               wx.setStorage({
                 key: "OpenID",
                 data: res2.data.openid,
-                success:function(res3){
+                success:function(){
                   that.setData({
                     OpenID: res2.data.openid,
                     loged: 1
@@ -121,7 +122,7 @@ Page({
           wx.setStorage({
             key: "APPUserInfo",
             data: res.data.data,
-            success: function (res3) {
+            success: function () {            
               wx.navigateBack({})
             }
           })          

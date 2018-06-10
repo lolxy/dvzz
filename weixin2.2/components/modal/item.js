@@ -21,14 +21,13 @@ Component({
    */
   methods: {
     colseModal: function () {
-      this.triggerEvent('customevent', true)
+      this.triggerEvent('close', true)
     },
     openModal: function () {
-      this.triggerEvent('customevent', false)
+      this.triggerEvent('close', false)
     },
-    comfirm: function () {
-
-      this.triggerEvent('customevent', true)
+    confirm: function (e) {
+      this.triggerEvent('comfirm', true)
     }
   }
 })

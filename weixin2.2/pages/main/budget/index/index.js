@@ -1,5 +1,7 @@
 // pages/main/budget/index/index.js
 const api = require("../../../../utils/api.js");
+const app = getApp()
+
 Page({
 
   /**
@@ -8,8 +10,7 @@ Page({
   data: {
     currentCode:"",
     currentMenu:"",
-    fSelectMatID:"",
-    fCustomerId:"",
+    selectMatType:'',
     rightIcon:'./image/right.png',
     mapIcon:'./image/map.png',
     sumPrice:0,
@@ -22,13 +23,10 @@ Page({
     const self = this
     api.getTouristExpInfo({
       data:{
-        fOpenID:4546545646
+        fOpenID:'00000000000000000000'
       },
       success:(res)=>{
-        self.setData({
-          fSelectMatID: res.data.data.fSelectMatID,
-          fCustomerId: res.data.data.fCustomerID
-        })
+        app.globalData.fSelectMatID = res.data.data.fSelectMatID
         self.getBudgetCate()
       }
     })
@@ -55,7 +53,7 @@ Page({
   getBudgetCatList: function () {
     api.getBudgetCatList({
       data:{
-        fSelectMatID: this.data.fSelectMatID,
+        fSelectMatID: app.globalData.fSelectMatID,
         fCode:this.data.currentCode      
       },
       success: (res) => {
@@ -84,7 +82,7 @@ Page({
   gotoPage:function(e){
     let currentSubCat = e.currentTarget.dataset.subcode
     wx.navigateTo({
-      url: `/pages/main/budget/xuancai/index?code=${this.data.currentCode}&subcode=${currentSubCat}&fSelectMatID=${this.data.fSelectMatID}`
+      url: `/pages/main/budget/xuancai/index?code=${this.data.currentCode}&subcode=${currentSubCat}`
     })
   },
 
@@ -92,21 +90,30 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.type === 'virtual'){
+    this.setData({
+      selectMatType: options.type
+    })
+  },
+
+  // 判断是否已登录以及获取对应的选材数据
+  getSelectMat:function(){
+    if (this.data.selectMatType === 'virtual') {
       this.getTouristExpInfo()
-    }else{
-      this.setData({
-        fSelectMatID:'ff8080815ea21732015ebd497dce192f'
-      })
-      this.getBudgetCate()
+    } else {
+      let APPUserInfo = wx.getStorageSync('APPUserInfo') || {}
+      if (!APPUserInfo.fSelectMatID) {
+        wx.redirectTo({
+          url: '/pages/mine/login',
+        })
+      } else {
+        app.globalData.fSelectMatID = APPUserInfo.fSelectMatID
+      }
     }
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  onShow: function () {
+    this.getBudgetCate()
+    this.getSelectMat()
   },
 
   /**

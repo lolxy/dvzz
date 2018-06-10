@@ -28,7 +28,7 @@
       </view>
     </view>
     <view class='tbody'>
-      <view class='tabrows' wx:for="{{fMPDItemlist[flag]}}" wx:for-item="itemf" wx:for-index="indexf">
+      <view class='tabrows' wx:for="{{fMPDItemlist[flag].list}}" wx:for-item="itemf" wx:for-index="indexf">
         <view class='flex_col_200'>{{itemf}}</view>
         <view class='flex_col_550' >
           <view class='flex_column' wx:for="{{StatusList[flag].list}}" data-id="{{item.fMatID}}" wx:for-item="items" wx:for-index="indexs" wx:if="{{itemf==items.fMPDItem}}">

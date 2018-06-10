@@ -51,7 +51,7 @@ Component({
               success: (res) => {
                 if (res.data.data.fMatID) {
                   wx.navigateTo({
-                    url: '/pages/main/detail/index?fMatID=' + res.data.data.fMatID
+                    url: `/pages/main/detail/index?id=${res.data.data.fMatID}&displayType=mall`
                   })
                 } else {
                   wx.showToast({

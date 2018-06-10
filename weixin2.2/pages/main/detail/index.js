@@ -16,18 +16,38 @@ Page({
     duration: 500,//切换动画持续时间
     circular: true,//是否采用衔接滑动
     currentGoodsId:null,
+    currentSelectMatDetailId:'',
     detail:{},
     evaluate:{},
     mallList:[],
+    collectList: [],
     mallListLoad:false,
+    displayType:'',
     currentTab: 0,
-    isCollect:true,
+    amount:0,
+    isCollect:false,
+    isSelectMat:false,
     hiddenModal:true,
     windowWidth: app.systemInfo.windowWidth,
     windowHeight: app.systemInfo.windowHeight - 10,
     favicon:"./image/favicon.png",
     faviconed:"./image/faviconed.png",
     loadImg: "./image/loadimg.png"
+  },
+
+  /**
+ * 生命周期函数--监听页面加载
+ */
+  onLoad: function (options) {
+    this.setData({
+      currentGoodsId: options.id,
+      displayType: options.displayType || '',
+      amount: options.amount || 0,
+      currentSelectMatDetailId: options.selectMatDetailId || ''
+    })
+    this.getDetail()
+    this.getCollectList()
+    this.getSelectMatStatus()
   },
 
   // 获取商品详情
@@ -44,6 +64,9 @@ Page({
         setTimeout(function () {
           wx.hideLoading()
         }, 2000)
+        wx.setNavigationBarTitle({
+          title: res.data.data.mat.fMatAllName
+        })
         let article = res.data.data.mat.fDesc;
         WxParse.wxParse('article', 'html', article, self, 5);
         self.setData({
@@ -76,6 +99,34 @@ Page({
     })
   },
 
+  // 获取当前选材的收藏列表
+  getCollectList: function () {
+    if (this.data.currentSelectMatDetailId){
+      api.getCollectList({
+        data: {
+          fSelectMatDetailID: this.data.currentSelectMatDetailId
+        },
+        success: (res) => {
+          this.setData({
+            collectList: res.data.data
+          })
+          this.isCollected()
+        }
+      })
+    }
+  },
+
+  // 判断当期商品是否已被收藏
+  isCollected:function(){
+    let collectList = this.data.collectList
+    if (collectList.length){
+      let findCurrentMat = collectList.find(item => item.fMatID === this.data.currentGoodsId)
+      this.setData({
+        isCollect: (findCurrentMat && findCurrentMat.fMatID)?true:false
+      })
+    }
+  },
+
   // 滚动切换标签样式
   switchTabs: function (e) {
     this.setData({
@@ -105,8 +156,40 @@ Page({
 
   // 切换收藏
   toggleCollect:function(e){
-    this.setData({
-      isCollect: !this.data.isCollect
+    if(this.data.isCollect){
+      this.dellCollect()
+    }else{
+      this.addCollect()
+    }
+  },
+
+  // 添加收藏
+  addCollect:function(){
+    api.addCollect({
+      data:{
+        fSelectMatDetailID: this.data.currentSelectMatDetailId,
+        fMatID: this.data.currentGoodsId
+      },
+      success:(res)=>{
+        this.setData({
+          isCollect: true
+        })
+      }
+    })
+  },
+
+  // 删除收藏
+  dellCollect: function () {
+    api.dellCollect({
+      data: {
+        fSelectMatDetailID: this.data.currentSelectMatDetailId,
+        fMatID: this.data.currentGoodsId
+      },
+      success: (res) => {
+        this.setData({
+          isCollect: false
+        })
+      }
     })
   },
 
@@ -121,23 +204,50 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    this.setData({
-      currentGoodsId:options.id
-    })
-    wx.setNavigationBarTitle({
-      title: options.title
-    })
-    this.getDetail()
-  },
-
-  // 加入预算
+  // 加入预算提示
   join:function(){
     this.setData({
       hiddenModal:false
+    })
+  },
+
+  // 加入选材
+  addSelectMatDetail:function(){
+    api.addMatToSelectDetail({
+      data:{
+        fSelectMatDetailID: this.data.currentSelectMatDetailId,
+        fMatID:this.data.currentGoodsId
+      },
+      success:(res)=>{
+        wx.showToast({
+          title: '成功选材！',
+        })
+        this.setData({
+          isSelectMat:true
+        })
+        wx.navigateBack({
+          delta: 2
+        })
+      },
+      fail:(res)=>{
+        wx.showToast({
+          title: res.data.msg,
+        })
+      }
+    })
+  },
+
+  // 判断该商品是否已被加入过
+  getSelectMatStatus:function(){
+    api.getSelectMatDetail({
+      data: {
+        fSelectMatDetailID: this.data.currentSelectMatDetailId
+      },
+      success: (res) => {
+        this.setData({
+          isSelectMat: (res.data.data.fMatID && res.data.data.fMatID === this.data.currentGoodsId)?true:false
+        })
+      }
     })
   },
 

@@ -5,15 +5,23 @@ Page({
    * 页面的初始数据
    */
   data: {
-    BillList:[]
+    //BillList:[],
+    url:'https://www.dovzs.com/APPDWERP/app/fi/stream.do',
+    num:0,
+    fUserID:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that=this
     wx.setNavigationBarTitle({
       title: '消费账单',
+    })
+    that.setData({
+      fUserID: '?fUserID=' + options.fUserID,
+      num: '&num=' + options.num,
     })
   },
 

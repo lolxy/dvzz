@@ -42,7 +42,7 @@ Page({
         if (res.data != '') {
           that.setData({
             OpenID: res.data
-          })       
+          })      
         }
       },
       fail: function () {
@@ -191,13 +191,18 @@ Page({
             key: "APPUserInfo",
             data: res.data.data,
             success: function (res3) {
-              wx.showToast({
-                title: '绑定成功',
-                icon: 'success',
-                duration: 2000
-              })
-              wx.navigateTo({
-                url: 'index',
+              wx.showModal({
+                title: '提示',
+                content: '绑定成功',
+                success: function (res) {
+                  if (res.confirm) {
+                    wx.switchTab({
+                      url: 'index',
+                    })
+                  } else if (res.cancel) {
+                    
+                  }
+                }
               })
             }
           })          
@@ -207,8 +212,8 @@ Page({
             icon: 'success',
             duration: 2000
           })
-          wx.navigateBack({
-            delta: 9
+          wx.switchTab({
+            url: 'index',
           })
         }
       },

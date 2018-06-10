@@ -141,6 +141,13 @@
   vertical-align: middle;
   text-align: center;
 }
+ .thead .flex_col_550 .flex_column > view {
+  font-weight: bold;
+  color:#333333;
+}
+ .thead > view {
+   font-weight: bold;
+ }
 .flex_col_550 .flex_column > view +view {
   border-left: 2rpx solid #ddd;
 }

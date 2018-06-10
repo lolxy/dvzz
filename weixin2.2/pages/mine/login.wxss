@@ -5,7 +5,7 @@ view, image, text,form ,input{
 .container {
   width: 100%;
   height: 100%;
-  padding: 340rpx 135rpx;
+  padding: 240rpx 135rpx;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -13,10 +13,11 @@ view, image, text,form ,input{
   align-items: center;
   background-color: #f3f3f3;
 }
-.logo {
-  width: 450rpx;
-  height: 280rpx;
+image.logo {
+  width: 450rpx!important;
+  height: 285rpx!important;
   margin-bottom: 180rpx;
+  box-sizing: border-box!important;
 }
 .btn {
   width: 480rpx;

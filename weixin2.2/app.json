@@ -27,8 +27,6 @@
     "pages/main/budget/xuancai/index",
     "pages/main/budget/bill/index",
     "pages/main/budget/detail/index",
-    "pages/main/budget/detail2/index",
-    "pages/main/budget/productList/index",
     "pages/order/index",
     "pages/order/list",
     "pages/order/evaluate",

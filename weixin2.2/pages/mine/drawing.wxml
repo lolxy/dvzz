@@ -2,6 +2,6 @@
 <view class='container'>
   <view class='cont_title'>原始结构图({{curretimg+1}}/{{totleimage}})</view>
   <view bindtouchstart='StartF' bindtouchend='EndF'>
-    <image src='{{item}}' class="{{curretimg==index?'active':''}}" wx:for="{{ImgList}}"/>
+    <image src='{{item.fPlanUrl}}' class="{{curretimg==index?'active':''}}" wx:for="{{ImgList}}"/>
   </view>
 </view>

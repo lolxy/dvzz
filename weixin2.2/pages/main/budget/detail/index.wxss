@@ -46,7 +46,8 @@
   overflow: hidden;
 }
 
-.swriper-contains swiper,.swriper-contains swiper image{
+.swriper-contains image{
+  width:100%;
   height: 750rpx;
 }
 

@@ -15,9 +15,9 @@
   <view class='detail-base mb20'>
         <view class='d-head'>
           <view class='title'>{{detail.fMatAllName}}</view>
-          <!-- <view class="favicon" bindtap='toggleCollect'>
+          <view class="favicon" bindtap='toggleCollect' wx:if="{{displayType === 'budget'}}">
             <image src="{{isCollect?faviconed:favicon}}"></image>
-          </view> -->
+          </view> 
         </view>
         <view class='price'>
           <view>
@@ -83,7 +83,12 @@
             </swiper>
         </view>
 </scroll-view>
-<view class='bth-add'>
+<view class='bth-select-mat' wx:if="{{displayType === 'budget'}}">
+  <text>总价：{{amount}}元</text>
+  <button class='btn' bindtap='addSelectMatDetail' wx:if="{{!isSelectMat}}">确定选材</button>
+  <button class='btn disabled' wx:else>已被选过</button>
+</view>
+<view class='bth-add' wx:else>
   <button class='btn' bindtap='join'>加入预算</button>
 </view>
 

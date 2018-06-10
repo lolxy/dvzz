@@ -1,6 +1,5 @@
 // pages/order/index.js
 const app = getApp()
-
 Page({
 
   /**
@@ -27,7 +26,8 @@ Page({
     maxpage: 1, //最大页码(每个页面单独页码)
     menuimg: '../../image/jt1.png',
     SelectAll: 0,
-    totle:0
+    totle:0,
+    userInfo:{}
   },
 
   /**
@@ -52,7 +52,55 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    var that = this
+    wx.getStorage({
+      key: 'OpenID',
+      success: function (res) {
+        console.log(res)
+        if (res.data != '') {
+          wx.getStorage({
+            key: 'APPUserInfo',
+            success: function (res) {
+              if (res.data.fUserID) {
+                that.setData({
+                  userInfo: res.data
+                })
+              }
+            },
+            fail: function (res) {
+              wx.showModal({
+                title: '温馨提示',
+                content: '您还没有绑定微信，请先绑定用户，',
+                success: function (res) {
+                  if (res.confirm) {
+                    wx.navigateTo({
+                      url: '../mine/bind',
+                    })
+                  } else if (res.cancel) {
 
+                  }
+                }
+              })
+            }
+          })
+        }
+      },
+      fail: function (res) {
+        wx.showModal({
+          title: '温馨提示',
+          content: '您还没有登录，请先登录，',
+          success: function (res) {
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '../mine/login',
+              })
+            } else if (res.cancel) {
+              
+            }
+          }
+        })
+      }
+    })
   },
 
   /**
@@ -139,7 +187,7 @@ Page({
     wx.request({
       url: app.globalData.posturl + 'wx/shopOrder/queryOrderList.do', //url 不能出现端口号
       data: {
-        fCustomerID: uinfo.fCustomerID,
+        fCustomerID: that.data.userInfo.fCustomerID,
         fType: that.data.CurrentCode,
         flag: that.data.flag,
         num: that.data.num
@@ -148,6 +196,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
+        console.log(res.data)
         if (that.data.num > 0) {
           let n = that.data.OrderList.length
           for (let i = 0; i < res.data.data.length; i++) {

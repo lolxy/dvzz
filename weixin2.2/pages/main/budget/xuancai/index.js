@@ -9,7 +9,6 @@ Page({
    */
   data: {
     currentCode:'',
-    fSelectMatID:'',
     currentMenu:'',
     currentSubMenu:'',
     currentSubMenuId:'',
@@ -33,20 +32,45 @@ Page({
     goodsList: [],
     isManager: false,
     isComfirm:false,
+    orderStatus:false,
     hiddenComfirmModal: true,
-    modalContent: ""
+    modalContent: "",
+    selectArr:[],
+    checkAll:false
   },
 
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.setData({
+      currentCode: options.code,
+      currentMenu: options.subcode,
+      toMenuView: `item${options.subcode}`
+    }) 
+    this.getBudgetCatList()
+  },
+
+  onShow: function () { 
+    this.getBudgetGoodsList()
+  },
+
+  // 获取二级类别
   getCurrentMenuData:function(e){
     this.setData({
+      isComfirm: false,
+      isManager: false,
       currentMenu:e.currentTarget.dataset.code,
       toMenuView:e.currentTarget.id
     })
     this.getBudgetByIdCatList()
   },
 
+  // 获取三级类别
   getCurrentSubMenuData: function (e) {
     this.setData({
+      isComfirm: false,
+      isManager: false,
       currentSubMenu: e.currentTarget.dataset.code,
       currentSubMenuId: e.currentTarget.dataset.id,
       currentSubMenuName: e.currentTarget.dataset.fvalue,
@@ -83,7 +107,7 @@ Page({
   // 确认是否生成订单
   comfirmOrder:function(){
     this.setData({
-      isComfirm: !this.data.isComfirm
+      isComfirm: true
     })
   },
 
@@ -98,7 +122,8 @@ Page({
   goToselfBuy: function () {
     this.setData({
       hiddenComfirmModal: false,
-      modalContent: "确定要自购吗？"
+      modalContent: "确定要自购吗？",
+      comfirmType:"selfBuy"
     })
   },
 
@@ -106,12 +131,57 @@ Page({
   dellItem: function () {
     this.setData({
       hiddenComfirmModal: false,
-      modalContent: "确定要删除吗？"
+      modalContent: "确定要删除吗？",
+      comfirmType: "dell"
     })
   },
-
   // 执行提示框确认动作
-  actionComfirmModal: function (e) {
+  actionComfirm: function (e) {
+    let arr = this.data.selectArr
+    let comfirmType = this.data.comfirmType
+    this.setData({
+      hiddenComfirmModal: e.detail
+    })
+    if (!arr.length) {
+      wx.showToast({
+        title: '请选择您要操作的选材项',
+        icon: 'none'
+      })
+      return false
+    }
+    if (comfirmType == 'selfBuy') {
+      api.selfBuy({
+        data: {
+          ids: arr
+        },
+        method: 'post',
+        success: (res) => {
+          wx.showToast({
+            title: '当前选择的选项自购成功！',
+            icon: 'none'
+          })
+          this.getBudgetGoodsList()
+        }
+      })
+    }
+    if (comfirmType == 'dell') {
+      api.dellSelectMat({
+        data: {
+          fSelectMatDetailID: arr.join(',')
+        },
+        success: (res) => {
+          wx.showToast({
+            title: '当前选择的选项删除成功！',
+            icon: 'none'
+          })
+          this.getBudgetGoodsList()
+        }
+      })
+    }
+  },
+
+  // 执行提示框取消动作
+  actionClose: function (e) {
     this.setData({
       hiddenComfirmModal: e.detail
     })
@@ -122,16 +192,14 @@ Page({
     this.setData({
       isManager: false
     })
-    if (this.data.isBack) {
-      wx.navigateBack()
-    }
+    this.clearAllChecked()
   },
 
   // 获取预算分类列表
   getBudgetCatList: function () {
     api.getBudgetCatList({
       data: {
-        fSelectMatID: this.data.fSelectMatID,
+        fSelectMatID: app.globalData.fSelectMatID,
         fCode: this.data.currentCode
       },
       success: (res) => {
@@ -150,7 +218,7 @@ Page({
   getBudgetByIdCatList:function(){
     api.getBudgetByIdCatList({
       data:{
-        fSelectMatID: this.data.fSelectMatID,
+        fSelectMatID: app.globalData.fSelectMatID,
         fCode: this.data.currentMenu
       },
       success:(res)=>{
@@ -170,7 +238,7 @@ Page({
   getBudgetGoodsList:function(){
     api.getBudgetGoodsList({
       data:{
-        fSelectMatID: this.data.fSelectMatID,
+        fSelectMatID: app.globalData.fSelectMatID,
         fCode:this.data.currentSubMenu
       },
       success:(res)=>{
@@ -190,11 +258,14 @@ Page({
         })
         let sumPrice = 0
         goodsList.forEach(item=>{
+          item.checked = false
           if (item.fAmount){
             sumPrice = sumPrice + parseFloat(item.fAmount)
           } 
         })
         this.setData({
+          checkAll:false,
+          selectArr:[],
           managerGoodsList: goodsList,
           goodsList: newGoodsList,
           sumPrice: sumPrice
@@ -204,37 +275,130 @@ Page({
   },
 
   // 跳转到当前选材明细页
-  gotoSelectMatDetail:function(){
+  gotoSelectMatDetail:function(e){
     wx.navigateTo({
-      url: '/pages/main/budget/detail2/index'
+      url: `/pages/main/budget/detail/index?id=${e.currentTarget.dataset.selectid}&title=${e.currentTarget.dataset.title}`
     })
   },
 
   // 跳转到选材商品列表页
-  gotoCatList:function(){
+  gotoGoodsList:function(e){
     wx.navigateTo({
-      url: `/pages/main/list/index?code1=${this.data.currentCode}&&code2=${this.data.currentMenu}&code3=${this.data.currentSubMenu}&displayType=budget&catname=${this.data.currentSubMenuName}`
+      url: `/pages/main/list/index?code1=${this.data.currentCode}&&code2=${this.data.currentMenu}&code3=${this.data.currentSubMenu}&displayType=budget&catname=${this.data.currentSubMenuName}&selectid=${e.currentTarget.dataset.selectid}`
     })
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  // 单个选择元素
+  selectItem:function(e){
+    let value = e.currentTarget.dataset.checked
+    let index = e.currentTarget.dataset.index
+    let arr = this.data.selectArr
+    let managerGoodsList = this.data.managerGoodsList
+    let checked = managerGoodsList[index].checked
+    managerGoodsList[index].checked = !checked
+    if (checked){
+      arr.splice(arr.findIndex(item => item === value), 1)
+    }else{
+      arr.push(value)
+    }
     this.setData({
-      currentCode: options.code,
-      currentMenu: options.subcode,
-      fSelectMatID: options.fSelectMatID,
-      toMenuView: `item${options.subcode}`
+      managerGoodsList: managerGoodsList,
+      checkAll: arr.length === managerGoodsList.length ? true:false,
+      selectArr: arr
     })
-    this.getBudgetCatList()
+  },
+  // 全部选择元素
+  selectAllItem:function(){
+    let arr = this.data.managerGoodsList.map(item=>{
+      return item.fSelectMatDetailID
+    })
+    let checkAll = !this.data.checkAll
+    if(checkAll){
+      this.data.managerGoodsList.forEach(item=>{
+        item.checked = true
+      })
+    }else{
+      this.data.managerGoodsList.forEach(item => {
+        item.checked = false
+      })
+    }
+    this.setData({
+      managerGoodsList: this.data.managerGoodsList,
+      checkAll: checkAll,
+      selectArr: checkAll?arr:[]
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+  // 清空全部选择
+  clearAllChecked:function(){
+    this.data.managerGoodsList.forEach(item => {
+      item.checked = false
+    })
+    this.setData({
+      managerGoodsList: this.data.managerGoodsList,
+      checkAll: false,
+      selectArr:[]
+    })
+  },
 
+  // 扫码选材
+  scanCode: function (e) {
+    let fSelectMatDetailID = e.currentTarget.dataset.selectid
+    let amount = e.currentTarget.dataset.amount
+    wx.scanCode({
+      success: function (res) {
+        if (res.result) {
+          api.getScanCode({
+            data: {
+              fMatCode: res.result,
+              fSelectMatDetailID: fSelectMatDetailID
+            },
+            success: (res) => {
+              if (res.data.data.fMatID) {
+                wx.navigateTo({
+                  url: `/pages/main/detail/index?id=${res.data.data.fMatID}&displayType=budget&amount=${amount}&selectMatDetailId=${fSelectMatDetailID}`
+                })
+              } else {
+                wx.showToast({
+                  title: '扫码有误，请重新扫码！',
+                  icon: 'none'
+                })
+              }
+            }
+          })
+        }
+      }
+    })
+  },
+
+  // 生成订单
+  addSaleorder:function(){
+    let arr = this.data.selectArr
+    if (!arr.length) {
+      wx.showToast({
+        title: '请选择您要操作的选材项',
+        icon: 'none'
+      })
+      return false
+    }else{
+      api.addSaleorder({
+        data:{
+          ids:arr,
+          fSelectMatID: app.globalData.fSelectMatID,
+          fID: this.data.currentSubMenuId
+        },
+        method:'post',
+        success:(res)=>{
+          wx.showToast({
+            title: '订单生成成功！',
+            icon: 'none'
+          })
+          this.setData({
+            orderStatus:true
+          })
+        }
+      })
+    }
   },
 
   /**

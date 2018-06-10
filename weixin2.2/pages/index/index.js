@@ -51,6 +51,9 @@ Page({
         });
       }
     }); 
+    wx.showLoading({
+      title: '加载中',
+    }) 
     //请求banner列表
     wx.request({
       url: app.globalData.posturl + 'app/picture/loadBanner.do', //url 不能出现端口号
@@ -59,14 +62,27 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
+               
         that.setData({
           imgUrls: res.data.data
         })
+        setTimeout(function () {
+          wx.hideLoading()
+        }, 2000)
       },
       method: 'GET'
     });
+    wx.showLoading({
+      title: '加载中',
+    }) 
     that.getmenudata()
+    wx.showLoading({
+      title: '加载中',
+    }) 
     that.getorderinfo()
+    wx.showLoading({
+      title: '加载中',
+    }) 
     that.getshopinfo()    
   },
 
@@ -198,6 +214,9 @@ Page({
         that.setData({
           LinkList: res.data.data
         })
+        setTimeout(function () {
+          wx.hideLoading()
+        }, 2000)
       },
       method: 'GET'
     });
@@ -220,6 +239,9 @@ Page({
         that.setData({
           StutList: res.data.data
         })
+        setTimeout(function () {
+          wx.hideLoading()
+        }, 2000)
       },
       method: 'GET'
     });
@@ -248,6 +270,9 @@ Page({
             that.setData({
               ShopList: json.data.data
             })
+            setTimeout(function () {
+              wx.hideLoading()
+            }, 2000)
           },
           method: 'GET'
         });

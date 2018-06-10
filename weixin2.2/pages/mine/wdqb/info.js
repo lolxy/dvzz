@@ -8,7 +8,8 @@ Page({
   data: {
     fAmount:0,
     Cash_Icon:'../../../image/mine/default-img.png',
-    nocash:1
+    nocash:1,
+    userInfo:{}
   },
 
   /**
@@ -18,14 +19,30 @@ Page({
     wx.setNavigationBarTitle({
       title: '我的钱包',
     })
-    this.GetData()
+    var that = this
+    wx.getStorage({
+      key: 'APPUserInfo',
+      success: function (res) {
+        if (res.data.fUserID) {
+          that.setData({
+            userInfo: res.data
+          })
+          this.GetData()
+        }
+      },
+      fail: function (res) {
+        wx.navigateTo({
+          url: 'bind',
+        })
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    
   },
   /**
    * 生命周期函数--监听页面显示
@@ -50,11 +67,10 @@ Page({
   //获取余额
   GetData: function () {
     var that = this
-    var APPUserInfo = wx.getStorageSync('APPUserInfo') || {}
     wx.request({
       url: app.globalData.posturl + 'wx/personalcenter/wallet.do', //url 不能出现端口号
       data: {
-        fUserID: APPUserInfo.fUserID
+        fUserID: that.data.userInfo.fUserID
       },
       header: {
         'content-type': 'application/json' // 默认值
@@ -91,8 +107,9 @@ Page({
    * 消费账单跳转
    */
   ToBill: function (e) {
+    var that=this
     wx.navigateTo({
-      url: 'bill',
+      url: 'bill?fUserID=' + that.data.userInfo.fUserID +'&num='+0,
       success: function (res) {
         //console.log(res.data);        
       }

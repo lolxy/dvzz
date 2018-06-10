@@ -2,49 +2,49 @@
 <scroll-view class="containers" scroll-y="{{true}}">
   <view class='actionbox'>
     <view class='buy'>
-      <view catchtap='gotoXuancai'><image src='{{buyIcon}}'></image>选材</view>
+      <view catchtap='gotoGoodsList'><image src='{{buyIcon}}'></image>选材</view>
     </view>
     <view class='copy' catchtap='openCopyModal'>
       <view><image src='{{copyIcon}}'></image>复制</view>
     </view>
   </view>
   <view class='swriper-contains'>
-      <!-- <swiper-banner imgUrls="{{imgUrls}}"></swiper-banner>  -->
+    <image src="{{detail.fUrl}}" lazy-load data-url="{{detail.fUrl}}" bindtap='viewBigPic'></image>
   </view>
   <view class='detail-base mb20'>
         <view class='d-head'>
-          <view class='title'>瓷砖背景墙卫生间地砖瓷砖背景墙卫生间地砖瓷砖背景墙卫生间地砖瓷砖背景墙卫生间地砖</view>
-          <text>商品编码：A36584255444</text>
+          <view class='title'>{{detail.fMatName}}</view>
+          <text>商品编码：{{detail.fMatCode}}</text>
         </view>
         <view class='box'>
-          <view class='unitprice'>
-              单价：<text>108元/m<text class='sup'>2</text></text>
+          <view class='unitprice' wx:if="{{detail.fPrice}}">
+              单价：<text>{{detail.fPrice}}元/{{detail.fUnitName}}</text>
           </view>
-          <view>
-              规格：<text>600*600</text>
+          <view wx:if="{{detail.fNorms}}">
+              规格：<text>{{detail.fNorms}}</text>
           </view>
-          <view>
-              数量：<text>45m<text class='sup'>2</text></text>
+          <view wx:if="{{detail.fQuantity}}">
+              数量：<text>{{detail.fQuantity}}{{detail.fUnitName}}</text>
           </view>
-          <view>
-              材质：<text>多层实木</text>
+          <view wx:if="{{detail.fQuality}}">
+              材质：<text>{{detail.fQuality}}</text>
           </view>
-          <view class='sum-price'>
-              总价：<text>2330元</text>
+          <view class='sum-price' wx:if="{{detail.fAmount}}">
+              总价：<text>{{detail.fAmount}}元</text>
           </view>
         </view>
       </view>
 
-      <view class='datail-collect-box'>
+      <view class='datail-collect-box' wx:if="{{collectList.length}}">
         <view class='mycollect'>我的收藏</view>
         <view class='item' wx:for="{{collectList}}" wx:key="{{index}}">
-          <image src="{{item.imgurl}}"></image>
+          <image src="{{item.fUrl}}"></image>
           <view class='content'>
             <view class='c-content'>
-              <view class='title'>{{item.title}}</view>
-              <view class='price'>总价：<text>{{item.price}}元</text></view>
+              <view class='title'>{{item.fMatName}}</view>
+              <view class='price'>总价：<text>{{item.fAmount}}元</text></view>
             </view>
-            <view class='dellbox' bindtap='dellItem'>
+            <view class='dellbox' data-collectid="{{item.fSelectMatCollectID}}" bindtap='dellItem'>
               <image src='{{dellIcon}}'></image>
             </view>
           </view>
@@ -53,10 +53,10 @@
 </scroll-view>
 
  <view hidden='{{hiddenModal}}'> 
-  <copy-item bindcustomevent="actionModal"></copy-item>  
+  <copy-item bindcustomevent="actionModal" copyList="{{copyList}}"></copy-item>  
  </view> 
 
 <!-- 提示弹窗 -->
  <view hidden="{{hiddenComfirmModal}}">
-  <comfirm-modal content="{{modalContent}}" bindcustomevent="actionComfirmModal"></comfirm-modal>
+  <comfirm-modal content="{{modalContent}}" bindcomfirm="actionComfirm" bindclose="actionClose"></comfirm-modal>
 </view> 

@@ -4,7 +4,9 @@
     <view class='user-avatar'><open-data type="userAvatarUrl"></open-data></view>
     <view class='user-text'>
       <open-data type="userNickName" class="uname"></open-data>
-      <view class='uaccount'>账号： {{userInfo.fUserNo}}</view>
+      <view class='uaccount' wx:if="{{loged==1}}">账号： {{userInfo.fUserNo}}</view>
+      <view class='uaccount' wx:elif="{{loged==0 &&binded==0}}" bindtap='tologin'>点击登录</view>
+      <view class='uaccount' wx:else bindtap='dowm'>点击绑定</view>
     </view>
     <view class='seticon' data-userid="{{useraccount}}" bindtap='user-set'><image src="{{setimgurl}}"></image></view>
   </view>

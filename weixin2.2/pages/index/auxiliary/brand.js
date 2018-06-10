@@ -80,8 +80,13 @@ Page({
       },
       complete: function (res) {
         console.log(res);
-        
-        wx.navigateBack()
+        wx.setStorage({
+          key: "BrankData",
+          data: res.data.data,
+          success: function (res3) {
+            wx.navigateBack({})
+          }
+        }) 
       },
       method: 'POST'
     });

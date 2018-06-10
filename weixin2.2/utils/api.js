@@ -121,9 +121,64 @@ const getParamList = (params) => {
   wxRequest(params, `${apiURL}/app/data/query.do`);
 }; 
 
-// 新增选材提交
-const postAddSelectMat = (params) => {
+// 新增选材项
+const addSelectMat = (params) => {
   wxRequest(params, `${apiURL}/wx/mainBudget/addSelectMatDetail.do`);
+}; 
+
+// 删除选材项
+const dellSelectMat = (params) => {
+  wxRequest(params, `${apiURL}/wx/mainBudget/deleteSelectMatDetail.do`);
+}; 
+
+// 获取选材明细
+const getSelectMatDetail = (params) => {
+  wxRequest(params, `${apiURL}/wx/mainBudget/querySelectMatDetail.do`);
+}; 
+
+// 获取选项明细页的收藏列表
+const getCollectList = (params) => {
+  wxRequest(params, `${apiURL}/wx/mainBudget/querySelectMatColl.do`);
+}; 
+
+// 添加收藏
+const addCollect = (params) => {
+  wxRequest(params, `${apiURL}/wx/mainBudget/addCollect.do`);
+}; 
+
+// 删除收藏
+const dellCollect = (params) => {
+  wxRequest(params, `${apiURL}/wx/mainBudget/deleteCollect.do`);
+}; 
+
+// 将商品加入选材项
+const addMatToSelectDetail = (params) => {
+  wxRequest(params, `${apiURL}/wx/mainBudget/updateSMSelectMat.do`);
+}; 
+
+// 业主选择自购操作
+const selfBuy = (params) => {
+  wxRequest(params, `${apiURL}/wx/mainBudget/selfBuy.do`);
+}; 
+
+// 业主选择取消自购
+const cancelSelfBuy = (params) => {
+  wxRequest(params, `${apiURL}/wx/mainBudget/cancelSelfBuy.do`);
+}; 
+
+// 选材明细选择复制列表
+const getCopyList = (params) => {
+  wxRequest(params, `${apiURL}/wx/mainBudget/copyList.do`);
+}; 
+
+// 选材明细选择复制操作
+const getCopy = (params) => {
+  wxRequest(params, `${apiURL}/wx/mainBudget/copy.do`);
+}; 
+
+// 生成销售订单
+const addSaleorder = (params) => {
+  wxRequest(params, `${apiURL}/wx/mainBudget/addSaleorder.do`);
 }; 
 
 module.exports = {
@@ -145,5 +200,16 @@ module.exports = {
   getBudgetByIdCatList,
   getBudgetGoodsList,
   getParamList,
-  postAddSelectMat
+  addSelectMat,
+  dellSelectMat,
+  getSelectMatDetail,
+  getCollectList,
+  addCollect,
+  dellCollect,
+  addMatToSelectDetail,
+  selfBuy,
+  cancelSelfBuy,
+  getCopyList,
+  getCopy,
+  addSaleorder
 };

@@ -9,6 +9,7 @@ Page({
    */
   data: {
     displayType:'',
+    currentSelectId:'',
     isScroll:true,
     scrollTop:0,
     currentBrandPage:0,
@@ -35,6 +36,28 @@ Page({
     currentType:"goods",
     filterIcon:"./image/filter.png",
     actionSheetHidden: true
+  },
+
+  /**
+ * 生命周期函数--监听页面加载
+ */
+  onLoad: function (options) {
+    wx.setNavigationBarTitle({
+      title: options.catname
+    })
+    this.setData({
+      code: {
+        currentCode1: options.code1 || "",
+        currentCode2: options.code2 || "",
+        currentCode3: options.code3 || ""
+      },
+      keyword: options.keyword || "",
+      fShopCityID: options.fShopCityID || "",
+      displayType: options.displayType || "mall",
+      currentSelectId: options.selectid || ''
+    })
+    this.getFilterField()
+    this.getGoodsList()
   },
 
   // 切换商品和品牌
@@ -184,6 +207,7 @@ Page({
           fPrice: this.data.fPrice,
           fQuality: this.data.fQuality,
           fShopCityID: this.data.fShopCityID,
+          fSelectMatDetailID: this.data.currentSelectId || '',
           lat: app.globalData.area.latitude || '',
           lng: app.globalData.area.longitude || ''
         },
@@ -276,27 +300,6 @@ Page({
     } else {
       this.getGoodsList()
     }
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    wx.setNavigationBarTitle({
-      title: options.catname
-    })
-    this.setData({
-      code:{
-        currentCode1: options.code1 || "",
-        currentCode2: options.code2 || "",
-        currentCode3: options.code3 || ""
-      },
-      keyword: options.keyword || "",
-      fShopCityID: options.fShopCityID||"",
-      displayType: options.displayType || ""
-    })
-    this.getFilterField()
-    this.getGoodsList()
   },
 
   scrollLower:function(e){

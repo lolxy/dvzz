@@ -1,4 +1,4 @@
-<!--pages/mine/wdqb/bill.wxml-->
+<!--pages/mine/wdqb/bill.wxml
 <view class='container'>
   <view class='list'>
     <view>
@@ -7,4 +7,5 @@
     </view>
     <view class='item_price'>-5元/㎡</view>
   </view>
-</view>
+</view>-->
+<web-view src="{{url+fUserID+num}}"></web-view>

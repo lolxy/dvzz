@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "主材选材",
   "usingComponents": {
     "add-item":  "/components/addItem/item",
     "comfirm-modal": "/components/modal/item"

@@ -13,7 +13,6 @@ Page({
     CurrentCode:0,
     CurrentfID: '',
     ArrowRight: '../../../image/jt1.png',
-    DataType:1
   },
 
   /**
@@ -23,7 +22,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '工人开单',
     })
-    this.GetBillType()
+    
   },
 
   /**
@@ -38,13 +37,22 @@ Page({
    */
   onShow: function () {
     var that = this
-    if (that.data.DataType == 1) {
-      var itemtype = that.data.CurrentCode
-      console.log(itemtype)
-      console.log(appuserinfo)
-    } else {
-      that.GetBillProject()
-    }
+    that.GetBillType()
+    wx.getStorage({
+      key: 'BrankData',
+      success: function (res) {
+        if (res.data) {
+          that.setData({
+            StatusList: res.data
+          })
+          console.log(that.data.StatusList)
+          that.showtabledata() 
+        }
+      },
+      fail: function () {
+        that.GetBillProject()
+      }
+    })
   },
 
   /**
@@ -84,6 +92,20 @@ Page({
           CurrentfID: res.data.data[0].fID, //初始化当前大类
           CurrentCode: res.data.data[0].fCode 
         })
+        wx.getStorage({
+          key: 'BrankData',
+          success: function (res) {
+            console.log(res)
+            if (res.data.fUserID) {
+              that.setData({
+                StatusList: res.data
+              })
+            }
+          },
+          fail: function () {
+            that.GetBillProject()
+          }
+        })
       },
       method: 'GET'
     });
@@ -102,10 +124,9 @@ Page({
       success: function (res) {
         console.log(res.data.data)
         that.setData({
-          StatusList: res.data.data,
-          DataType: 0
+          StatusList: res.data.data
         })
-        
+        that.showtabledata()   
       },
       method: 'GET'
     });
@@ -173,6 +194,48 @@ Page({
         //console.log(res.data);       
       }
     })
+  },
+  showtabledata: function (e) {
+    var that = this    
+    if (that.data.StatusList.length>0){
+      var item = that.data.StatusList
+      for (let i = 0; i < item.length;i++){
+        if (item[i].list){
+          var itemlist = item[i].list
+          var nitemtype = 'fMPDItemlist[' + i + '].fType'
+          that.setData({
+            [nitemtype]: item[i].fType
+          })
+          var k=0
+          for (let j = 0; j < itemlist.length;j++)  {
+            if (j==0){
+              var mitem = 'fMPDItemlist[' + i + '].list['+k+']'
+              that.setData({
+                [mitem]: item[i].list[j].fMPDItem
+              })
+              k++
+            }else{
+              if (item[i].list[j].fMPDItem != item[i].list[j-1].fMPDItem){
+                var mitemfMPDItem = 'fMPDItemlist[' + i + '].list[' + k + ']'
+                that.setData({
+                  [mitemfMPDItem]: item[i].list[j].fMPDItem
+                })
+                k++
+              }
+            }
+          } 
+        } else{
+        let nitem ='fMPDItemlist[' + i + ']'
+          that.setData({
+            [nitem]: []
+          })
+        }
+      }
+    }else {
+      that.setData({
+        fMPDItemlist: [[]]
+      })
+    }
   },
   /**
    * 页面上拉触底事件的处理函数

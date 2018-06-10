@@ -10,7 +10,7 @@
   <view class='xuancai-wrap'>
     <view class='x-header'>
       <text>{{currentMenu}}</text>
-      <navigator url='/pages/main/budget/xuancai/index?code={{currentCode}}&fSelectMatID={{fSelectMatID}}' wx:if="{{xcList.length}}">去选材</navigator>
+      <navigator url='/pages/main/budget/xuancai/index?code={{currentCode}}' wx:if="{{xcList.length}}">去选材</navigator>
     </view>
 
     <scroll-view class='list' scroll-y="{{true}}">

@@ -32,6 +32,7 @@ App({
     userInfo: null,
     location: ['福建省', '泉州市', '晋江市'],
     area: '',
+    fSelectMatID:'',
     posturl: 'https://www.dovzs.com/APPDWERP/',
     appid: 'wxe25ed9f3e82519ef',
     secret: 'cb85a1be394fba94ceadaf02b87081b4',
