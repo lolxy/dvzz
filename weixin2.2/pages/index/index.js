@@ -4,7 +4,8 @@ const app = getApp()
 
 Page({
   data: {
-    region: app.globalData.location,
+    CityItem: [],
+    CurrentCity:'',
     LocalImage: '../../image/local.png',
     QRCode: '../../image/qrimg.png',
     PhoneIcon: '../../image/phone_icon.png',
@@ -30,11 +31,31 @@ Page({
     fCustomerID:''
   },
   /*****  省市区选择   *****/
-  bindRegionChange: function (e) {
+  CityChange: function (e) {
+    app.globalData.location= this.data.Citylist[e.detail.value].fValue
     this.setData({
-      region: e.detail.value
+      CurrentCity: this.data.Citylist[e.detail.value].fValue
     })
-    app.globalData.location = e.detail.value
+  },
+  //获取城市列表
+  GetCityList: function(){
+    var that=this
+    //请求banner列表
+    wx.request({
+      url: app.globalData.posturl + 'wx/personalcenter/queryCityList.do', //url 不能出现端口号
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          Citylist: res.data.data,
+          CurrentCity: app.globalData.location
+        })
+        app.globalData.CityList = res.data.data
+      },
+      method: 'GET'
+    });
   },
   /**
    * 生命周期函数--监听页面加载
@@ -42,7 +63,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     //获取系统信息 
-    
+    this.GetCityList()
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
@@ -249,7 +270,7 @@ Page({
             lng: res.longitude,
             flag: 0,
             distance: 0,
-            fCityName: that.data.region[1].replace(/市/g,'')
+            fCityName: app.globalData.location
           },
           header: {
             'content-type': 'application/json' // 默认值

@@ -21,8 +21,9 @@ Page({
     defaultimg: '../../image/default-img.png',
     transicon: '../../image/pmt.png',
     delicon: '../../image/del-icon.png',
-    listpic: '../../image/default-img.png',
-    fSaleOrderID:''
+    listpic: [],
+    fSaleOrderID:'',
+    PostPicdata:[]
   },
 
   /**
@@ -151,6 +152,8 @@ Page({
     postdata.fUserID = '0CB59692C4FE4143A174F2699F6FA911'
     postdata.fSaleOrderID = that.data.fSaleOrderID
     postdata.fRateContent = e.detail.value.fRateContent
+    postdata.fIsAnonymus = e.detail.value.fIsAnonymus
+    postdata.picList = that.data.PostPicdata
     for (var i = 0; i < e.detail.value.rateListlength;i++) {
       //拼接key
       var listkey = e.detail.value['rateListkey' + i]
@@ -163,18 +166,8 @@ Page({
       //将键值对拼接到数组中
       postdata.rateList[i] = listdata
     }
-    //console.log(postdata)
-    wx.request({
-      url: app.globalData.posturl + 'wx/shopCity/addEvaluate.do', //url 不能出现端口号
-      data: postdata,
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        console.log(res)
-      },
-      method: 'POST'
-    });
+    console.log(postdata)
+    
   },
   /**
    * 页面上拉触底事件的处理函数
@@ -188,5 +181,42 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+  ChooseImage: function(){
+    var that=this
+    wx.chooseImage({
+      success: function (res) {
+        console.log(res)
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        for (let i = 0; i < res.tempFilePaths.length; i++) {
+          wx.uploadFile({
+            url: app.globalData.posturl + 'app/upload.do', //仅为示例，非真实的接口地址
+            filePath: res.tempFilePaths[i],
+            name: 'file_data',
+            success: function (res2) {
+              console.log(res2)
+              var n = that.data.listpic.length
+              var json = JSON.parse(res2.data)
+              console.log(json)
+
+              if (json.data) {                
+                  var itemimg = 'listpic[' + (i + n) + '].img'
+                  var itemfurl = 'listpic[' + (i + n) + '].fUrl'
+                  var itempost = 'PostPicdata[' + (i + n) +'].fUrl'
+                  that.setData({
+                    [itemimg]: json.data.img,
+                    [itemfurl]: json.data.fUrl,
+                    [itempost]: json.data.fUrl
+                  })
+              }
+              //do something
+            }
+          })
+        }
+
+        console.log(that.data.listpic)
+        console.log(that.data.PostPicdata)
+      }
+    })
   }
 })

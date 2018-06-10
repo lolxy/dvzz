@@ -74,6 +74,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.testlog()
+  },
+  testlog:function(){
     var that = this
     wx.getStorage({
       key: 'OpenID',
@@ -86,7 +89,7 @@ Page({
               loged: 1,
               binded: 1
             })
-          }else {
+          } else {
             that.GetBindsta()
           }
         }
@@ -98,7 +101,6 @@ Page({
       }
     })
   },
-
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -182,4 +184,9 @@ Page({
       method: 'GET'
     });
   },
+  logout:function(){
+    app.globalData.userInfo = {}
+    wx.clearStorage()
+    this.testlog()
+  }
 })

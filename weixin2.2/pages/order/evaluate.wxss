@@ -87,6 +87,9 @@
 .item_body > view + .list_grp {
   margin-left: 40rpx;
 }
+.list_grp:nth-child(4n+1) {
+  margin-left: 0!important;
+} 
 .up_grp {
   width: 140rpx;
   height: 140rpx;
@@ -103,6 +106,7 @@
   margin-bottom: 16rpx;
 }
 .up_grp {
+  margin-bottom: 20rpx;
   font-size: 20rpx;
   line-height: 1em;
   color: #333333;
@@ -110,6 +114,7 @@
 .list_grp {
   width: 140rpx;
   height: 140rpx; 
+  margin-bottom: 20rpx;
   border: 2rpx dashed #ff6600;
   border-radius: 10rpx;  
   position: relative;
@@ -156,4 +161,10 @@
   border-radius: 46rpx;
   background-color: #ff6600;
   color: #ffffff;
+}
+/**** 图片列表  ****/
+.image_list {
+  padding-bottom: 0;
+  align-content: flex-start;
+  flex-wrap: wrap;
 }

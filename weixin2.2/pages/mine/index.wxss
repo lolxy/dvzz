@@ -189,3 +189,10 @@ image {
 .form_f > button.active {
   color: #ff6600;
 }
+/**  退出登录按钮  **/
+.items_out {
+  font-size: 32rpx;
+  line-height: 40rpx;
+  color: #333333;
+  text-align: center;
+}

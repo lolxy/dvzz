@@ -25,13 +25,13 @@
       <view class='from_title'>
         <view class='item_name'>上传图片</view>        
       </view>
-      <view class='item_body'>
-        <view class='up_grp'>
+      <view class='item_body image_list'>
+        <view class='up_grp' bindtap='ChooseImage'>
           <image class='up_icon' src="{{transicon}}"/>
           <view>点击上传</view>
         </view>
-        <view class='list_grp'>
-          <image class='list_pic' src="{{listpic}}"/>
+        <view class='list_grp' wx:for="{{listpic}}">
+          <image class='list_pic' src="{{item.img}}"/>
           <image class='del_icon' src="{{delicon}}"/>
         </view>
       </view>

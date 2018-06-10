@@ -3,9 +3,9 @@
   <view class='index_head'>
     <view class='local'>
       <image src='{{LocalImage}}'></image>
-      <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+      <picker mode = "selector" bindchange="CityChange" value="0" range="{{Citylist}}" range-key="fValue">
         <view class="picker">
-          {{region[1]}},{{region[2]}}
+          {{CurrentCity}}
         </view>
       </picker>
     </view>

@@ -28,14 +28,14 @@ const wxRequest = (params, url) => {
   });
 };
 
-// 获取当前城市列表名称
-const getCurrentCityInfo = (params) => {
-  wxRequest(params, 'https://apis.map.qq.com/ws/geocoder/v1/');
-};
-
 // 获取扫码数据
 const getScanCode = (params) => {
   wxRequest(params, `${apiURL}/app/selectmat/scanCode.do`);
+};
+
+// 获取城市列表
+const getCityList = (params) => {
+  wxRequest(params, `${apiURL}/wx/personalcenter/queryCityList.do`);
 };
 
 // 获取主材商城首页banner图片
@@ -183,7 +183,7 @@ const addSaleorder = (params) => {
 
 module.exports = {
   getScanCode,
-  getCurrentCityInfo,
+  getCityList,
   getMallBanner,
   getMallMenu,
   getHomeRecommonList,

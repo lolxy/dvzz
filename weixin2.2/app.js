@@ -30,13 +30,12 @@ App({
   },
   globalData: {
     userInfo: null,
-    location: ['福建省', '泉州市', '晋江市'],
+    location: '泉州',
     area: '',
     fSelectMatID:'',
     posturl: 'https://www.dovzs.com/APPDWERP/',
     appid: 'wxe25ed9f3e82519ef',
     secret: 'cb85a1be394fba94ceadaf02b87081b4',
-    gaodekey: 'f25373107c102c9c02ff92c4596f3b52',
-    qqmapkey:'NPQBZ-262KU-ZTIVY-BL6SQ-77IW7-YYF7Z'
+    gaodekey: 'f25373107c102c9c02ff92c4596f3b52'
   }
 })

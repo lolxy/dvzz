@@ -102,8 +102,20 @@ Page({
     } else {
       let APPUserInfo = wx.getStorageSync('APPUserInfo') || {}
       if (!APPUserInfo.fSelectMatID) {
-        wx.redirectTo({
-          url: '/pages/mine/login',
+        wx.showModal({
+          title: '温馨提示',
+          content: '您还没有登录，请先登录，',
+          success: function (res) {
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '/pages/mine/login',
+              })
+            } else if (res.cancel) {
+              wx.navigateBack({
+                delta: 1
+              })
+            }
+          }
         })
       } else {
         app.globalData.fSelectMatID = APPUserInfo.fSelectMatID

@@ -8,7 +8,7 @@
       <view class='uaccount' wx:elif="{{loged==0}}" bindtap='tologin'>点击登录</view>
       <view class='uaccount' wx:elif="{{loged==1 &&binded==0}}" bindtap='dowm'>点击绑定</view>
     </view>
-    <view class='seticon' data-userid="{{useraccount}}" bindtap='user-set'><image src="{{setimgurl}}"></image></view>
+    <view class='seticon' data-userid="{{useraccount}}" bindtap='userset'><image src="{{setimgurl}}"></image></view>
   </view>
   <view class='list' wx:for="{{itemlist}}" data-ref="{{item.fUrl}}" data-title="{{item.fTitle}}" bindtap='jumptodetail'>
     <view class='items'>
@@ -17,5 +17,7 @@
     </view>
     <image src="{{menurightimg}}"></image>
   </view>
-  
+  <view style="margin-top:20rpx;background-color: #ffffff;padding:24rpx 30rpx;border-bottom:2rpx solid #ddd;">
+    <view class='items_out' bindtap='logout'>退出登录</view>
+  </view>
 </view>

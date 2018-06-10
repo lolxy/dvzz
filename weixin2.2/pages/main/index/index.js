@@ -10,7 +10,7 @@ Page({
     interval: 5000,//banner1 切换间隔
     duration: 500,//切换动画持续时间
     circular: true,//是否采用衔接滑动
-    region:[],
+    currentCity: app.globalData.location,
     windowWidth: app.systemInfo.windowWidth,
     windowHeight: app.systemInfo.windowHeight,
     localImage:"../../../image/local.png",
@@ -32,31 +32,29 @@ Page({
     }
   },
 
-  // 获取城市列表
-  getCurrentCityInfo:function(){
-    api.getCurrentCityInfo({
-      data:{
-        key: app.globalData.qqmapkey,
-        location: `${this.data.latitude},${this.data.longitude}`
-      },
-      success: (res) => {
-        let addInfo = res.data.result.ad_info
-        let province = addInfo.province
-        let city = addInfo.city
-        let district = addInfo.district
-        this.setData({
-          region: Array.of(province, city, district)
-        })
-      }
-    });
+  onShow: function () {
+    this.setData({
+      currentCity: app.globalData.location
+    })
   },
 
   //选择地区城市
-  bindRegionChange: function (e) {
+  cityChange: function (e) {
+    app.globalData.location = this.data.citylist[e.detail.value].fValue
     this.setData({
-      region: e.detail.value
+      currentCity: app.globalData.location
     })
-    app.globalData.location = e.detail.value
+  },
+
+  //获取城市列表
+  getCityList: function (){
+    api.getCityList({
+      success:(res)=>{
+        this.setData({
+          citylist: res.data.data
+        })
+      }
+    })
   },
 
   // 跳转分类页面
@@ -161,9 +159,9 @@ Page({
   init(){
     this.getMallBanner()
     this.getMallMenu()
+    this.getCityList()
     if (this.data.latitude && this.data.longitude){
       this.getHomeRecommonList()
-      this.getCurrentCityInfo()
     }else{
       app.getLocationInfo().then(res => {
         this.setData({
@@ -171,7 +169,6 @@ Page({
           longitude: res.longitude
         })
         this.getHomeRecommonList()
-        this.getCurrentCityInfo()
       });
     }
   },

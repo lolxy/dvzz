@@ -397,9 +397,9 @@ Page({
             title: '订单生成成功！',
             icon: 'none'
           })
-          this.setData({
-            orderStatus:true
-          })
+          // this.setData({
+          //   orderStatus:true
+          // })
         }
       })
     }
