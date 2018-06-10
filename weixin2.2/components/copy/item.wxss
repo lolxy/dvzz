@@ -37,10 +37,13 @@
 
 .modal-head view{
   width: 120rpx;
+  height: 88rpx;
   margin-left: 20rpx;
   vertical-align: top;
   color:#615e5c;
   font-size: 26rpx;
+  position: relative;
+  z-index: 5;
 }
 
 .modal-head view icon{

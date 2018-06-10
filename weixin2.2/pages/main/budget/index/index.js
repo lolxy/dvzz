@@ -23,7 +23,7 @@ Page({
     const self = this
     api.getTouristExpInfo({
       data:{
-        fOpenID:'00000000000000000000'
+        fOpenID:4546545646
       },
       success:(res)=>{
         app.globalData.fSelectMatID = res.data.data.fSelectMatID

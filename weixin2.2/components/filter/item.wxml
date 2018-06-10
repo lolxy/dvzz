@@ -39,14 +39,13 @@
         <text>默认筛选</text>
         <checkbox-group bindchange="selectDefault">
           <label class="checkbox">
-            <checkbox value="1" checked="{{selected}}" color="#ff6600"/>
+            <checkbox checked="{{selected}}" color="#ff6600"/>
           </label>
         </checkbox-group>
       </view>
-      <view class="panel-body" bindtap='getAreaFocus'>
+      <view class="panel-body">
         <view class='text-area'>
-          <input bindinput="bindTextAreaInput" bindblur="bindTextAreaBlur" focus='{{focusArea}}' placeholder='后台配置文字' value='' maxlength="-1" value='{{filterVal}}' wx:if="{{focusArea || !filterVal}}"></input>
-          <view class='area-content' wx:else>{{filterVal}}</view>
+          <view class='area-content'>{{fDefault.fName}}</view>
         </view>
       </view>
     </view>

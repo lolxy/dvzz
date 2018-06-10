@@ -17,6 +17,7 @@ Page({
     menurightimg: "../../image/jt1.png",
     loged:0,
     binded:0,
+    OpenID:''
   },
 
   /**
@@ -77,30 +78,17 @@ Page({
     wx.getStorage({
       key: 'OpenID',
       success: function (res) {
-        console.log(res)
+        that.setData({ OpenID: res.data })
         if (res.data != '') {
-          wx.getStorage({
-            key: 'APPUserInfo',
-            success: function (res) {
-              if (res.data.fUserID) {
-                that.setData({
-                  userInfo: res.data,
-                  loged: 1,
-                  binded: 1
-                })
-              }else {
-                that.setData({
-                  binded: 0
-                })
-              }
-              console.log(res)
-            },
-            fail: function (res) {
-              that.setData({
-                loged: 0
-              })
-            }
-          })
+          if (app.globalData.userInfo) {
+            that.setData({
+              userInfo: app.globalData.userInfo,
+              loged: 1,
+              binded: 1
+            })
+          }else {
+            that.GetBindsta()
+          }
         }
       },
       fail: function (res) {
@@ -130,29 +118,9 @@ Page({
     wx.getStorage({
       key: 'OpenID',
       success: function (res) {
-        console.log(res)
+        that.setData({ OpenID: res.data})
         if (res.data != '') {
-          wx.getStorage({
-            key: 'APPUserInfo',
-            success: function (res) {
-              if (res.data.fUserID) {
-                that.setData({
-                  userInfo: res.data,
-                  loged: 1,
-                  binded: 1
-                })
-              }else {
-                wx.navigateTo({
-                  url: 'bind',
-                })
-              }
-            },
-            fail: function (res) {
-              wx.navigateTo({
-                url: 'bind',
-              })
-            }
-          })
+          that.GetBindsta()
         }
       },
       fail: function (res) {
@@ -186,5 +154,32 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  //请求绑定信息
+  GetBindsta: function () {
+    var that = this
+    wx.request({
+      url: app.globalData.posturl + 'wx/personalcenter/queryUserInfo.do', //url 不能出现端口号
+      data: { fOpenID: that.data.OpenID },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        app.globalData.userInfo = res.data.data
+        if (res.data.code == 1) {
+          that.setData({
+            userInfo: res.data.data,
+            loged: 1,
+            binded: 1
+          })
+        } else {
+          that.setData({
+            loged: 1,
+            binded: 0
+          })
+        }
+      },
+      method: 'GET'
+    });
+  },
 })

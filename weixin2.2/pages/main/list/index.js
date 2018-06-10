@@ -11,6 +11,7 @@ Page({
     displayType:'',
     currentSelectId:'',
     isScroll:true,
+    selected:false,
     scrollTop:0,
     currentBrandPage:0,
     currentGoodsPage: 0,
@@ -30,9 +31,11 @@ Page({
     fPrice:'',
     fQuality:'',
     fShopCityID:'',
+    flag:'',
     brandList:[],
     goodsList:[],
     filterList:[],
+    fDefault:{},
     currentType:"goods",
     filterIcon:"./image/filter.png",
     actionSheetHidden: true
@@ -92,6 +95,7 @@ Page({
       fPrice: '',
       fQuality: '',
       fShopCityID: '',
+      flag:'',
       loadedBrand: false,
       currentBrandPage: 0,
       loadedGoods: false,
@@ -111,17 +115,21 @@ Page({
   getFilterField: function () {
     api.getFilterField({
       data: {
-        fSeriesCode: this.data.code.currentCode3 || this.data.code.currentCode2 || this.data.code.currentCode1
+        fSeriesCode: this.data.code.currentCode3 || this.data.code.currentCode2 || this.data.code.currentCode1,
+        fSelectMatDetailID: this.data.currentSelectId || ''
       },
       success: (res) => {
         let list = res.data.data.list
+        let fDefault = res.data.data.fDefault
         list.forEach((item)=>{
           item.list.forEach((elem,index)=>{
             elem['checked'] = index>0?false:true
           })
         })
         this.setData({
-          filterList:list
+          filterList:list,
+          fDefault: fDefault,
+          selected: fDefault.fValue?true:false
         })
       }
     })
@@ -207,6 +215,7 @@ Page({
           fPrice: this.data.fPrice,
           fQuality: this.data.fQuality,
           fShopCityID: this.data.fShopCityID,
+          flag: this.data.flag,
           fSelectMatDetailID: this.data.currentSelectId || '',
           lat: app.globalData.area.latitude || '',
           lng: app.globalData.area.longitude || ''
@@ -270,7 +279,8 @@ Page({
       fNorms: e.detail.fNorms.length ? e.detail.fNorms.join(',') : '',
       fPrice: e.detail.fPrice.length ? e.detail.fPrice.join(',') : '',
       fQuality: e.detail.fQuality.length ? e.detail.fQuality.join(',') : '',
-      fShopCityID: e.detail.fShopCityID.length ? e.detail.fShopCityID.join(',') : ''
+      fShopCityID: e.detail.fShopCityID.length ? e.detail.fShopCityID.join(',') : '',
+      flag: e.detail.flag
     })
     if (this.data.currentType == "brand") {
       this.getBrandList()
@@ -293,7 +303,8 @@ Page({
       fNorms: e.detail.fNorms.length ? e.detail.fNorms.join(',') : '',
       fPrice: e.detail.fPrice.length ? e.detail.fPrice.join(',') : '',
       fQuality: e.detail.fQuality.length ? e.detail.fQuality.join(',') : '',
-      fShopCityID: e.detail.fShopCityID.length ? e.detail.fShopCityID.join(',') : ''
+      fShopCityID: e.detail.fShopCityID.length ? e.detail.fShopCityID.join(',') : '',
+      flag: e.detail.flag
     })
     if (this.data.currentType == "brand") {
       this.getBrandList()

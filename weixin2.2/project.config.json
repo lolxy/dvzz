@@ -75,7 +75,7 @@
 					"id": 6,
 					"name": "选材明细页",
 					"pathName": "pages/main/budget/detail/index",
-					"query": "id=ff8080815ef66b26015f0a52c5ab1726&title=联捷LDY8012亚马逊"
+					"query": "id=ff8080815ef66b26015f0a52c5ab1726&title=联捷LDY8012亚马逊&typeId=4028815e567cd19901567d151748002a"
 				},
 				{
 					"id": 7,

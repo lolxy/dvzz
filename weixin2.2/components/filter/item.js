@@ -10,6 +10,12 @@ Component({
     },
     filterList:{
       type:Array
+    },
+    fDefault:{
+      type:Object
+    },
+    selected:{
+      type:Boolean
     }
   },
 
@@ -20,9 +26,6 @@ Component({
     downIcon:'./image/down.png',
     isOpen:false,
     currentIndex:null,
-    selected:true,
-    focusArea:false,
-    filterVal:'',
     minPrice:'',
     maxPrice:'',
     params:{
@@ -31,7 +34,8 @@ Component({
       fNorms:[],
       fQuality:[],
       fMatColor:[],
-      fPrice:[]
+      fPrice:[],
+      flag:''
     }
   },
 
@@ -114,13 +118,24 @@ Component({
           })
           return false;
         }
-        let price = Array.of(this.data.minPrice, this.data.maxPrice);
+        let price = Array.of(this.data.minPrice, this.data.maxPrice)
         this.data.params.fPrice = price
-        this.setData({
-          params: this.data.params
-        })
       }
+      this.data.params.flag = this.data.selected ? 1 : 0
+      this.setData({
+        params: this.data.params
+      })
       this.triggerEvent('filtersearch', this.data.params)
+    },
+
+    // 切换默认筛选
+    selectDefault:function(e){
+      this.data.selected = !this.data.selected
+      this.data.params.flag = this.data.selected?1:0
+      this.setData({
+        selected: this.data.selected,
+        params: this.data.params
+      })
     },
 
     resetFilter:function(){
@@ -135,34 +150,17 @@ Component({
         fNorms: [],
         fQuality: [],
         fMatColor: [],
-        fPrice: []
+        fPrice: [],
+        flag: this.data.fDefault.fValue?1:0
       }
       this.setData({
         minPrice:'',
         maxPrice:'',
         filterList:this.data.filterList,
+        selected: this.data.fDefault.fValue ? true : false,
         params: params
       })
       this.triggerEvent('resetsearch', this.data.params)
-    },
-
-    // 获取textarea焦点
-    getAreaFocus:function(){
-      this.setData({
-        focusArea: true
-      })
-    },
-    // 文本框获取焦点
-    bindTextAreaInput:function(e){
-      this.setData({
-        filterVal: e.detail.value
-      })
-    },
-    // 文本框失去焦点
-    bindTextAreaBlur:function(e){
-      this.setData({
-        focusArea: false
-      })
     }
   }
 })

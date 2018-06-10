@@ -11,6 +11,7 @@ Page({
   data: {
     hiddenComfirmModal: true,
     currentId:'',
+    fSeriesID:'',
     modalContent: "",
     hiddenModal: true,
     windowWidth: app.systemInfo.windowWidth,
@@ -29,7 +30,8 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      currentId: options.id
+      currentId: options.id,
+      fSeriesID: options.typeId
     })
     wx.setNavigationBarTitle({
       title: options.title
@@ -38,17 +40,22 @@ Page({
     this.getCollectList()
   },
 
+  onReady: function () {
+    this.copyModel = this.selectComponent("#copyModel");
+  },
+
   // 获取选材详情信息
   getSelectMatDetail:function(){
+    const self = this
     api.getSelectMatDetail({
       data:{
-        fSelectMatDetailID: this.data.currentId
+        fSelectMatDetailID: self.data.currentId
       },
       success: (res) => {
-        this.setData({
+        self.setData({
           detail:res.data.data
         })
-        this.getCopyList()
+        self.getCopyList()
       }
     })
   },
@@ -150,16 +157,44 @@ Page({
         data: {
           fSelectMatID: fSelectMatID,
           fSelectMatDetailID: this.data.currentId,
-          fSeriesID: this.data.detail.fTypeCode,
+          fSeriesID: this.data.fSeriesID,
           fPosition: this.data.detail.fPosition
         },
         success: (res) => {
+          let copyList = res.data.data
+          copyList.forEach(item =>{
+            item.checked = false
+          })
           this.setData({
-            copyList: res.data.data
+            copyList: copyList
           })
         }
       })
     } 
+  },
+
+  actionCopy:function(e){
+    let arr = e.detail
+    if(arr.length){
+      api.getCopy({
+        data:{
+          fSelectMatDetailID:arr.join(','),
+          fMatID: this.data.detail.fMatID
+        },
+        success:(res)=>{
+          wx.showToast({
+            title: '选材复制成功！',
+            icon: 'none'
+          })
+          this.copyModel.clearAllChecked()
+        }
+      })
+    }else{
+      wx.showToast({
+        title: '您没有选择要复制的选项',
+        icon:'none'
+      })
+    }
   },
 
   /**

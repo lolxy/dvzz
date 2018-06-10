@@ -98,23 +98,11 @@ Page({
    */
   onShow: function () {
     var that = this
-    wx.getStorage({
-      key: 'OpenID',
-      success: function (res) {
-        if (res.data != '') {
-          wx.getStorage({
-            key: 'APPUserInfo',
-            success: function (res) {
-              if (res.data.fUserID) {
-                that.setData({
-                  fCustomerID: res.data.fCustomerID
-                })
-              }
-            }
-          })
-        }
-      }
-    })
+    if (app.globalData.userInfo) {
+      that.setData({
+        fCustomerID: app.globalData.userInfo.fCustomerID,
+      })
+    }
   },
 
   /**

@@ -53,7 +53,7 @@
 </scroll-view>
 
  <view hidden='{{hiddenModal}}'> 
-  <copy-item bindcustomevent="actionModal" copyList="{{copyList}}"></copy-item>  
+  <copy-item bindcustomevent="actionModal" copyList="{{copyList}}" bindcomfirmcopy="actionCopy" id="copyModel"></copy-item>  
  </view> 
 
 <!-- 提示弹窗 -->

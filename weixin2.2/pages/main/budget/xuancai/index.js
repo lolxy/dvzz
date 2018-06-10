@@ -52,7 +52,9 @@ Page({
   },
 
   onShow: function () { 
-    this.getBudgetGoodsList()
+    if (this.data.currentSubMenu){
+      this.getBudgetGoodsList()
+    }
   },
 
   // 获取二级类别
@@ -209,7 +211,9 @@ Page({
           menuList: menuList,
           currentMenu: currentMenu ?currentMenu:menuList[0].fCode
         })
-        this.getBudgetByIdCatList()
+        if (this.data.currentMenu){
+          this.getBudgetByIdCatList()
+        }
       }
     })
   },
@@ -277,7 +281,7 @@ Page({
   // 跳转到当前选材明细页
   gotoSelectMatDetail:function(e){
     wx.navigateTo({
-      url: `/pages/main/budget/detail/index?id=${e.currentTarget.dataset.selectid}&title=${e.currentTarget.dataset.title}`
+      url: `/pages/main/budget/detail/index?id=${e.currentTarget.dataset.selectid}&typeId=${this.data.currentSubMenuId}&title=${e.currentTarget.dataset.title}`
     })
   },
 

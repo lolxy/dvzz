@@ -27,7 +27,7 @@
           <text>单位：</text>
            <picker bindchange="bindPickerUnitChange" range-key="{{'fValue'}}" value="{{unitIndex}}" range="{{unitList}}">
             <view class="picker">
-              {{unitList[unitIndex].fValue?unitList[unitIndex].fValue:'请选择位置'}}
+              {{unitList[unitIndex].fValue?unitList[unitIndex].fValue:'请选择单位'}}
               <image src="{{downIcon}}"></image>
             </view>
           </picker>

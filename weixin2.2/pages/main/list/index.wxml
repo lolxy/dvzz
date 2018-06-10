@@ -34,6 +34,6 @@
   </scroll-view>
 
  <action-sheet hidden="{{actionSheetHidden}}" bindchange="actionSheetChange">
-    <filter-action-sheet filterList="{{filterList}}" displayType="{{displayType}}" bindfiltersearch="filterSearch" bindresetsearch="resetFilterSearch"></filter-action-sheet>
+    <filter-action-sheet fDefault="{{fDefault}}" filterList="{{filterList}}" selected="{{selected}}" displayType="{{displayType}}" bindfiltersearch="filterSearch" bindresetsearch="resetFilterSearch"></filter-action-sheet>
 </action-sheet>
 </view>

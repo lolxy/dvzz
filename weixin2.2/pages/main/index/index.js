@@ -123,7 +123,7 @@ Page({
     })
   },
 
-  // 跳转我的中心
+  // 跳转我的消息
   gotoMessage:function(){
     wx.navigateTo({
       url:'/pages/index/message'
@@ -142,7 +142,7 @@ Page({
             success:(res)=>{
               if (res.data.data.fMatID){
                 wx.navigateTo({
-                  url: `/pages/main/detail/index?id=${res.data.data.fMatID}&displayType=mall`
+                  url: `/pages/main/detail/index?id=${res.data.data.fMatID}`
                 })
               }else{
                 wx.showToast({

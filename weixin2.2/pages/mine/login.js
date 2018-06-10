@@ -119,13 +119,10 @@ Page({
       },
       success: function (res) {
         if (res.data.code == 1) {
-          wx.setStorage({
-            key: "APPUserInfo",
-            data: res.data.data,
-            success: function () {            
-              wx.navigateBack({})
-            }
-          })          
+          app.globalData.userInfo = res.data.data
+          wx.switchTab({
+            url: 'index',
+          })      
         } else {
           wx.showModal({
             title: '温馨提示',

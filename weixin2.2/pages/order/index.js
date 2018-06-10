@@ -27,7 +27,8 @@ Page({
     menuimg: '../../image/jt1.png',
     SelectAll: 0,
     totle:0,
-    userInfo:{}
+    userInfo:{},
+    OpenID: ''
   },
 
   /**
@@ -56,31 +57,27 @@ Page({
     wx.getStorage({
       key: 'OpenID',
       success: function (res) {
-        console.log(res)
+        that.setData({ OpenID: res.data })
         if (res.data != '') {
-          wx.getStorage({
-            key: 'APPUserInfo',
+          if (app.globalData.userInfo) {
+            that.setData({
+              userInfo: app.globalData.userInfo
+            })
+          } else {
+            that.GetBindsta()
+          }
+        }else {
+          wx.showModal({
+            title: '温馨提示',
+            content: '您还没有登录，请先登录，',
             success: function (res) {
-              if (res.data.fUserID) {
-                that.setData({
-                  userInfo: res.data
+              if (res.confirm) {
+                wx.navigateTo({
+                  url: '../mine/login',
                 })
-              }
-            },
-            fail: function (res) {
-              wx.showModal({
-                title: '温馨提示',
-                content: '您还没有绑定微信，请先绑定用户，',
-                success: function (res) {
-                  if (res.confirm) {
-                    wx.navigateTo({
-                      url: '../mine/bind',
-                    })
-                  } else if (res.cancel) {
+              } else if (res.cancel) {
 
-                  }
-                }
-              })
+              }
             }
           })
         }
@@ -343,5 +340,38 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+    //请求绑定信息
+  GetBindsta: function () {
+    var that = this
+    wx.request({
+      url: app.globalData.posturl + 'wx/personalcenter/queryUserInfo.do', //url 不能出现端口号
+      data: { fOpenID: that.data.OpenID },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        app.globalData.userInfo = res.data.data
+        if (res.data.code == 1) {          
+          that.setData({
+            userInfo: res.data.data,
+          })
+        } else {
+          wx.showModal({
+            title: '温馨提示',
+            content: '您还没有绑定微信，请先绑定用户，',
+            success: function (res) {
+              if (res.confirm) {
+                wx.navigateTo({
+                  url: '../mine/bind',
+                })
+              } else if (res.cancel) {
+              }
+             }
+          })
+        }
+      },
+      method: 'GET'
+    });
+  },
 })
