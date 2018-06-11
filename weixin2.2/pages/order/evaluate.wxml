@@ -31,7 +31,7 @@
           <view>点击上传</view>
         </view>
         <view class='list_grp' wx:for="{{listpic}}">
-          <image class='list_pic' src="{{item.img}}"/>
+          <image class='list_pic' src="{{item.path}}"/>
           <image class='del_icon' src="{{delicon}}"/>
         </view>
       </view>

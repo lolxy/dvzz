@@ -28,7 +28,7 @@ Page({
     CallIcon: '../../image/callicon.png',
     NaviIcon: '../../image/navicon.png',
     AppraiseIcon: '../../image/AppraiseIcon.png',
-    fCustomerID:''
+    fCustomerID: ''
   },
   /*****  省市区选择   *****/
   CityChange: function (e) {
@@ -62,8 +62,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    //获取系统信息 
-    this.GetCityList()
+    //获取系统信息
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
@@ -124,6 +123,7 @@ Page({
         fCustomerID: app.globalData.userInfo.fCustomerID,
       })
     }
+    this.GetCityList()
   },
 
   /**

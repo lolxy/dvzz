@@ -187,6 +187,7 @@ Page({
     wx.chooseImage({
       success: function (res) {
         console.log(res)
+        
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         for (let i = 0; i < res.tempFilePaths.length; i++) {
           wx.uploadFile({
@@ -194,26 +195,22 @@ Page({
             filePath: res.tempFilePaths[i],
             name: 'file_data',
             success: function (res2) {
-              console.log(res2)
               var n = that.data.listpic.length
               var json = JSON.parse(res2.data)
-              console.log(json)
-
               if (json.data) {                
-                  var itemimg = 'listpic[' + (i + n) + '].img'
-                  var itemfurl = 'listpic[' + (i + n) + '].fUrl'
-                  var itempost = 'PostPicdata[' + (i + n) +'].fUrl'
+                  var itemimg = 'listpic[' + n + '].img'
+                  var itemfurl = 'listpic[' + n + '].path'
+                  var itempost = 'PostPicdata[' + n +'].path'
                   that.setData({
                     [itemimg]: json.data.img,
-                    [itemfurl]: json.data.fUrl,
-                    [itempost]: json.data.fUrl
+                    [itemfurl]: json.data.path,
+                    [itempost]: json.data.path
                   })
+                  n++
               }
-              //do something
             }
           })
         }
-
         console.log(that.data.listpic)
         console.log(that.data.PostPicdata)
       }
