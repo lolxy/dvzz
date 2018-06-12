@@ -76,7 +76,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data);
         if (res.data.data.fAmount){
           that.setData({
             fAmount: res.data.data.fAmount, //待修改
@@ -97,8 +96,7 @@ Page({
   ToRecharge: function (e) {
     wx.navigateTo({
       url: 'recharge',
-      success: function (res) {
-        //console.log(res.data);        
+      success: function (res) {      
       }
     })
   },
@@ -110,8 +108,7 @@ Page({
     var that=this
     wx.navigateTo({
       url: 'bill?fUserID=' + that.data.userInfo.fUserID +'&num='+0,
-      success: function (res) {
-        //console.log(res.data);        
+      success: function (res) {    
       }
     })
   },

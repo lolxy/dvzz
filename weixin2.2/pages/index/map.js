@@ -22,7 +22,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
     this.setData({
       lat: options.lat,
       lng: options.lng,
@@ -30,7 +29,6 @@ Page({
       'markers[0].longitude': options.lng,
       'markers[0].title': options.add,
     })
-    console.log(this.data.markers)
   },
 
   /**

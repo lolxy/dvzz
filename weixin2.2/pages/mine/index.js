@@ -46,8 +46,7 @@ Page({
     }else {
       wx.navigateTo({
         url: e.currentTarget.dataset.ref,
-        success: function (res) {
-          //console.log(res.data);        
+        success: function (res) {   
         }
       })
     }
@@ -166,7 +165,7 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {
+      complete: function (res) {
         app.globalData.userInfo = res.data.data
         if (res.data.code == 1) {
           that.setData({

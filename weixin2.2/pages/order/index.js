@@ -193,7 +193,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data)
         if (that.data.num > 0) {
           let n = that.data.OrderList.length
           for (let i = 0; i < res.data.data.length; i++) {
@@ -218,7 +217,6 @@ Page({
    */
   checkboxChange: function(e) {
     var that = this
-    //console.log('checkbox发生change事件，携带value值为：', e.detail.value)
     for (let i = 0; i < that.data.OrderList.length; i++){
       let item = 'OrderList[' + i + '].Selected'
       that.setData({
@@ -251,7 +249,6 @@ Page({
   */
   SelectAll: function (e) {
     var that = this
-    //console.log('checkbox发生change事件，携带value值为：', e.detail.value)
     if (e.detail.value.length > 0) {
       for (let i = 0; i < that.data.OrderList.length;i++) {
         let item = 'OrderList[' + i + '].Selected'
@@ -277,7 +274,6 @@ Page({
     wx.navigateTo({
       url: 'list?fSaleOrderID=' + e.currentTarget.dataset.fid + '&fTypeCategory=' + e.currentTarget.dataset.item,
       success: function (res) {
-        //console.log(res.data);
       }
     })
   },
@@ -289,7 +285,6 @@ Page({
     wx.navigateTo({
       url: 'evaluate?fSaleOrderID=' + e.currentTarget.dataset.fid,
       success: function (res) {
-        //console.log(res.data);
       }
     })
   },
@@ -298,8 +293,7 @@ Page({
     var that = this
     wx.navigateTo({
       url: '../mine/wdqb/info?fSaleOrderID=' + e.currentTarget.dataset.fid + '&TotleAccont=' + that.data.totle,
-      success: function (res) {
-        //console.log(res.data);       
+      success: function (res) {  
       }
     })
   },
@@ -356,6 +350,7 @@ Page({
           that.setData({
             userInfo: res.data.data,
           })
+          that.GetOrderType()
         } else {
           wx.showModal({
             title: '温馨提示',

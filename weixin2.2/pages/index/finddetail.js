@@ -22,7 +22,6 @@ Page({
       detail: options,
       Discript: discript
     })
-    console.log(this.data)
   },
 
   /**

@@ -39,8 +39,6 @@ Page({
         CurrentCode: 'A01'
       })
     }
-    console.log(this.data.CurrentType)
-    console.log(this.data.CurrentCode)
     this.GetItemType()
   },
 

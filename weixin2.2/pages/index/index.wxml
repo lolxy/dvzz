@@ -2,10 +2,10 @@
 <scroll-view class="container" scroll-y="{{true}}">
   <view class='index_head'>
     <view class='local'>
-      <image src='{{LocalImage}}'></image>
-      <picker mode = "selector" bindchange="CityChange" value="0" range="{{Citylist}}" range-key="fValue">
+      <image src='{{LocalImage}}' class='localicon'></image>
+      <picker mode = "selector" bindchange="cityChange" value="0" range="{{Citylist}}" range-key="fValue">
         <view class="picker">
-          {{CurrentCity}}
+          {{CurrentCity}}<image class='down-icon' src="{{downIcon}}"></image>
         </view>
       </picker>
     </view>
@@ -17,7 +17,7 @@
   </view>
   <view class="customer-top">
     <swiper class='customer-banner' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-      <block wx:for="{{imgUrls}}">
+      <block wx:for="{{imgUrls}}" wx:key="{{index}}">
         <swiper-item>
           <image src="{{item.bPath}}" class="slide-image" data-ftype="{{item.fType}}" data-bUrl="{{item.bUrl}}" bindtap='tourl'/>
         </swiper-item>
@@ -25,7 +25,7 @@
     </swiper>
   </view>
   <view class='linkgrp'>
-    <view class='linkitem' wx:for="{{LinkList}}" data-url="{{item.fUrl}}" bindtap='JumpTo'>
+    <view class='linkitem' wx:for="{{LinkList}}" data-url="{{item.fUrl}}" bindtap='JumpTo' wx:key="{{index}}">
       <image class='linkimg' src='{{item.fImgUrl}}'></image>
       <view class='linkname'>{{item.fTitle}}</view>
     </view>
@@ -62,7 +62,7 @@
       <image src='{{ShopIcon}}'></image>
       <span>多维自装服务站</span>
     </view>
-    <view class='shopcont' wx:for="{{ShopList}}">
+    <view class='shopcont' wx:for="{{ShopList}}" wx:key="{{index}}">
       <image src="{{item.fUrl}}" class='shop_cont_pic' bindtap='showimg' data-url="{{item.fUrl}}"></image>
       <view class='shop_cont_r'>
         <view class='shop_cont_title'>

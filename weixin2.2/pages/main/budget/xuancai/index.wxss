@@ -279,6 +279,7 @@ display: flex;
   color:#d32f2e;
   width: 150rpx;
   padding: 20rpx;
+  text-align: center;
 }
 
 .child-item .btn{
@@ -341,10 +342,15 @@ color:#333;
   padding: 20rpx;
 }
 
+.list-line .name.ml80{
+  margin-left: 80rpx;
+}
+
 .list-line .price{
   color:#d32f2e;
   width: 150rpx;
   padding: 20rpx;
+  text-align: center;
 }
 
 .list-line .opbox{
@@ -377,6 +383,33 @@ color:#333;
   margin: 15rpx;
   width: 120rpx;
   border-radius: 8rpx;
+}
+
+.list-line .btn.btn-cance{
+  border:1rpx solid #03a9f5;
+  color:#03a9f5;
+  padding:0 15rpx;
+  margin: 0rpx;
+}
+
+.shengcheng,.zigou{
+  font-size:24rpx;
+  height: 88rpx;
+  text-align: center;
+  margin:0 15rpx;
+  width: 120rpx;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.shengcheng{
+  color: #8bc24a;
+}
+
+.zigou{
+  color:#03a9f5;
 }
 
 .list-line .sys{
@@ -462,4 +495,9 @@ margin-right: 20rpx;
   border:1rpx solid #999;
   background-color: #999;
   color:#fff;
+}
+
+.total .btn-disabled{
+  color:#999;
+  border:1rpx solid #999;
 }

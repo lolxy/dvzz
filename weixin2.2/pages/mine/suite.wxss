@@ -18,6 +18,7 @@ image {
   background-color: #f3f3f3;
 }
 .list {
+  height: auto;
   margin-bottom: 20rpx;
   background-color: #ffffff;
   border-bottom: 2rpx solid #ddd;

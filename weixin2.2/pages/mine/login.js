@@ -68,7 +68,7 @@ Page({
               grant_type: 'authorization_code'
             },
             success: function (res2) {
-              console.log(res2)
+              app.globalData.fOpenID = res2.data.openid
               wx.setStorage({
                 key: "OpenID",
                 data: res2.data.openid,
@@ -120,9 +120,10 @@ Page({
       success: function (res) {
         if (res.data.code == 1) {
           app.globalData.userInfo = res.data.data
-          wx.switchTab({
-            url: 'index',
-          })      
+          // wx.switchTab({
+          //   url: 'index',
+          // })
+          wx.navigateBack({})      
         } else {
           wx.showModal({
             title: '温馨提示',

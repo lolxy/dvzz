@@ -92,7 +92,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data);
         if (that.data.num > 0){
           let n = that.data.datalist.length
           for (let i=0;i<res.data.data.length;i++) {
@@ -124,7 +123,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data);
         that.setData({
           tabs: res.data.data,
           currentid: res.data.data[0].fOrgID
@@ -140,8 +138,7 @@ Page({
   ToFindDetail: function (e) {
     wx.navigateTo({
       url: 'finddetail?fEmployID=' + e.currentTarget.dataset.feid + '&fEmployName=' + e.currentTarget.dataset.name + '&fYear=' + e.currentTarget.dataset.fyear + '&fMobile=' + e.currentTarget.dataset.phone + '&fIntroduce=' + e.currentTarget.dataset.discript + '&fPhoto=' + e.currentTarget.dataset.fphoto,
-      success: function (res) {
-        //console.log(res.data);        
+      success: function (res) {     
       }
     })
   },

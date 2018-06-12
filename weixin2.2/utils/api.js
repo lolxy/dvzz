@@ -181,6 +181,16 @@ const addSaleorder = (params) => {
   wxRequest(params, `${apiURL}/wx/mainBudget/addSaleorder.do`);
 }; 
 
+// 获取我的消费类型
+const getConsumeType = (params) => {
+  wxRequest(params, `${apiURL}/wx/personalcenter/consumeType.do`);
+}; 
+
+// 获取我的消费明细
+const getConsumeDetail = (params) => {
+  wxRequest(params, `${apiURL}/wx/personalcenter/consumeDetail.do`);
+}; 
+
 module.exports = {
   getScanCode,
   getCityList,
@@ -211,5 +221,7 @@ module.exports = {
   cancelSelfBuy,
   getCopyList,
   getCopy,
-  addSaleorder
+  addSaleorder,
+  getConsumeType,
+  getConsumeDetail
 };

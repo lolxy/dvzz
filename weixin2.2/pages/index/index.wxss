@@ -17,11 +17,19 @@
   line-height: 40rpx;
   display: inline-block;
 }
-.local image {
-  width: 20rpx;
-  height: 30rpx;
+.local .localicon {
+  width: 19rpx;
+  height: 26rpx;
   margin-right: 20rpx;
   vertical-align: middle;
+}
+
+.down-icon{
+  width: 24rpx;
+  height: 24rpx;
+  margin-left: 20rpx;
+  margin-top: 6rpx;
+  vertical-align: top;
 }
 .local  picker {
   display: inline-block;

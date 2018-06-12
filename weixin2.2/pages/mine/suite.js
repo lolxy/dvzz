@@ -16,13 +16,14 @@ Page({
     wx.setNavigationBarTitle({
       title: '我的套房',
     })
+    this.getorderinfo()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    
   },
 
   /**
@@ -52,13 +53,12 @@ Page({
     wx.request({
       url: app.globalData.posturl + 'wx/personalcenter/queryByCustomer.do', //url 不能出现端口号
       data: {
-        fUserID: app.globalData.fUserID
+        fUserID: app.globalData.userInfo.fUserID
       },
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        //console.log(res.data);
         that.setData({
           SuiteList: res.data.data
         })

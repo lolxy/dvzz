@@ -26,7 +26,6 @@ Page({
     that.setData({
       fSaleOrderID: options.fSaleOrderID
     })
-    console.log(options)
     that.GetInfoData()
   },
 
@@ -41,7 +40,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log(app.globalData.area)
   },
 
   /**
@@ -78,7 +76,6 @@ Page({
           fAmount: res.data.data.fAmount,
           flag: res.data.data.flag
         })
-        console.log(res.data)
       },
       method: 'GET'
     });
@@ -90,7 +87,6 @@ Page({
     wx.navigateTo({
       url: 'evaluate?fSaleOrderID=' + e.currentTarget.dataset.fid,
       success: function (res) {
-        //console.log(res.data);
       }
     })
   },
@@ -98,7 +94,6 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    console.log(app.globalData.area)
   },
 
   /**

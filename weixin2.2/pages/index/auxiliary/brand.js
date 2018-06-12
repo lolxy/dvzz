@@ -57,8 +57,6 @@ Page({
       fID: that.data.fID,
       rels:[]
     }
-    //var APPUserInfo = wx.getStorageSync('APPUserInfo') || {}
-    //console.log(APPUserInfo)
     for (var i = 0; i < e.detail.value['categorynum']; i++) {
       
       //利用中间变量组成键值对
@@ -79,7 +77,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       complete: function (res) {
-        console.log(res);
         wx.setStorage({
           key: "BrankData",
           data: res.data.data,
@@ -104,7 +101,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data)
         that.setData({
           TableDataList: res.data.data
         })
@@ -127,7 +123,6 @@ Page({
     that.setData({
       [nitem]: 1
     })
-    //console.log(that.data.TableDataList)
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作

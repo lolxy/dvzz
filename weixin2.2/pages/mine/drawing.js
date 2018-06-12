@@ -25,7 +25,6 @@ Page({
     wx.getStorage({
       key: 'APPUserInfo',
       success: function (res) {
-        console.log(res.data)
         if (res.data) {
           that.setData({
             userInfo: res.data
@@ -95,8 +94,6 @@ Page({
   //获取图片
   GetData: function () {
     var that = this
-    
-    console.log(that.data.userInfo)
     wx.request({
       url: app.globalData.posturl + 'wx/personalcenter/myDrawings.do', //url 不能出现端口号
       data: {
@@ -106,7 +103,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data)
         that.setData({
           ImgList: res.data.data,
           totleimage: res.data.data.length

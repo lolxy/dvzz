@@ -79,7 +79,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data);
         if (that.data.num > 0) {
           let n = that.data.datalist.length
           for (let i = 0; i < res.data.data.length; i++) {

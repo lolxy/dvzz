@@ -57,8 +57,7 @@ Page({
   ToPicList: function (e) {
     wx.navigateTo({
       url: e.currentTarget.dataset.href + '?Type=' + e.currentTarget.dataset.index,
-      success: function (res) {
-        //console.log(res.data);        
+      success: function (res) {    
       }
     })
   },

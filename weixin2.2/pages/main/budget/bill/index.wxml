@@ -2,22 +2,16 @@
 <view class='containers'>
   <view class='nav'>
      <view class='menus'>  
-      <view class="item {{currentType == 'fucai'?'on':''}}" data-type="fucai" bindtap='getCurrentType'>
+     <view class="item {{currentIndex == index?'on':''}}" wx:key="{{index}}" data-index="{{index}}" bindtap='getCurrentType' wx:for="{{orderList}}">
         <view class='item-wrap'>
-          <text class='tit'>辅材报价</text>
-          <text>￥45224元</text>
-        </view>
-      </view>
-      <view class="item {{currentType == 'jiancai'?'on':''}}" data-type="jiancai" bindtap='getCurrentType'>
-        <view class='item-wrap'>
-          <text class='tit'>建材报价</text>
-          <text>￥45224元</text>
+          <text class='tit'>{{item.fValue}}</text>
+          <text>￥{{item.fAmount}}元</text>
         </view>
       </view>
     </view> 
     <scroll-view class='menu-sub' scroll-into-view="{{toMenuSubView}}" scroll-x="{{true}}" style='width:{{windowWidth}}px;'>
-      <view class='item' id="subitem{{item.id}}" data-id="{{item.id}}" wx:for="{{menuList}}" wx:key="{{index}}" bindtap='getCurrentSubMenuData'>
-        <text class="{{currentSubMenu == item.id?'on':''}}">{{item.title}}</text>
+      <view class='item' id="subitem{{listIndex}}" data-id="{{elem.fID}}" data-code="{{elem.fCode}}" wx:for="{{orderList[currentIndex].list}}" wx:key="{{listIndex}}" data-index="{{listIndex}}" wx:for-index="listIndex" wx:for-item="elem" bindtap='getcurrentCodeData'>
+        <text class="{{currentDetailId == elem.fID?'on':''}}">{{elem.fValue}}</text>
       </view>
     </scroll-view> 
   </view>
@@ -33,19 +27,19 @@
     </view>
 
     <scroll-view class='list' scroll-y="{{true}}">
-      <view class='item' wx:for="{{fucaiList}}" wx:key="{{index}}" data-id="{{item.id}}">
+      <view class='item' wx:for="{{formateOrderDetailList}}" wx:key="{{index}}">
         <view class='namebox'>
-          <text class='name'>{{item.name}}</text>
-          <text class='brand'>({{item.brand}})</text>
+          <text class='name'>{{item.fMatName || ''}}</text>
+          <!-- <text class='brand'>({{item.brand}})</text> -->
         </view>
         <view class='specbox'>
-          <block wx:for="{{item.specList}}" wx:for-item="spec" wx:for-index="specIndex" wx:key="{{specIndex}}">
+          <block wx:for="{{item.children}}" wx:for-item="spec" wx:for-index="specIndex" wx:key="{{specIndex}}">
             <view class='spec-list'>
-              <view class='td flex2'>{{spec.spec}}</view>
-              <view class='td'>{{spec.price}}</view>
-              <view class='td'>{{spec.unit}}</view>
-              <view class='td'>{{spec.num}}</view>
-              <view class='td'>{{spec.sumprice}}</view>
+              <view class='td flex2'>{{spec.fNorms}}</view>
+              <view class='td'>{{spec.fPrice}}</view>
+              <view class='td'>{{spec.fUnit}}</view>
+              <view class='td'>{{spec.fQuantity}}</view>
+              <view class='td'>{{spec.fAmount || 0}}</view>
             </view>
           </block>
         </view>
@@ -61,10 +55,13 @@
     </view>
 
     <scroll-view class='list' scroll-y="{{true}}">
-      <view class='item' wx:for="{{attrList}}" wx:key="{{index}}" data-id="{{item.id}}">
-        <view class='td'>{{item.area}}</view>
-        <view class='td flex2'>{{item.spec}}</view>
-        <view class='td'>{{item.price}}元</view>
+      <view class='item' wx:for="{{orderDetailList}}" wx:key="{{index}}">
+        <view class='td'>{{item.fSpace}}{{item.fPosition}}</view>
+        <view class='td flex2 guige'>
+          <text>{{item.fMatName}}</text>
+          <text>{{item.fPrice}}元/{{item.fUnit}}*{{item.fQuantity}}{{item.fUnit}}</text>
+        </view>
+        <view class='td'>{{item.fAmount}}元</view>
       </view>
     </scroll-view>
   </view>

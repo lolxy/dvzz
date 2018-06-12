@@ -19,7 +19,7 @@
   <view class='xuancai-wrap'>
     <view class='x-header'>
       <view class='main'>
-      <view class="add-btn" catchtap="selectAllItem" wx:if="{{isComfirm || isManager}}">
+        <view class="add-btn" catchtap="selectAllItem" wx:if="{{isCanAllChecked && (isComfirm || isManager)}}">
           <icon type="{{ checkAll ? 'success' : 'circle'}}"  size="18" color="#ff6600"></icon>
         </view>
         <text>{{currentSubMenuName}}</text>
@@ -33,8 +33,10 @@
         </view>
       </view>
       <view class='action' wx:else>
-        <view class='acs cart' bindtap='goToselfBuy'><image src="{{cartIcon}}"></image>自购</view>
-        <view class='acs dell' bindtap='dellItem'><image src="{{dellIcon}}"></image>删除</view>
+        <block wx:if="{{isCanAllChecked}}">
+          <view class='acs cart' bindtap='goToselfBuy'><image src="{{cartIcon}}"></image>自购</view>
+          <view class='acs dell' bindtap='dellItem'><image src="{{dellIcon}}"></image>删除</view>
+        </block>
         <view class='cance' bindtap='canceManager'>取消管理</view>
       </view>
     </view>
@@ -46,11 +48,13 @@
           <view class='child-item' wx:for="{{item.children}}" wx:for-item="subitem" wx:for-index="subindex" wx:key="{{subindex}}" data-title="{{subitem.fSpace}}{{subitem.fPosition}}选材明细" data-selectid="{{subitem.fSelectMatDetailID}}" bindtap="gotoSelectMatDetail">
             <view class='name'>{{subitem.fPosition}}</view>
             <view class='price'>{{subitem.fAmount || 0}}元</view>
-            <block wx:if="{{switchType == 1}}">
-              <view class='btn' data-selectid="{{subitem.fSelectMatDetailID}}" catchtap='gotoGoodsList'>线上选材</view>
+            <block wx:if="{{!subitem.fIsSelfBuy && !subitem.fIsGenerated}}">
+              <view class='btn' data-selectid="{{subitem.fSelectMatDetailID}}" catchtap='gotoGoodsList' wx:if="{{switchType == 1}}">线上选材</view>
+              <view class='sys' catchtap='scanCode' data-selectid='{{subitem.fSelectMatDetailID}}'  data-amount="{{subitem.fAmount}}" wx:else><image src='{{sysIcon}}'></image></view>
             </block>
             <block wx:else>
-              <view class='sys' catchtap='scanCode' data-selectid='{{subitem.fSelectMatDetailID}}'  data-amount="{{subitem.fAmount}}"><image src='{{sysIcon}}'></image></view>
+              <view class='zigou' wx:if="{{subitem.fIsSelfBuy == 1}}">自购</view>
+              <view class='shengcheng' wx:else>已生成</view>
             </block>
             <view class='right'><image src="{{rightIcon}}"></image></view>
           </view>
@@ -60,17 +64,22 @@
 
     <scroll-view class='list-line' scroll-y="{{true}}" wx:else>
       <view class='item' wx:for="{{managerGoodsList}}" wx:key="{{index}}" data-selectid="{{item.fSelectMatDetailID}}"  data-title="{{item.fSpace}}{{item.fPosition}}选材明细" bindtap="gotoSelectMatDetail">
-        <view class="add-btn" catchtap="selectItem" data-checked="{{item.fSelectMatDetailID}}" data-index="{{index}}">
+        <view class="add-btn" catchtap="selectItem" data-checked="{{item.fSelectMatDetailID}}" data-index="{{index}}" wx:if="{{!item.fIsSelfBuy && !item.fIsGenerated}}">
           <icon type="{{item.checked ? 'success' : 'circle'}}"  size="18" color="#ff6600"></icon>
         </view>
-        <view class='name'>{{item.fSpace}}{{item.fPosition}}</view>
+        <view class="name {{(item.fIsSelfBuy || item.fIsGenerated) && isCanAllChecked ? 'ml80':''}}">{{item.fSpace}}{{item.fPosition}}</view>
         <view class='price'>{{item.fAmount || 0}}元</view>
         <view class='opbox'>
-          <block wx:if="{{switchType == 1}}">
-            <view class='btn' data-selectid="{{item.fSelectMatDetailID}}" catchtap='gotoGoodsList'>线上选材</view>
+          <block wx:if="{{!item.fIsSelfBuy && !item.fIsGenerated}}">
+            <view class='btn' data-selectid="{{item.fSelectMatDetailID}}" catchtap='gotoGoodsList' wx:if="{{switchType == 1}}">线上选材</view>
+            <view class='sys' catchtap='scanCode' data-selectid='{{item.fSelectMatDetailID}}'  data-amount="{{item.fAmount}}" wx:else><image src='{{sysIcon}}'></image></view>
           </block>
           <block wx:else>
-            <view class='sys' catchtap='scanCode' data-amount="{{item.fAmount}}" data-selectid='{{item.fSelectMatDetailID}}'><image src='{{sysIcon}}'></image></view>
+            <view class='zigou' wx:if="{{item.fIsSelfBuy == 1}}">
+              <view class='btn btn-cance' data-selectid="{{item.fSelectMatDetailID}}" catchtap='canceSelfBuy' wx:if="{{isManager}}">取消自购</view>
+              <text wx:else>自购</text>
+            </view>
+            <view class='shengcheng' wx:else>已生成</view>
           </block>
           <view class='right'><image src="{{rightIcon}}"></image></view>
         </view>
@@ -87,11 +96,12 @@
     <view class='total'>
       <text>合计：{{sumPrice}}元</text>
       <block wx:if="{{!isComfirm}}">
-      <view class='btn' bindtap='comfirmOrder'>生成订单</view>
+      <view class='btn' bindtap='comfirmOrder' wx:if="{{isCanAllChecked}}">生成订单</view>
+      <view class='btn btn-disabled' bindtap='comfirmOrder' wx:else>生成订单</view>
       </block>
       <block wx:else>
-      <view class='btn btn-confirm' wx:if="{{!isManager && !orderStatus}}" bindtap='addSaleorder'>确定生成</view>
-      <view class='btn disabled' wx:else>确定生成</view>
+      <view class='btn btn-confirm' wx:if="{{!isManager && isCanAllChecked}}" bindtap='addSaleorder'>确定生成</view>
+      <view class='btn disabled' bindtap='addSaleorder' wx:else>确定生成</view>
       </block>
     </view>
   </view>

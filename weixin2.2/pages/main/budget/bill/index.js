@@ -1,5 +1,6 @@
 // pages/main/budget/index/index.js
 const app = getApp();
+const api = require("../../../../utils/api.js");
 
 Page({
 
@@ -7,410 +8,101 @@ Page({
    * 页面的初始数据
    */
   data: {
-    currentType: "fucai",
-    currentSubMenu: 1,
-    toMenuView: "item1",
-    toMenuSubView: "subitem1",
-    sumPrice: 0,
-    menuList: [
-      {
-        "id": 1,
-        "title": "瓷砖"
-      },
-      {
-        "id": 2,
-        "title": "马赛克"
-      },
-      {
-        "id": 3,
-        "title": "瓷砖线条"
-      },
-      {
-        "id": 4,
-        "title": "水刀拼花"
-      },
-      {
-        "id": 5,
-        "title": "瓷砖加工"
-      },
-      {
-        "id": 6,
-        "title": "瓷砖"
-      },
-      {
-        "id": 7,
-        "title": "瓷砖"
-      },
-      {
-        "id": 8,
-        "title": "瓷砖"
-      },
-      {
-        "id": 9,
-        "title": "瓷砖"
-      },
-      {
-        "id": 10,
-        "title": "瓷砖"
-      }
-    ],
-    attrList: [
-      {
-        "id": 1,
-        "area": "客餐厅地面",
-        "price": 3235,
-        "spec": "新濠X2SD802005真石 93.0元/㎡*37.9㎡"
-      },
-      {
-        "id": 2,
-        "area": "客餐厅地面",
-        "price": 3235,
-        "spec": "新濠X2SD802005真石 93.0元/㎡*37.9㎡"
-      },
-      {
-        "id": 3,
-        "area": "客餐厅地面",
-        "price": 3235,
-        "spec": "新濠X2SD802005真石 93.0元/㎡*37.9㎡"
-      },
-      {
-        "id": 4,
-        "area": "客餐厅地面",
-        "price": 3235,
-        "spec": "新濠X2SD802005真石 93.0元/㎡*37.9㎡"
-      },
-      {
-        "id": 5,
-        "area": "客餐厅地面",
-        "price": 3235,
-        "spec": "新濠X2SD802005真石 93.0元/㎡*37.9㎡"
-      },
-      {
-        "id": 6,
-        "area": "客餐厅地面",
-        "price": 3235,
-        "spec": "新濠X2SD802005真石 93.0元/㎡*37.9㎡"
-      },
-      {
-        "id": 7,
-        "area": "客餐厅地面",
-        "price": 3235,
-        "spec": "新濠X2SD802005真石 93.0元/㎡*37.9㎡"
-      },
-      {
-        "id": 8,
-        "area": "客餐厅地面",
-        "price": 3235,
-        "spec": "新濠X2SD802005真石 93.0元/㎡*37.9㎡"
-      },
-      {
-        "id": 1,
-        "area": "客餐厅地面",
-        "price": 3235,
-        "spec": "新濠X2SD802005真石 93.0元/㎡*37.9㎡"
-      },
-      {
-        "id": 2,
-        "area": "客餐厅地面",
-        "price": 3235,
-        "spec": "新濠X2SD802005真石 93.0元/㎡*37.9㎡"
-      },
-      {
-        "id": 3,
-        "area": "客餐厅地面",
-        "price": 3235,
-        "spec": "新濠X2SD802005真石 93.0元/㎡*37.9㎡"
-      },
-      {
-        "id": 4,
-        "area": "客餐厅地面",
-        "price": 3235,
-        "spec": "新濠X2SD802005真石 93.0元/㎡*37.9㎡"
-      },
-      {
-        "id": 5,
-        "area": "客餐厅地面",
-        "price": 3235,
-        "spec": "新濠X2SD802005真石 93.0元/㎡*37.9㎡"
-      },
-      {
-        "id": 6,
-        "area": "客餐厅地面",
-        "price": 3235,
-        "spec": "新濠X2SD802005真石 93.0元/㎡*37.9㎡"
-      },
-      {
-        "id": 7,
-        "area": "客餐厅地面",
-        "price": 3235,
-        "spec": "新濠X2SD802005真石 93.0元/㎡*37.9㎡"
-      },
-      {
-        "id": 8,
-        "area": "客餐厅地面",
-        "price": 3235,
-        "spec": "新濠X2SD802005真石 93.0元/㎡*37.9㎡"
-      }
-    ],
-    fucaiList:[
-      {
-        "id":1,
-        "name":"热水管",
-        "brand":"日丰",
-        "specList":[
-          {
-            "id":2,
-            "spec":"28*28(白)",
-            "price":200,
-            "unit":"捆",
-            "num":2,
-            "sumprice":60
-          },
-          {
-            "id": 2,
-            "spec": "28*28(白)",
-            "price": 200,
-            "unit": "捆",
-            "num": 2,
-            "sumprice": 60
-          }
-        ]
-      },
-      {
-        "id": 1,
-        "name": "热水管",
-        "brand": "日丰",
-        "specList": [
-          {
-            "id": 2,
-            "spec": "28*28(白)",
-            "price": 200,
-            "unit": "捆",
-            "num": 2,
-            "sumprice": 60
-          },
-          {
-            "id": 2,
-            "spec": "28*28(白)",
-            "price": 200,
-            "unit": "捆",
-            "num": 2,
-            "sumprice": 60
-          },
-          {
-            "id": 2,
-            "spec": "28*28(白)",
-            "price": 200,
-            "unit": "捆",
-            "num": 2,
-            "sumprice": 60
-          }
-        ]
-      },
-      {
-        "id": 1,
-        "name": "热水管",
-        "brand": "日丰",
-        "specList": [
-          {
-            "id": 2,
-            "spec": "28*28(白)",
-            "price": 200,
-            "unit": "捆",
-            "num": 2,
-            "sumprice": 60
-          },
-          {
-            "id": 2,
-            "spec": "28*28(白)",
-            "price": 200,
-            "unit": "捆",
-            "num": 2,
-            "sumprice": 60
-          }
-        ]
-      },
-      {
-        "id": 1,
-        "name": "热水管",
-        "brand": "日丰",
-        "specList": [
-          {
-            "id": 2,
-            "spec": "28*28(白)",
-            "price": 200,
-            "unit": "捆",
-            "num": 2,
-            "sumprice": 60
-          }
-        ]
-      },
-      {
-        "id": 1,
-        "name": "热水管",
-        "brand": "日丰",
-        "specList": [
-          {
-            "id": 2,
-            "spec": "28*28(白)",
-            "price": 200,
-            "unit": "捆",
-            "num": 2,
-            "sumprice": 60
-          },
-          {
-            "id": 2,
-            "spec": "28*28(白)",
-            "price": 200,
-            "unit": "捆",
-            "num": 2,
-            "sumprice": 60
-          }
-        ]
-      },
-      {
-        "id": 1,
-        "name": "热水管",
-        "brand": "日丰",
-        "specList": [
-          {
-            "id": 2,
-            "spec": "28*28(白)",
-            "price": 200,
-            "unit": "捆",
-            "num": 2,
-            "sumprice": 60
-          }
-        ]
-      },
-      {
-        "id": 1,
-        "name": "热水管",
-        "brand": "日丰",
-        "specList": [
-          {
-            "id": 2,
-            "spec": "28*28(白)",
-            "price": 200,
-            "unit": "捆",
-            "num": 2,
-            "sumprice": 60
-          }
-        ]
-      },
-      {
-        "id": 1,
-        "name": "热水管",
-        "brand": "日丰",
-        "specList": [
-          {
-            "id": 2,
-            "spec": "28*28(白)",
-            "price": 200,
-            "unit": "捆",
-            "num": 2,
-            "sumprice": 60
-          }
-        ]
-      },
-      {
-        "id": 1,
-        "name": "热水管",
-        "brand": "日丰",
-        "specList": [
-          {
-            "id": 2,
-            "spec": "28*28(白)",
-            "price": 200,
-            "unit": "捆",
-            "num": 2,
-            "sumprice": 60
-          }
-        ]
-      },
-      {
-        "id": 1,
-        "name": "热水管",
-        "brand": "日丰",
-        "specList": [
-          {
-            "id": 2,
-            "spec": "28*28(白)",
-            "price": 200,
-            "unit": "捆",
-            "num": 2,
-            "sumprice": 60
-          }
-        ]
-      }
-    ]
+    currentIndex:0,
+    currentType:'',
+    currentDetailId:'',
+    currentCode:'',
+    toMenuView: "item0",
+    toMenuSubView: "subitem0",
+    sumPrice:0,
+    orderList:[],
+    orderDetailList:[],
+    formateOrderDetailList:[]
   },
 
   getCurrentType: function (e) {
+    let currentIndex = e.currentTarget.dataset.index
+    let orderList = this.data.orderList
     this.setData({
-      currentType: e.currentTarget.dataset.type,
-      toMenuSubView: "subitem1",
-      currentSubMenu: 1
+      currentIndex: currentIndex,
+      toMenuSubView: "subitem0",
+      currentCode: orderList[currentIndex].fCode
+    })
+    this.getConsumeType()
+  },
+
+  getcurrentCodeData: function (e) {
+    this.setData({
+      currentCode: e.currentTarget.dataset.code,
+      currentDetailId: e.currentTarget.dataset.id,
+      toMenuSubView: `subitem${e.currentTarget.dataset.index}`
+    })
+    this.getConsumeDetail()
+  },
+
+  // 获取我的消费分类
+  getConsumeType:function(){
+    api.getConsumeType({
+      data:{
+        fCustomerID: app.globalData.fCustomerID
+      },
+      success:(res)=>{
+        let orderList = res.data.data || []
+        let sumPrice = 0
+        let currentType = ''
+        orderList.forEach(item=>{
+          sumPrice = sumPrice + parseFloat(item.fAmount)
+        })
+        if (orderList.length){
+          currentType = orderList[0].fValue.indexOf('主材')>-1?'zhucai':'fucai'
+        }
+        this.setData({
+          orderList: orderList,
+          currentDetailId: orderList[0].list[0].fID,
+          currentCode: orderList[0].list[0].fCode,
+          sumPrice: sumPrice,
+          currentType: currentType
+        })
+        this.getConsumeDetail()
+      }
     })
   },
 
-  getCurrentSubMenuData: function (e) {
-    this.setData({
-      currentSubMenu: e.currentTarget.dataset.id,
-      toMenuSubView: e.currentTarget.id
+  // 获取我的消费明细
+  getConsumeDetail: function () {
+    api.getConsumeDetail({
+      data: {
+        fCustomerID: app.globalData.fCustomerID,
+        fCode: this.data.currentCode
+      },
+      success: (res) => {
+        let orderDetailList = res.data.data
+        let formateOrderDetailList = []
+        let nameArr = orderDetailList.map(item=>{
+          return item.fMatName
+        })
+        nameArr = new Set(nameArr)
+        nameArr.forEach(item=>{
+          let children = orderDetailList.filter((elem) => elem.fMatName === item)
+          let goodsJson = {
+            'fMatName': item,
+            'children': children
+          }
+          formateOrderDetailList.push(goodsJson)
+        })
+        this.setData({
+          orderDetailList: res.data.data,
+          formateOrderDetailList: formateOrderDetailList
+        })
+      }
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    this.setData({
-      isManager: options.isManager ? options.isManager : false,
-      isBack: options.toNext ? options.toNext : false
-    })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
+    this.getConsumeType()
   },
 
   /**

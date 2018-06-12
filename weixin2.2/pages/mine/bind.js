@@ -135,7 +135,6 @@ Page({
   },
   formSubmit: function (e) {
     var that = this
-    //console.log(e.detail.value)
     wx.request({
       url: app.globalData.posturl + 'wx/personalcenter/bindAccount.do', //url 不能出现端口号
       data: {
@@ -202,14 +201,19 @@ Page({
             }
           })      
         }else {
-          wx.showToast({
-            title: '绑定失败',
-            icon: 'success',
-            duration: 2000
-          })
-          wx.switchTab({
-            url: 'index',
-          })
+          wx.showModal({
+            title: '提示',
+            content: '绑定失败,请退出登录后重试绑定',
+            success: function (res) {
+              if (res.confirm) {
+                wx.switchTab({
+                  url: 'index',
+                })
+              } else if (res.cancel) {
+
+              }
+            }
+          }) 
         }
       },
       method: 'GET'

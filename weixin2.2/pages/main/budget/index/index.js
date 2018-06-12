@@ -10,26 +10,11 @@ Page({
   data: {
     currentCode:"",
     currentMenu:"",
-    selectMatType:'',
     rightIcon:'./image/right.png',
     mapIcon:'./image/map.png',
     sumPrice:0,
     menuList:[],
     xcList:[]
-  },
-
-  // 获取游客信息
-  getTouristExpInfo:function(){
-    const self = this
-    api.getTouristExpInfo({
-      data:{
-        fOpenID:4546545646
-      },
-      success:(res)=>{
-        app.globalData.fSelectMatID = res.data.data.fSelectMatID
-        self.getBudgetCate()
-      }
-    })
   },
 
   // 获取预算分类
@@ -86,46 +71,8 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    this.setData({
-      selectMatType: options.type
-    })
-  },
-
-  // 判断是否已登录以及获取对应的选材数据
-  getSelectMat:function(){
-    if (this.data.selectMatType === 'virtual') {
-      this.getTouristExpInfo()
-    } else {
-      let APPUserInfo = wx.getStorageSync('APPUserInfo') || {}
-      if (!APPUserInfo.fSelectMatID) {
-        wx.showModal({
-          title: '温馨提示',
-          content: '您还没有登录，请先登录，',
-          success: function (res) {
-            if (res.confirm) {
-              wx.navigateTo({
-                url: '/pages/mine/login',
-              })
-            } else if (res.cancel) {
-              wx.navigateBack({
-                delta: 1
-              })
-            }
-          }
-        })
-      } else {
-        app.globalData.fSelectMatID = APPUserInfo.fSelectMatID
-      }
-    }
-  },
-
   onShow: function () {
     this.getBudgetCate()
-    this.getSelectMat()
   },
 
   /**

@@ -4,12 +4,13 @@ const app = getApp()
 
 Page({
   data: {
-    CityItem: [],
-    CurrentCity:'',
+    Citylist: [],
+    CurrentCity: app.globalData.location,
     LocalImage: '../../image/local.png',
     QRCode: '../../image/qrimg.png',
     PhoneIcon: '../../image/phone_icon.png',
     msgIcon: '../../image/usr_icon.png',
+    downIcon: "../../image/downicon.png",
     indicatorDots: false,
     autoplay: true, //banner  是否自动播放
     interval: 5000,//banner1 切换间隔
@@ -47,7 +48,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data)
         that.setData({
           Citylist: res.data.data,
           CurrentCity: app.globalData.location
@@ -122,6 +122,7 @@ Page({
       that.setData({
         fCustomerID: app.globalData.userInfo.fCustomerID,
       })
+      that.getorderinfo()
     }
     this.GetCityList()
   },

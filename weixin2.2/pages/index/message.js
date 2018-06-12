@@ -103,7 +103,6 @@ Page({
       },
       success: function (res) {
         if (that.data.num>0){
-          console.log(res.data)
           var n = that.data.msglist.length
           var item = new Array()
           item=that.data.msglist

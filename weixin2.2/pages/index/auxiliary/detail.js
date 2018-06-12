@@ -19,7 +19,6 @@ Page({
     this.setData({ 
       infodata: options
     })
-    console.log(this.data.infodata)
   },
 
   /**

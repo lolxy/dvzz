@@ -30,7 +30,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
     this.setData({ fSaleOrderID: options.fSaleOrderID})
     this.GetEvaluateItem()
 
@@ -144,10 +143,7 @@ Page({
    */
   evaluateSubmit: function(e){
     var that = this
-    //console.log(e.detail.value)
     var postdata={}
-    //var APPUserInfo = wx.getStorageSync('APPUserInfo') || {}
-    //console.log(APPUserInfo)
     postdata.rateList = new Array()
     postdata.fUserID = '0CB59692C4FE4143A174F2699F6FA911'
     postdata.fSaleOrderID = that.data.fSaleOrderID
@@ -166,7 +162,6 @@ Page({
       //将键值对拼接到数组中
       postdata.rateList[i] = listdata
     }
-    console.log(postdata)
     
   },
   /**
@@ -186,7 +181,6 @@ Page({
     var that=this
     wx.chooseImage({
       success: function (res) {
-        console.log(res)
         
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         for (let i = 0; i < res.tempFilePaths.length; i++) {
@@ -211,8 +205,6 @@ Page({
             }
           })
         }
-        console.log(that.data.listpic)
-        console.log(that.data.PostPicdata)
       }
     })
   }

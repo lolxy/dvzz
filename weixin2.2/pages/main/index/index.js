@@ -23,6 +23,7 @@ Page({
     menuList: [],
     recommonList:[],
     cityList:[],
+    hiddenModal: true,
     latitude: app.globalData.area.latitude,
     longitude: app.globalData.area.longitude,
     lanmu:{
@@ -32,9 +33,20 @@ Page({
     }
   },
 
+  // 页面渲染后 执行
+  onLoad: function () {
+    this.init()
+  },
+
   onShow: function () {
     this.setData({
       currentCity: app.globalData.location
+    })
+  },
+
+  onHide:function(){
+    this.setData({
+      hiddenModal: true
     })
   },
 
@@ -173,8 +185,99 @@ Page({
     }
   },
 
-  // 页面渲染后 执行
-  onLoad: function () {
-    this.init()
+  // 获取游客信息
+  getTouristExpInfo: function () {
+    const self = this
+    if (app.globalData.fOpenID){
+      api.getTouristExpInfo({
+        data: {
+          fOpenID: app.globalData.fOpenID
+        },
+        success: (res) => {
+          if (res.data.code == 1) {
+            app.globalData.fSelectMatID = res.data.data.fSelectMatID
+            app.globalData.fCustomerID = res.data.data.fCustomerID
+            wx.navigateTo({
+              url: '/pages/main/budget/index/index',
+            })
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none'
+            })
+          }
+        }
+      })
+    }else{
+      wx.login({
+        success: function (res) {
+          if (res.code) {
+            //发起网络请求微信授权
+            wx.request({
+              url: 'https://api.weixin.qq.com/sns/jscode2session',
+              data: {
+                appid: app.globalData.appid,
+                secret: app.globalData.secret,
+                js_code: res.code,
+                grant_type: 'authorization_code'
+              },
+              success: function (res2) {
+                app.globalData.fOpenID = res2.data.openid
+                self.getTouristExpInfo()
+              }
+            })
+          } else {
+            console.log('登录失败！' + res.errMsg)
+          }
+        }
+      })
+    }
+  },
+
+  // 判断是否已登录以及获取对应的选材数据
+  goToselectMatPage: function (e) {
+    if (e.currentTarget.dataset.type === 'virtual') {
+      this.getTouristExpInfo()
+    } else {
+      let appUserInfo = app.globalData.userInfo || {}
+      if (!appUserInfo.fUserID) {
+        wx.showModal({
+          title: '温馨提示',
+          content: '您还没有登录，请先登录，',
+          success: function (res) {
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '/pages/mine/login',
+              })
+            }
+          }
+        })
+      } else {
+        if (appUserInfo.fSelectMatID && appUserInfo.fCustomerID){
+          app.globalData.fSelectMatID = appUserInfo.fSelectMatID
+          app.globalData.fCustomerID = appUserInfo.fCustomerID
+          wx.navigateTo({
+            url: '/pages/main/budget/index/index',
+          })
+        }else{
+          this.setData({
+            hiddenModal: false
+          })
+        } 
+      }
+    }
+  },
+
+  // 关闭提示弹窗
+  closeModal: function () {
+    this.setData({
+      hiddenModal: true
+    })
+  },
+
+  comfirm: function () {
+    this.setData({
+      hiddenModal: true
+    })
   }
 })

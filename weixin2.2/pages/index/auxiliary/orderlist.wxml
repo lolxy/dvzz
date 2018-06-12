@@ -1,7 +1,7 @@
 <!--pages/index/auxiliary/orderlist.wxml-->
 <view class='container' style="padding-bottom: 100rpx;">
   <view class='head'>
-    <view class='order_tabs' wx:for="{{tabs}}" data-url='{{item.LinkUrl}}' bindtap='jumpurl'>
+    <view class='order_tabs' wx:for="{{tabs}}" data-url='{{item.LinkUrl}}' bindtap='jumpurl' wx:key="{{index}}">
       <image src="{{item.TabIcon}}"/>
       <view>{{item.TabsName}}</view>
     </view>

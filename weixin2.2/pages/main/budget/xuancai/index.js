@@ -32,11 +32,13 @@ Page({
     goodsList: [],
     isManager: false,
     isComfirm:false,
-    orderStatus:false,
     hiddenComfirmModal: true,
     modalContent: "",
     selectArr:[],
-    checkAll:false
+    isCanAllChecked:false,
+    canSelectGoodList:[],
+    checkAll:false,
+    currentSelfBuyId:''
   },
 
   /**
@@ -108,9 +110,16 @@ Page({
 
   // 确认是否生成订单
   comfirmOrder:function(){
-    this.setData({
-      isComfirm: true
-    })
+    if (this.data.isCanAllChecked){
+      this.setData({
+        isComfirm: true
+      })
+    }else{
+      wx.showToast({
+        title: '当前没有可以生成订单的选材明细！',
+        icon:'none'
+      })
+    }
   },
 
   //点击管理执行结果
@@ -129,6 +138,16 @@ Page({
     })
   },
 
+  // 是否取消自购确认
+  canceSelfBuy: function (e) {
+    this.setData({
+      hiddenComfirmModal: false,
+      modalContent: "确定要取消自购吗？",
+      comfirmType: "canceSelfBuy",
+      currentSelfBuyId: e.currentTarget.dataset.selectid
+    })
+  },
+
   // 是否删除
   dellItem: function () {
     this.setData({
@@ -144,36 +163,53 @@ Page({
     this.setData({
       hiddenComfirmModal: e.detail
     })
-    if (!arr.length) {
-      wx.showToast({
-        title: '请选择您要操作的选材项',
-        icon: 'none'
-      })
-      return false
+    if (comfirmType == 'dell' || comfirmType == 'selfBuy'){
+      if (!arr.length) {
+        wx.showToast({
+          title: '请选择您要操作的选材项',
+          icon: 'none'
+        })
+        return false
+      }
+      if (comfirmType == 'selfBuy') {
+        api.selfBuy({
+          data: {
+            ids: arr
+          },
+          method: 'post',
+          success: (res) => {
+            wx.showToast({
+              title: '当前选择的选项自购成功！',
+              icon: 'none'
+            })
+            this.getBudgetGoodsList()
+          }
+        })
+      }
+      if (comfirmType == 'dell') {
+        api.dellSelectMat({
+          data: {
+            fSelectMatDetailID: arr.join(',')
+          },
+          success: (res) => {
+            wx.showToast({
+              title: '当前选择的选项删除成功！',
+              icon: 'none'
+            })
+            this.getBudgetGoodsList()
+          }
+        })
+      }
     }
-    if (comfirmType == 'selfBuy') {
-      api.selfBuy({
+    if (comfirmType == 'canceSelfBuy') {
+      api.cancelSelfBuy({
         data: {
-          ids: arr
+          ids: Array.of(this.data.currentSelfBuyId)
         },
         method: 'post',
         success: (res) => {
           wx.showToast({
-            title: '当前选择的选项自购成功！',
-            icon: 'none'
-          })
-          this.getBudgetGoodsList()
-        }
-      })
-    }
-    if (comfirmType == 'dell') {
-      api.dellSelectMat({
-        data: {
-          fSelectMatDetailID: arr.join(',')
-        },
-        success: (res) => {
-          wx.showToast({
-            title: '当前选择的选项删除成功！',
+            title: '取消自购成功！',
             icon: 'none'
           })
           this.getBudgetGoodsList()
@@ -260,19 +296,27 @@ Page({
           }
           newGoodsList.push(goodsJson)
         })
-        let sumPrice = 0
+        // let sumPrice = 0
+        let isCanAllChenked = goodsList.some(item=>{
+          return !item.fIsSelfBuy && !item.fIsGenerated  
+        })
+        let canSelectGoodList = []
         goodsList.forEach(item=>{
           item.checked = false
-          if (item.fAmount){
-            sumPrice = sumPrice + parseFloat(item.fAmount)
-          } 
+          if (!item.fIsSelfBuy && !item.fIsGenerated){
+            canSelectGoodList = canSelectGoodList.concat(item)
+          }
+          // if (item.fAmount && !item.fIsSelfBuy){
+          //   sumPrice = sumPrice + parseFloat(item.fAmount)
+          // } 
         })
         this.setData({
           checkAll:false,
           selectArr:[],
+          isCanAllChecked: isCanAllChenked,
           managerGoodsList: goodsList,
           goodsList: newGoodsList,
-          sumPrice: sumPrice
+          canSelectGoodList: canSelectGoodList
         })
       }
     })
@@ -302,34 +346,50 @@ Page({
     managerGoodsList[index].checked = !checked
     if (checked){
       arr.splice(arr.findIndex(item => item === value), 1)
+      if (managerGoodsList[index].fAmount) {
+        this.data.sumPrice = this.data.sumPrice - parseFloat(managerGoodsList[index].fAmount)
+      }
     }else{
       arr.push(value)
+      if (managerGoodsList[index].fAmount) {
+        this.data.sumPrice = this.data.sumPrice + parseFloat(managerGoodsList[index].fAmount)
+      }
     }
     this.setData({
       managerGoodsList: managerGoodsList,
-      checkAll: arr.length === managerGoodsList.length ? true:false,
-      selectArr: arr
+      checkAll: arr.length === this.data.canSelectGoodList.length ? true:false,
+      selectArr: arr,
+      sumPrice: this.data.sumPrice
     })
   },
   // 全部选择元素
   selectAllItem:function(){
-    let arr = this.data.managerGoodsList.map(item=>{
+    let arr = this.data.canSelectGoodList.map(item=>{
       return item.fSelectMatDetailID
     })
     let checkAll = !this.data.checkAll
     if(checkAll){
       this.data.managerGoodsList.forEach(item=>{
-        item.checked = true
+        if (!item.fIsSelfBuy && !item.fIsGenerated) {
+          item.checked = true
+        }
+      })
+      this.data.canSelectGoodList.forEach(item => {
+        if (item.fAmount) {
+          this.data.sumPrice = this.data.sumPrice + parseFloat(item.fAmount)
+        }
       })
     }else{
       this.data.managerGoodsList.forEach(item => {
         item.checked = false
       })
+      this.data.sumPrice = 0
     }
     this.setData({
       managerGoodsList: this.data.managerGoodsList,
       checkAll: checkAll,
-      selectArr: checkAll?arr:[]
+      selectArr: checkAll?arr:[],
+      sumPrice: this.data.sumPrice
     })
   },
 
@@ -378,29 +438,34 @@ Page({
   // 生成订单
   addSaleorder:function(){
     let arr = this.data.selectArr
-    if (!arr.length) {
-      wx.showToast({
-        title: '请选择您要操作的选材项',
-        icon: 'none'
-      })
-      return false
+    if (this.data.isCanAllChecked && !this.data.isManager){
+      if (!arr.length) {
+        wx.showToast({
+          title: '请选择您要操作的选材项',
+          icon: 'none'
+        })
+        return false
+      } else {
+        api.addSaleorder({
+          data: {
+            ids: arr,
+            fSelectMatID: app.globalData.fSelectMatID,
+            fID: this.data.currentSubMenuId
+          },
+          method: 'post',
+          success: (res) => {
+            wx.showToast({
+              title: '订单生成成功！',
+              icon: 'none'
+            })
+            this.getBudgetGoodsList()
+          }
+        })
+      }
     }else{
-      api.addSaleorder({
-        data:{
-          ids:arr,
-          fSelectMatID: app.globalData.fSelectMatID,
-          fID: this.data.currentSubMenuId
-        },
-        method:'post',
-        success:(res)=>{
-          wx.showToast({
-            title: '订单生成成功！',
-            icon: 'none'
-          })
-          // this.setData({
-          //   orderStatus:true
-          // })
-        }
+      wx.showToast({
+        title: '对不起，当前状态不能生成订单！',
+        icon: 'none'
       })
     }
   },

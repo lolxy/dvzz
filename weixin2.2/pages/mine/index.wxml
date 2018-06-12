@@ -17,7 +17,7 @@
     </view>
     <image src="{{menurightimg}}"></image>
   </view>
-  <view style="margin-top:20rpx;background-color: #ffffff;padding:24rpx 30rpx;border-bottom:2rpx solid #ddd;">
+  <view style="margin-top:20rpx;background-color: #ffffff;padding:24rpx 30rpx;border-bottom:2rpx solid #ddd;" wx:if="{{loged==1}}">
     <view class='items_out' bindtap='logout'>退出登录</view>
   </view>
 </view>

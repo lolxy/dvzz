@@ -45,7 +45,6 @@ Page({
           that.setData({
             StatusList: res.data
           })
-          console.log(that.data.StatusList)
           that.showtabledata() 
         }
       },
@@ -86,7 +85,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data.data)
         that.setData({
           tabs: res.data.data,
           CurrentfID: res.data.data[0].fID, //初始化当前大类
@@ -95,7 +93,6 @@ Page({
         wx.getStorage({
           key: 'BrankData',
           success: function (res) {
-            console.log(res)
             if (res.data.fUserID) {
               that.setData({
                 StatusList: res.data
@@ -122,7 +119,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data.data)
         that.setData({
           StatusList: res.data.data
         })
@@ -168,8 +164,7 @@ Page({
     var that = this
     wx.navigateTo({
       url: 'detail?fMatName=' + e.currentTarget.dataset.fmname + '&fNorms=' + e.currentTarget.dataset.fnorms + '&fPrice=' + e.currentTarget.dataset.fprice + '&fBrandName=' + e.currentTarget.dataset.fbname + '&fConf=' + e.currentTarget.dataset.fconf + '&fUrl=' + e.currentTarget.dataset.furl,
-      success: function (res) {
-        //console.log(res.data);       
+      success: function (res) {     
       }
     })
   },
@@ -181,8 +176,7 @@ Page({
     var that = this
     wx.navigateTo({
       url: 'brand?fID=' + e.currentTarget.dataset.fid,
-      success: function (res) {
-        //console.log(res.data);       
+      success: function (res) {     
       }
     })
   },
@@ -190,8 +184,7 @@ Page({
     var that = this
     wx.navigateTo({
       url: 'pages/main/list/index?fID=' + e.currentTarget.dataset.fid,
-      success: function (res) {
-        //console.log(res.data);       
+      success: function (res) {    
       }
     })
   },

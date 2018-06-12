@@ -39,20 +39,20 @@
 
   <view class='lanmu'>
     <view class='main'>
-      <navigator url="/pages/main/budget/index/index?type=virtual">
+      <view bindtap='goToselectMatPage' data-type='virtual'>
         <image src='{{lanmu.lanmu1}}'></image>
-      </navigator>
+      </view>
     </view>
     <view class='submain'>
-      <view>
+      <view class='sitem'>
         <navigator url="/pages/main/categories/index">
           <image src='{{lanmu.lanmu2}}'></image>
         </navigator>
       </view>
-      <view>
-        <navigator url="/pages/main/budget/index/index?type=my">
+      <view class='sitem'>
+        <view bindtap='goToselectMatPage' data-type='my'>
           <image src='{{lanmu.lanmu3}}'></image>
-        </navigator>
+        </view>
       </view>
     </view>
   </view>
@@ -67,3 +67,16 @@
     <product-list list="{{recommonList}}"></product-list>
   </view>
 </scroll-view>
+
+<view class='modal-wrap' hidden='{{hiddenModal}}'>
+  <view class='mask' bindtap='closeModal'></view>
+  <view class='modal'>
+    <view class='modal-content'>
+      <text>暂无主材列项,无法预算</text>
+      <text>请预约量房</text>
+    </view>
+    <view class='modal-footer'>
+      <view class='comfirm' bindtap='comfirm'>确定</view>
+    </view>
+  </view>
+</view>
