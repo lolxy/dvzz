@@ -187,6 +187,8 @@ Page({
       success: function (res) {
         if (res.data.code == 1 ) {
           app.globalData.userInfo = res.data.data
+          app.globalData.fSelectMatID = res.data.data.fSelectMatID
+          app.globalData.fCustomerID = res.data.data.fCustomerID
           wx.showModal({
             title: '提示',
             content: '绑定成功',

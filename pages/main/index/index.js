@@ -191,7 +191,7 @@ Page({
     if (app.globalData.fOpenID){
       api.getTouristExpInfo({
         data: {
-          fOpenID:app.globalData.fOpenID
+          fOpenID: app.globalData.fOpenID
         },
         success: (res) => {
           if (res.data.code == 1) {
@@ -199,7 +199,12 @@ Page({
             app.globalData.fCustomerID = res.data.data.fCustomerID
             wx.navigateTo({
               url: '/pages/main/budget/index/index',
-            });
+            })
+          } else {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none'
+            })
           }
         }
       })
@@ -208,19 +213,17 @@ Page({
         success: function (res) {
           if (res.code) {
             //发起网络请求微信授权
-            wx.request({
-              url: 'https://api.weixin.qq.com/sns/jscode2session',
-              data: {
+            api.getOpenID({
+              data:{
                 appid: app.globalData.appid,
-                secret: app.globalData.secret,
                 js_code: res.code,
                 grant_type: 'authorization_code'
               },
               success: function (res2) {
-                if (res2.data.openid){
-                  app.globalData.fOpenID = res2.data.openid
+                if (res2.data.data.openid) {
+                  app.globalData.fOpenID = res2.data.data.openid
                   self.getTouristExpInfo()
-                }else{
+                } else {
                   wx.showToast({
                     title: '获取用户信息出错了！',
                     icon: 'none'
@@ -265,7 +268,7 @@ Page({
           this.setData({
             hiddenModal: false
           })
-        } 
+        }
       }
     }
   },

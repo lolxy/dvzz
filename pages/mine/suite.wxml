@@ -4,8 +4,8 @@
   <view class='list' wx:for="{{SuiteList}}">
     <view>
       <view class='item_name'>{{item.fCustomerName}}</view>
-      <label class="radio">
-        <radio value="index" checked="{{item.fIsDefault}}"/>默认地址
+      <label class="radio" bindtap='ChangeCustomer' data-fcustid="{{item.fCustomerID}}">
+        <radio value="index" checked="{{item.fIsDefault==1}}"/>默认地址
       </label>
     </view>
     <view class='item_addr'>{{item.fCustomerAddr}}</view>

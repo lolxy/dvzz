@@ -19,23 +19,6 @@ Page({
     wx.setNavigationBarTitle({
       title: '我的钱包',
     })
-    var that = this
-    wx.getStorage({
-      key: 'APPUserInfo',
-      success: function (res) {
-        if (res.data.fUserID) {
-          that.setData({
-            userInfo: res.data
-          })
-          this.GetData()
-        }
-      },
-      fail: function (res) {
-        wx.navigateTo({
-          url: 'bind',
-        })
-      }
-    })
   },
 
   /**
@@ -48,7 +31,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    this.GetData()
   },
 
   /**
@@ -76,6 +59,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
+        console.log(res.data)
         if (res.data.data.fAmount){
           that.setData({
             fAmount: res.data.data.fAmount, //待修改

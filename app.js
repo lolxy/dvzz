@@ -23,7 +23,7 @@ App({
         type: 'wgs84',
         success: function (res) {
           self.globalData.area = res
-          resolve(res); 
+          resolve(res);
         }
       });
     })

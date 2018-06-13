@@ -28,6 +28,11 @@ const wxRequest = (params, url) => {
   });
 };
 
+// 获取当前登录微信的openID
+const getOpenID = (params) => {
+  wxRequest(params, `${apiURL}/zzsc/jscode.do`);
+};
+
 // 获取扫码数据
 const getScanCode = (params) => {
   wxRequest(params, `${apiURL}/app/selectmat/scanCode.do`);
@@ -192,6 +197,7 @@ const getConsumeDetail = (params) => {
 }; 
 
 module.exports = {
+  getOpenID,
   getScanCode,
   getCityList,
   getMallBanner,

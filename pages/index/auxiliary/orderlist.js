@@ -63,51 +63,7 @@ Page({
    */
   onShow: function () {
     var that = this
-    wx.getStorage({
-      key: 'OpenID',
-      success: function (res) {
-        that.setData({ OpenID: res.data })
-        if (res.data != '') {
-          if (app.globalData.userInfo) {
-            that.setData({
-              userInfo: app.globalData.userInfo
-            })
-            that.GetOrderInfo()
-          } else {
-            that.GetBindsta()
-          }
-        } else {
-          wx.showModal({
-            title: '温馨提示',
-            content: '您还没有登录，请先登录，',
-            success: function (res) {
-              if (res.confirm) {
-                wx.navigateTo({
-                  url: '../../mine/login',
-                })
-              } else if (res.cancel) {
-
-              }
-            }
-          })
-        }
-      },
-      fail: function (res) {
-        wx.showModal({
-          title: '温馨提示',
-          content: '您还没有登录，请先登录，',
-          success: function (res) {
-            if (res.confirm) {
-              wx.navigateTo({
-                url: '../../mine/login',
-              })
-            } else if (res.cancel) {
-
-            }
-          }
-        })
-      }
-    })
+    that.GetOrderInfo()
   },
 
   /**

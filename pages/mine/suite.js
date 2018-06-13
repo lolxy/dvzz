@@ -59,6 +59,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
+        console.log(res.data)
         that.setData({
           SuiteList: res.data.data
         })
@@ -85,5 +86,23 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+  ChangeCustomer: function (e) {
+    var that = this
+    console.log(app.globalData.userInfo.fUserID)
+    wx.request({
+      url: app.globalData.posturl + 'wx/personalcenter/setDefaultCustomer.do', //url 不能出现端口号
+      data: {
+        fCustomerID: e.currentTarget.dataset.fcustid,
+        fUserID: app.globalData.userInfo.fUserID
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        console.log(res.data)
+      },
+      method: 'POST'
+    });
   }
 })

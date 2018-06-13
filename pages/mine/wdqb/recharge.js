@@ -1,11 +1,12 @@
 // pages/mine/wdqb/recharge.js
+var app=getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    fAmount: 1000,
+    fAmount: 100,
   },
 
   /**
@@ -49,18 +50,56 @@ Page({
    * 支付接口
    */
   ToPay: function(options) {
-    wx.requestPayment({
-      'timeStamp': '',
-      'nonceStr': '',
-      'package': '',
-      'signType': 'MD5',
-      'paySign': '',
-      'success': function (res) {
-        //
+    var that = this
+    var openid = app.globalData.fOpenID
+    wx.request({
+      url: app.globalData.posturl + 'zzsc/wxPay.do', //url 不能出现端口号
+      data:{
+        fAmount: that.data.fAmount,
+        fCustomerID: app.globalData.userInfo.fCustomerID,
+        fUserID: app.globalData.userInfo.fUserID,
+        openId: app.globalData.fOpenID
       },
-      'fail': function (res) {
-      }
-    })
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        console.log(res.data)
+        wx.requestPayment(
+          {
+            'timeStamp': res.data.data.timeStamp,
+            'nonceStr': res.data.data.noncestr,
+            'package': 'prepay_id=' + res.data.data.package,
+            'signType': res.data.data.signType,
+            'paySign': res.data.data.paySign,
+            'success': function (res2) { 
+              console.log(res.data)
+              wx.request({
+                url: app.globalData.posturl + 'app/home/pay/success.do', //url 不能出现端口号
+                data:{
+
+                },
+                header: {
+                  'content-type': 'application/json' // 默认值
+                },
+                success: function (res) {
+                  that.setData({
+                    itemlist: res.data.data.list,
+                    topbg: res.data.data.topBgUrl
+                  })
+                },
+                method: 'GET'
+              });
+            },
+            'fail': function (res2) {
+              console.log(res2.data)
+            },
+            'complete': function (res2) { }
+          })
+      },
+      method: 'GET'
+    });
+    
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
@@ -81,5 +120,12 @@ Page({
    */
   onShareAppMessage: function () {
   
+  }, 
+  InputChange: function (e) {
+    this.setData({
+      fAmount:e.detail.value
+    })
+    console.log(this.data.fAmount)
   }
+
 })

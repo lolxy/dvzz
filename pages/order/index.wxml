@@ -44,7 +44,7 @@
       </view>
     </view>
   </checkbox-group>
-  <view class='foot' wx:if="{{flag==0}}">
+  <view class='foot' wx:if="{{OrderList.length > 0 && flag==0}}">
     <checkbox-group bindchange="SelectAll">
       <label class="checkbox">
         <checkbox value="1" checked="{{SelectAll}}" color="#ff6600"/>全选

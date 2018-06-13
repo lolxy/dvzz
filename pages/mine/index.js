@@ -79,8 +79,9 @@ Page({
     var that = this
     wx.getStorage({
       key: 'OpenID',
-      success: function (res) {
+      success: function (res) {        
         that.setData({ OpenID: res.data })
+        app.globalData.fOpenID = res.data
         if (res.data != '') {
           if (app.globalData.userInfo) {
             that.setData({
