@@ -1,0 +1,33 @@
+<!--pages/order/list.wxml-->
+<view class='container'>
+  <view class='head'>订单号：{{fReceiptNo}}</view>
+  <view class='order_list' wx:for="{{DataList}}">
+    <image class='order_pic' src="{{item.fUrl=='https://www.dovzs.com/upload/null'?defaltimg:item.fUrl}}"/>
+    <view class='order_list_item'>
+      <view class='order_list_lgrp'>
+        <view class='order_list_title'>{{index+1}}.{{item.fMatName}}</view>
+        <view class='order_list_c'>{{item.fBrand}}</view>
+        <view class='order_list_c'>规格：{{item.fNorms}}</view>
+      </view>
+      <view class='order_list_rgrp'>
+        <view class='order_list_c'><span>￥{{item.fPrice}}元</span></view>
+        <view class='order_list_c'>x{{item.fQuantity}}</view>
+        <view class='order_list_c order_list_cs'>小计：<span>￥{{item.fAmount}}元</span></view>
+      </view>
+    </view>
+  </view>
+  <view class='foot'>
+    <view class='foot_l_grp'>
+      <image src="{{DelIcon}}"></image>
+      <view bindtap='DelOrder'>删除</view>
+    </view>
+    <view class='foot_r_grp'>
+      <view>合计:{{fAmount}}元</view>
+      <view wx:if="{{flag == 1||flag == 2 || flag==0}}">
+        <view class='btn foot_button' wx:if="{{flag == 0}}">支付</view>
+        <view class='btn foot_button' wx:if="{{flag == 1}}" bindtap='ConfirmReceipt'>确认收货</view>
+        <view class='btn foot_button' wx:elif="{{flag == 2}}" bindtap='ToEvaluate' data-fid="{{item.fSaleOrderID}}">评价</view>
+      </view>
+    </view>
+  </view>
+</view>

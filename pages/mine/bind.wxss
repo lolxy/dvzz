@@ -1,0 +1,101 @@
+/* pages/mine/bind.wxss */
+view, image, text,form ,input{
+  box-sizing: border-box;
+}
+.container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #f3f3f3;
+}
+.modal-fixd {
+  width: 100%;
+  height: 520rpx;
+  margin: 288rpx auto 0;
+  background-color: #ffffff;
+  border-radius: 20rpx;
+  overflow: hidden; 
+  left: 0;
+  right: 0;
+  position: fixed;
+}
+.form_t {
+  margin-top: 40rpx;
+  font-size: 28rpx;
+  line-height: 1em;
+  color: #333333;
+  text-align: center;
+}
+.form_c {
+  height: 360rpx;
+  padding: 40rpx 100rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  border-bottom: 1rpx solid #ddd;
+}
+.form_grp + .form_grp {
+  margin-top: 54rpx;
+}
+.form_grp {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between!important;
+  align-items: stretch;
+}
+.form_grp input {
+  min-height: 60rpx;
+  padding: 14rpx;
+  border-radius: 10rpx;
+  font-size: 24rpx;
+  line-height: 30rpx!important;
+  color: #333333;
+  vertical-align: middle;
+  border: 1rpx solid #999999;
+}
+.input_a {
+  width: 100%;
+}
+.input_b {
+  width: 220rpx;
+  flex-basis: 220rpx;
+}
+.normal-btn {
+  width: 140rpx;
+  padding: 14rpx 0;
+  font-size: 24rpx;
+  line-height: 30rpx;
+  color: #ff6600;
+  text-align: center;
+  border: 1rpx solid #ff6600;
+  border-radius: 10rpx;
+}
+.identify {
+  width: 140rpx;
+  height: 60rpx;
+  background-color: #ddd;
+}
+.form_f {
+  width: 100%;
+  height: 90rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+.form_f > button {
+  width: 50%;
+  background-color: transparent;
+  border-image: none;
+  box-shadow: none;
+  border-radius: 0;
+  outline: none;
+}
+.form_f > button.active {
+  color: #ff6600;
+}
