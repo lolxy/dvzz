@@ -6,7 +6,7 @@
     <image src="{{item.fUrl?item.fUrl:loadimg}}" lazy-load='true' wx:else></image>
     <view class='title'>{{item.fMatName}}</view>
     <view class='budget price' wx:if="{{displayType == 'budget'}}">
-      <view class='sale'>￥<text>{{item.fPrice2}}</text>元/{{item.fUnitName2}}</view>
+      <view class='sale'>￥<text>{{item.fPrice}}</text>元/{{item.fUnitName}}</view>
       <view class='sum'>总价：{{item.fAmount}}元</view>
     </view>
     <view class='mall price' wx:else>

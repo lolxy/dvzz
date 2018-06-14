@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/index/station",
     "pages/index/find",
@@ -34,13 +34,14 @@
     "pages/mine/aftersale",
     "pages/mine/wdqb/info",
     "pages/mine/wdqb/recharge",
-    "pages/mine/wdqb/bill"
+    "pages/mine/wdqb/bill",
+    "pages/outlink/index"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#ff6600",
     "navigationBarTitleText": "多维自装商城",
-    "navigationBarTextStyle":"white"
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "color": "#a9b7b7",
@@ -73,5 +74,4 @@
       }
     ]
   }
-
 }

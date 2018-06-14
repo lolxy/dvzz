@@ -38,6 +38,7 @@ App({
     fSelectMatID:'',
     fCustomerID:'',
     fCustomerName:'',
+    fSelectMatType:'',
     posturl: 'https://www.dovzs.com/APPDWERP/',
     appid: 'wx5d6a6e22ab9f16fe',
     secret: '33f27321c7050ba838efd8817da17847',

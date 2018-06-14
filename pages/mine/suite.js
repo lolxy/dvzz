@@ -59,7 +59,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data)
         that.setData({
           SuiteList: res.data.data
         })
@@ -101,8 +100,45 @@ Page({
       },
       success: function (res) {
         console.log(res.data)
+        that.changelogin()
       },
       method: 'POST'
+    });
+  },
+  changelogin: function(){
+    var that = this
+    wx.request({
+      url: app.globalData.posturl + 'wx/personalcenter/queryUserInfo.do', //url 不能出现端口号
+      data: { fOpenID: app.globalData.fOpenID },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        if (res.data.code == 1) {
+          app.globalData.userInfo = res.data.data
+          app.globalData.fSelectMatID = res.data.data.fSelectMatID
+          app.globalData.fCustomerID = res.data.data.fCustomerID
+          app.globalData.fCustomerName = res.data.data.fCustomerName
+          // wx.switchTab({
+          //   url: 'index',
+          // })
+        } else {
+          wx.showModal({
+            title: '温馨提示',
+            content: '暂未查询到您的绑定信息，‘确定’将为您跳转到绑定页面，暂不绑定请点击取消',
+            success: function (res) {
+              if (res.confirm) {
+                wx.navigateTo({
+                  url: 'bind',
+                })
+              } else if (res.cancel) {
+              }
+            }
+          })
+
+        }
+      },
+      method: 'GET'
     });
   }
 })

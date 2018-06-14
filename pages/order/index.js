@@ -28,7 +28,8 @@ Page({
     SelectAll: 0,
     totle:0,
     userInfo:{},
-    OpenID: ''
+    OpenID: '',
+    OIDList:[]
   },
 
   /**
@@ -39,7 +40,6 @@ Page({
     wx.setNavigationBarTitle({
       title: '订单管理',
     })
-    that.GetOrderType()
   },
 
   /**
@@ -54,50 +54,30 @@ Page({
    */
   onShow: function () {
     var that = this
-    wx.getStorage({
-      key: 'OpenID',
-      success: function (res) {
-        that.setData({ OpenID: res.data })
-        if (res.data != '') {
-          if (app.globalData.userInfo) {
-            that.setData({
-              userInfo: app.globalData.userInfo
+    if (app.globalData.fOpenID=='')    {
+      wx.showModal({
+        title: '温馨提示',
+        content: '您还没有登录，请先登录，',
+        success: function (res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../mine/login',
             })
-          } else {
-            that.GetBindsta()
-          }
-        }else {
-          wx.showModal({
-            title: '温馨提示',
-            content: '您还没有登录，请先登录，',
-            success: function (res) {
-              if (res.confirm) {
-                wx.navigateTo({
-                  url: '../mine/login',
-                })
-              } else if (res.cancel) {
+          } else if (res.cancel) {
 
-              }
-            }
-          })
-        }
-      },
-      fail: function (res) {
-        wx.showModal({
-          title: '温馨提示',
-          content: '您还没有登录，请先登录，',
-          success: function (res) {
-            if (res.confirm) {
-              wx.navigateTo({
-                url: '../mine/login',
-              })
-            } else if (res.cancel) {
-              
-            }
           }
+        }
+      })
+    }else{
+      if (app.globalData.userInfo.fCustomerID) {
+        that.setData({
+          userInfo: app.globalData.userInfo
         })
+        that.GetOrderType()
+      } else {
+        that.GetBindsta()
       }
-    })
+    }
   },
 
   /**
@@ -180,11 +160,10 @@ Page({
     }else {
       fcode = that.data.flag
     }
-    var uinfo = wx.getStorageSync('APPUserInfo') || {}
     wx.request({
       url: app.globalData.posturl + 'wx/shopOrder/queryOrderList.do', //url 不能出现端口号
       data: {
-        fCustomerID: that.data.userInfo.fCustomerID,
+        fCustomerID: app.globalData.userInfo.fCustomerID,
         fType: that.data.CurrentCode,
         flag: that.data.flag,
         num: that.data.num
@@ -217,17 +196,23 @@ Page({
    */
   checkboxChange: function(e) {
     var that = this
+    console.log(e.detail.value)
     for (let i = 0; i < that.data.OrderList.length; i++){
       let item = 'OrderList[' + i + '].Selected'
       that.setData({
         [item]: false
       })
     }
+    that.setData({
+      OIDList: []
+    })
     for (let i = 0; i < e.detail.value.length;i++) {
       let n = e.detail.value[i]
       let item = 'OrderList[' + n +'].Selected'
+      let itemb = 'OIDList[' + n + ']'
       that.setData({
-        [item]: true
+        [item]: true,
+        [itemb]: that.data.OrderList[n].fSaleOrderID
       })
     }
     that.SumTotle()
@@ -260,7 +245,7 @@ Page({
       for (let i = 0; i < that.data.OrderList.length; i++) {
         let item = 'OrderList[' + i + '].Selected'
         that.setData({
-          [item]: false
+          [item]: false,
         })
       }
     }
@@ -291,11 +276,36 @@ Page({
   //结算
   ToSettlement: function(e) {
     var that = this
-    wx.navigateTo({
-      url: '../mine/wdqb/info?fSaleOrderID=' + e.currentTarget.dataset.fid + '&TotleAccont=' + that.data.totle,
-      success: function (res) {  
+    if (app.globalData.fOpenID == '') {
+      wx.showModal({
+        title: '温馨提示',
+        content: '您必须先登录才能结算订单',
+        success: function (res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../mine/login',
+            })
+          } else if (res.cancel) {
+            wx.navigateTo({
+              url: '../mine/login',
+            })
+          }
+        }
+      })
+    } else {
+      if (app.globalData.userInfo) {
+        that.setData({
+          userInfo: app.globalData.userInfo
+        })
+        wx.navigateTo({
+          url: 'Settlement?TotleAccont=' + that.data.totle + '&OIDList=' + e.currentTarget.dataset.soid,
+          success: function (res) {
+          }
+        })
+      } else {
+        that.GetBindsta()
       }
-    })
+    }
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作

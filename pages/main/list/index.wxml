@@ -28,12 +28,12 @@
     <view class='loaded' wx:if="{{loadedGoods}}">没有更多数据了！</view>
   </view>
    <view class='listbox' wx:else>
-    <brands-list brandList="{{brandList}}"></brands-list>
+    <brands-list id="brands" brandList="{{brandList}}" bindcustomevent="onUpdateGoodsList"></brands-list>
     <view class='loaded' wx:if="{{loadedBrand}}">没有更多数据了！</view>
   </view>
   </scroll-view>
 
  <action-sheet hidden="{{actionSheetHidden}}" bindchange="actionSheetChange">
-    <filter-action-sheet fDefault="{{fDefault}}" filterList="{{filterList}}" selected="{{selected}}" displayType="{{displayType}}" bindfiltersearch="filterSearch" bindresetsearch="resetFilterSearch"></filter-action-sheet>
+    <filter-action-sheet fDefault="{{fDefault}}" filterList="{{filterList}}" selected="{{selected}}" displayType="{{displayType}}" fBrandName="{{fBrandName}}" bindfiltersearch="filterSearch" bindresetsearch="resetFilterSearch"></filter-action-sheet>
 </action-sheet>
 </view>

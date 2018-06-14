@@ -21,7 +21,7 @@
         <swiper class='customer-banner' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}">
           <block wx:for="{{banner}}" wx:key="{{index}}">
             <swiper-item wx:if="{{item.bPath }}">
-              <image src="{{item.bPath}}" class="slide-image" data-bUrl="{{item.bUrl}}" lazy-load/>
+              <image src="{{item.bPath}}" class="slide-image" data-burl="{{item.bUrl}}" bindtap='toOutLink' lazy-load/>
             </swiper-item>
           </block>
         </swiper>

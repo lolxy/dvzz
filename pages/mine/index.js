@@ -79,7 +79,7 @@ Page({
     var that = this
     wx.getStorage({
       key: 'OpenID',
-      success: function (res) {        
+      success: function (res) {
         that.setData({ OpenID: res.data })
         app.globalData.fOpenID = res.data
         if (res.data != '') {
@@ -185,8 +185,14 @@ Page({
     });
   },
   logout:function(){
-    app.globalData.userInfo = {}
+    var that = this
+    app.globalData.userInfo = null
     wx.clearStorage()
-    this.testlog()
+    app.globalData.fSelectMatID = ''
+    app.globalData.fCustomerID = ''
+    app.globalData.fCustomerName = ''
+    that.setData({
+      loged: 0
+    })
   }
 })

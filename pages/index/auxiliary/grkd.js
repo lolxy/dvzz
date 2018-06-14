@@ -208,7 +208,7 @@ Page({
   ToShopCity: function(e) {
     var that = this
     wx.navigateTo({
-      url: 'pages/main/list/index?fID=' + e.currentTarget.dataset.fid,
+      url: '../../main/list/index?fID=' + e.currentTarget.dataset.fid,
       success: function (res) {    
       }
     })

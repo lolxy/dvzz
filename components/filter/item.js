@@ -14,6 +14,32 @@ Component({
     fDefault:{
       type:Object
     },
+    fBrandName:{
+      type:String,
+      observer: function (newVal, oldVal){
+        if (newVal){
+          let newArr = newVal.split(',')
+          this.setData({
+            'params.fBrandName': newArr
+          })
+          this.data.filterList.forEach((item) => {
+            if (item.key === 'fBrandName'){
+              item.list.forEach((elem, index) => {
+                if (newArr.includes(elem.fName)) {
+                  elem['checked'] = true
+                  item.list[0]['checked'] = false
+                } else {
+                  elem['checked'] = false
+                }
+              })
+            }
+          })
+          this.setData({
+            filterList: this.data.filterList
+          })
+        }
+      }
+    },
     selected:{
       type:Boolean
     }
@@ -47,7 +73,7 @@ Component({
     getCurrentSpec:function(e){
       let arr = this.data.params[`${e.currentTarget.dataset.key}`]
       if (!e.currentTarget.dataset.value){
-        arr.splice(0, arr.length)
+        arr.splice(0,arr.length)
         this.data.filterList[e.currentTarget.dataset.index].list.forEach((item,index)=>{
             item.checked = index > 0?false:true
         })

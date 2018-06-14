@@ -120,6 +120,9 @@ Page({
       success: function (res) {
         if (res.data.code == 1) {
           app.globalData.userInfo = res.data.data
+          app.globalData.fSelectMatID = res.data.data.fSelectMatID
+          app.globalData.fCustomerID = res.data.data.fCustomerID
+          app.globalData.fCustomerName = res.data.data.fCustomerName
           // wx.switchTab({
           //   url: 'index',
           // })
@@ -143,5 +146,5 @@ Page({
       },
       method: 'GET'
     });
-  },
+  }
 })

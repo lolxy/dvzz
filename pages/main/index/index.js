@@ -50,6 +50,13 @@ Page({
     })
   },
 
+  //banner跳转
+  toOutLink: function (e){
+    wx.navigateTo({
+      url: `/pages/outlink/index?url=${e.currentTarget.dataset.burl}`
+    })
+  },
+
   //选择地区城市
   cityChange: function (e) {
     app.globalData.location = this.data.citylist[e.detail.value].fValue
@@ -242,8 +249,10 @@ Page({
   // 判断是否已登录以及获取对应的选材数据
   goToselectMatPage: function (e) {
     if (e.currentTarget.dataset.type === 'virtual') {
+      app.globalData.fSelectMatType = 'virtual'
       this.getTouristExpInfo()
     } else {
+      app.globalData.fSelectMatType = 'my'
       let appUserInfo = app.globalData.userInfo || {}
       if (!appUserInfo.fUserID) {
         wx.showModal({

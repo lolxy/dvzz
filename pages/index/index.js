@@ -157,12 +157,11 @@ Page({
       }
     })
   },
+
   //banner跳转
-  tourl: function (e) {
+  toOutLink: function (e) {
     wx.navigateTo({
-      url: e.target.dataset.bUrl,
-      success: function (res) {  
-      }
+      url: `/pages/outlink/index?url=${e.currentTarget.dataset.burl}`
     })
   },
   /** 

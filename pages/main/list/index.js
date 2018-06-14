@@ -223,6 +223,7 @@ Page({
           fPrice: this.data.fPrice,
           fQuality: this.data.fQuality,
           fShopCityID: this.data.fShopCityID,
+          fCityName: app.globalData.location,
           flag: this.data.flag,
           fSelectMatDetailID: this.data.currentSelectId || '',
           lat: app.globalData.area.latitude || '',
@@ -270,6 +271,26 @@ Page({
     this.setData({
       actionSheetHidden: !this.data.actionSheetHidden
     });
+  },
+
+  // 点击品牌列表页获取当前的商品列表
+  onUpdateGoodsList:function(e){
+    this.setData({
+      keyword: '',
+      fMatColor: '',
+      fNorms: '',
+      fPrice: '',
+      fQuality: '',
+      fShopCityID: '',
+      flag: '',
+      loadedGoods: false,
+      currentGoodsPage: 0,
+      goodsList: [],
+      currentType: 'goods',
+      fBrandName: e.detail,
+      scrollTop: 0
+    })
+    this.getGoodsList()
   },
 
   // 获取过滤的列表数据

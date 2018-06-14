@@ -6,14 +6,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    identifyicon: '',
-    IsShow:0,
-    IsNeed: 0,
-    Isphone: 1,
     phone: '',
     fCaptcha: '',
     requestimg: '',
     OpenID: '',
+    IsNeed: 0,
+    IsShow: 0,
     logopic: '../../image/mine/logo.png',
   },
 
@@ -23,6 +21,10 @@ Page({
   onLoad: function (options) {
     wx.setNavigationBarTitle({
       title: '绑定手机号',
+    })
+    this.setData({
+      phone: options.fphone,
+      OpenID: options.OpenID
     })
   },
 
@@ -37,22 +39,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that=this
-    wx.getStorage({
-      key: 'OpenID',
-      success: function (res) {
-        if (res.data != '') {
-          that.setData({
-            OpenID: res.data
-          })      
-        }
-      },
-      fail: function () {
-        wx.navigateTo({
-          url: 'login',
-        })
-      }
-    })
+    
   },
 
   /**
@@ -140,7 +127,7 @@ Page({
     wx.request({
       url: app.globalData.posturl + 'wx/personalcenter/bindAccount.do', //url 不能出现端口号
       data: {
-        fPhoneNo: e.detail.value.fPhoneNo,
+        fPhoneNo: that.data.phone,
         fCaptcha: e.detail.value.fVerifyCode,
         fOpenID: that.data.OpenID
       },
@@ -157,31 +144,18 @@ Page({
   phonein: function (e) {
     var that=this
     that.setData({
-      phone: e.detail.value
+      fVerifyCode: e.detail.value
     })
-    var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
-    if (e.detail.value.length != 11 || e.detail.value == ''){
+    var myreg = /^(\d{6})$/;
+    if (e.detail.value.length != 6 || (!myreg.test(e.detail.value)) ){
       wx.showToast({
-        title: '请输入完整的手机号',
+        title: '请输入6位数字验证码',
         icon: 'none',
         duration: 1000
       })
-      that.setData({
-        Isphone: 1
-      })
-    } else if (!myreg.test(e.detail.value)) {
-      wx.showToast({
-        title: '请输入正确的手机号（13、14、18、17开头的11位数字）',
-        icon: 'none',
-        duration: 1000
-      })
-      that.setData({
-        Isphone: 1
-       })
-    }else {
-      that.setData({
-        Isphone:0
-      })
+      that.setData({ IsShow: 0 })
+    } else {
+      that.setData({ IsShow:1})
     }
   },
   GetBindsta: function () {
@@ -230,10 +204,4 @@ Page({
       method: 'GET'
     });
   },
-  tostep2:function(){
-    var that=this
-    wx.navigateTo({
-      url: 'step2?fphone=' + that.data.phone + '&OpenID=' + that.data.OpenID,
-    })
-  }
 })

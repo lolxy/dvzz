@@ -14,7 +14,7 @@
     </view>
 
     <scroll-view class='list' scroll-y="{{true}}">
-      <view class='item' wx:for="{{xcList}}" wx:key="{{index}}" data-subcode="{{item.fCode}}" bindtap='gotoPage'>
+      <view class='item' wx:for="{{xcList}}" wx:key="{{index}}" data-id="{{item.fID}}" data-subcode="{{item.fCode}}" bindtap='gotoPage'>
         <view class='title'>
           <image src="{{item.fUrl}}"></image>
            <text>{{item.fValue}}<text class='badge' wx:if="{{item.num}}">{{item.num}}</text></text> 

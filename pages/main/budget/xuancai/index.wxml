@@ -2,7 +2,7 @@
 <view class='containers'>
   <view class='nav'>
      <scroll-view class='menus' scroll-x style='width:{{windowWidth}}px;' wx:if="{{menuList.length}}">  
-      <view class='item' data-num="{{item.num}}" data-code="{{item.fCode}}" wx:for="{{menuList}}" wx:key="{{index}}" bindtap='getCurrentMenuData'>
+      <view class='item' data-num="{{item.num}}" data-code="{{item.fCode}}" data-id="{{item.fID}}" wx:for="{{menuList}}" wx:key="{{index}}" bindtap='getCurrentMenuData'>
         <view class='item-wrap'>
           <image src='{{item.fUrl}}'></image>
           <text class="{{currentMenu == item.fCode?'on':''}}">{{item.fValue}}</text>

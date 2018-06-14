@@ -67,20 +67,21 @@ Page({
   // 跳转对应分类的选材页面
   gotoPage:function(e){
     let currentSubCat = e.currentTarget.dataset.subcode
+    let id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: `/pages/main/budget/xuancai/index?code=${this.data.currentCode}&subcode=${currentSubCat}`
+      url: `/pages/main/budget/xuancai/index?code=${this.data.currentCode}&subcode=${currentSubCat}&id=${id}`
     })
   },
 
   onShow: function () {
     this.getBudgetCate()
-    if (app.globalData.fCustomerName) {
+    if (app.globalData.fCustomerName && app.globalData.fSelectMatType != 'virtual') {
       wx.setNavigationBarTitle({
-        title: `主材选材-${app.globalData.fCustomerName}`
+        title: `${app.globalData.fCustomerName}`
       })
     } else {
       wx.setNavigationBarTitle({
-        title: '主材选材-预算体验'
+        title: '预算体验'
       })
     }
   },

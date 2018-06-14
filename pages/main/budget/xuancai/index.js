@@ -10,6 +10,7 @@ Page({
   data: {
     currentCode:'',
     currentMenu:'',
+    currentMenuID:'',
     currentSubMenu:'',
     currentSubMenuId:'',
     currentSubMenuName:'',
@@ -33,6 +34,7 @@ Page({
     isComfirm:false,
     hiddenComfirmModal: true,
     modalContent: "",
+    selectMainArr:[],
     selectArr:[],
     isCanAllChecked:false,
     currentSaleStatus:false,
@@ -47,7 +49,8 @@ Page({
   onLoad: function (options) {
     this.setData({
       currentCode: options.code,
-      currentMenu: options.subcode
+      currentMenu: options.subcode,
+      currentMenuID: options.id
     }) 
     this.getBudgetCatList()
   },
@@ -56,23 +59,26 @@ Page({
     if (this.data.currentSubMenu){
       this.getBudgetGoodsList()
     }
-    if (app.globalData.fCustomerName){
+    if (app.globalData.fCustomerName && app.globalData.fSelectMatType != 'virtual'){
       wx.setNavigationBarTitle({
-        title: `主材选材-${app.globalData.fCustomerName}`
+        title: `${app.globalData.fCustomerName}`
       })
     }else{
       wx.setNavigationBarTitle({
-        title: '主材选材-预算体验'
+        title: '预算体验'
       })
     }
   },
 
   // 获取二级类别
   getCurrentMenuData:function(e){
+    this.data.selectMainArr = []
     this.setData({
       isComfirm: false,
       isManager: false,
+      selectMainArr: this.data.selectMainArr,
       currentMenu:e.currentTarget.dataset.code,
+      currentMenuID: e.currentTarget.dataset.id,
       currentSaleStatus: e.currentTarget.dataset.num?true:false
     })
     this.getBudgetByIdCatList()
@@ -252,10 +258,13 @@ Page({
         let currentMenu = this.data.currentMenu
         this.setData({
           menuList: menuList,
-          currentMenu: currentMenu ?currentMenu:menuList[0].fCode,
-          currentSaleStatus: menuList[0].num ? true : false
+          currentMenu: currentMenu ?currentMenu:menuList[0].fCode
         })
         if (this.data.currentMenu){
+          let currentItem = menuList.find(item => item.fCode === this.data.currentMenu)
+          this.setData({
+            currentSaleStatus: currentItem.num ? true : false
+          })
           this.getBudgetByIdCatList()
         }
       }
@@ -292,6 +301,7 @@ Page({
       success:(res)=>{
         let goodsList = res.data.data
         let newGoodsList = []
+        let selectArr = []
         let keyNameArr = goodsList.map(item => {
           return item.fSpace
         })
@@ -310,22 +320,25 @@ Page({
         })
         let canSelectGoodList = []
         goodsList.forEach(item=>{
-          item.checked = false
+          item.checked = true
           if (!item.fIsSelfBuy && !item.fIsGenerated){
             canSelectGoodList = canSelectGoodList.concat(item)
+            selectArr.push(item.fSelectMatDetailID)
           }
           if (item.fAmount && !item.fIsSelfBuy){
             sumPrice = sumPrice + parseFloat(item.fAmount)
           } 
         })
+        this.data.selectMainArr = this.data.selectMainArr.concat(selectArr)
         this.setData({
-          checkAll:false,
-          selectArr:[],
+          checkAll:true,
+          selectArr: selectArr,
           isCanAllChecked: isCanAllChenked,
           managerGoodsList: goodsList,
           goodsList: newGoodsList,
           canSelectGoodList: canSelectGoodList,
-          sumPrice: sumPrice
+          sumPrice: sumPrice,
+          selectMainArr: Array.from(new Set(this.data.selectMainArr))
         })
       }
     })
@@ -350,16 +363,19 @@ Page({
     let value = e.currentTarget.dataset.checked
     let index = e.currentTarget.dataset.index
     let arr = this.data.selectArr
+    let selectMainArr = this.data.selectMainArr
     let managerGoodsList = this.data.managerGoodsList
     let checked = managerGoodsList[index].checked
     managerGoodsList[index].checked = !checked
     if (checked){
       arr.splice(arr.findIndex(item => item === value), 1)
+      selectMainArr.splice(selectMainArr.findIndex(elem => elem === value), 1)
       if (managerGoodsList[index].fAmount) {
         this.data.sumPrice = this.data.sumPrice - parseFloat(managerGoodsList[index].fAmount)
       }
     }else{
       arr.push(value)
+      selectMainArr.push(value)
       if (managerGoodsList[index].fAmount) {
         this.data.sumPrice = this.data.sumPrice + parseFloat(managerGoodsList[index].fAmount)
       }
@@ -367,17 +383,20 @@ Page({
     this.setData({
       managerGoodsList: managerGoodsList,
       checkAll: arr.length === this.data.canSelectGoodList.length ? true:false,
-      selectArr: arr,
-      sumPrice: this.data.sumPrice
+      selectArr: Array.from(new Set(arr)),
+      sumPrice: this.data.sumPrice,
+      selectMainArr: Array.from(new Set(this.data.selectMainArr))
     })
   },
   // 全部选择元素
   selectAllItem:function(){
+    let selectMainArr = this.data.selectMainArr
     let arr = this.data.canSelectGoodList.map(item=>{
       return item.fSelectMatDetailID
     })
     let checkAll = !this.data.checkAll
-    if(checkAll){
+    this.data.sumPrice = 0
+    if(checkAll){      
       this.data.managerGoodsList.forEach(item=>{
         if (!item.fIsSelfBuy && !item.fIsGenerated) {
           item.checked = true
@@ -387,18 +406,21 @@ Page({
         if (item.fAmount) {
           this.data.sumPrice = this.data.sumPrice + parseFloat(item.fAmount)
         }
+        selectMainArr.push(item.fSelectMatDetailID)
       })
     }else{
-      this.data.managerGoodsList.forEach(item => {
+      this.data.canSelectGoodList.forEach(item => {
         item.checked = false
+        selectMainArr.splice(selectMainArr.findIndex(elem => elem === item.fSelectMatDetailID), 1)
       })
-      this.data.sumPrice = 0
     }
+
     this.setData({
       managerGoodsList: this.data.managerGoodsList,
       checkAll: checkAll,
-      selectArr: checkAll?arr:[],
-      sumPrice: this.data.sumPrice
+      selectArr: checkAll ? Array.from(new Set(arr)):[],
+      sumPrice: this.data.sumPrice,
+      selectMainArr: Array.from(new Set(this.data.selectMainArr))
     })
   },
 
@@ -446,7 +468,7 @@ Page({
 
   // 生成订单
   addSaleorder:function(){
-    let arr = this.data.selectArr
+    let arr = this.data.selectMainArr
     if (this.data.isCanAllChecked && !this.data.isManager){
       if (!arr.length) {
         wx.showToast({
@@ -459,7 +481,7 @@ Page({
           data: {
             ids: arr,
             fSelectMatID: app.globalData.fSelectMatID,
-            fID: this.data.currentSubMenuId
+            fID: this.data.currentMenuID
           },
           method: 'post',
           success: (res) => {

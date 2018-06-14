@@ -10,7 +10,7 @@
   <view class='typelist'>
     <view class="{{index==flag?'active':''}}"  wx:for="{{StatusList}}" data-flag="{{index}}" bindtap='ChangeFlags'>{{item.StatusName}}</view>
   </view>
-  <checkbox-group class='order_list' bindchange="checkboxChange">
+  <checkbox-group class='order_list' bindchange="checkboxChange" style="padding-top: 200rpx">
     <view class='order_item' wx:for="{{OrderList}}" >
       <view class='order_item_head'>
         <view>{{item.fCustomerName}}</view>
@@ -52,7 +52,7 @@
     </checkbox-group>
     <view class='foot_r_grp'>
       <view>合计:{{totle}}元</view>
-      <view class='btn foot_button' bindtap='ToSettlement'>结算</view>
+      <view class='btn foot_button' bindtap='ToSettlement' data-totle='{{totle}}' data-soid="{{OIDList}}">结算</view>
     </view>
   </view>
 </view>
