@@ -115,6 +115,7 @@ Page({
   getFilterField: function () {
     api.getFilterField({
       data: {
+        fCityID: app.globalData.cityId,
         fSeriesCode: this.data.code.currentCode3 || this.data.code.currentCode2 || this.data.code.currentCode1,
         fSelectMatDetailID: this.data.currentSelectId || ''
       },
@@ -147,6 +148,7 @@ Page({
         api.getBrandList({
           data: {
             fType3Code: this.data.code.currentCode3 || this.data.code.currentCode2 || this.data.code.currentCode1,
+            fCityID: app.globalData.cityId,
             num: this.data.currentBrandPage,
             lat: app.globalData.area.latitude || '',
             lng: app.globalData.area.longitude || ''
@@ -223,7 +225,7 @@ Page({
           fPrice: this.data.fPrice,
           fQuality: this.data.fQuality,
           fShopCityID: this.data.fShopCityID,
-          fCityName: app.globalData.location,
+          fCityID: app.globalData.cityId,
           flag: this.data.flag,
           fSelectMatDetailID: this.data.currentSelectId || '',
           lat: app.globalData.area.latitude || '',

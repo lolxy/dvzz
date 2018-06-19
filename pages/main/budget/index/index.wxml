@@ -39,14 +39,6 @@
   </view>
 </view>
 
-<view class='modal-wrap' hidden='{{hiddenTipModal}}'>
-  <view class='mask' bindtap='closeTipModal'></view>
-  <view class='modal'>
-    <view class='modal-content'>
-      <text>功能开发中，敬请期待！</text>
-    </view>
-    <view class='modal-footer'>
-      <view class='comfirm' bindtap='comfirmTipModal'>确定</view>
-    </view>
-  </view>
+<view hidden='{{hiddenTipModal}}'>
+  <tip-modal bindclosemodal="onCloseTipModal"></tip-modal>
 </view>

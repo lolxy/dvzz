@@ -1,1 +1,5 @@
-{}
+{
+  "usingComponents": {
+    "tip-modal": "/components/tipModal/item"
+  }
+}

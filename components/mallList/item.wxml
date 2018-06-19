@@ -5,8 +5,8 @@
     <view class='content'>
       <view class='title'>{{item.fName}}</view>
       <view class='info'>
-        <text>店长：{{item.fTitle}}</text>
-        <text>电话：{{item.fHotline}}</text>
+        <text>{{item.fTitle}}</text>
+        <text>{{item.fHotline}}</text>
       </view>
     </view>
   </view>

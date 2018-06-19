@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<scroll-view class="containers" style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" scroll-y="{{true}}">
+<scroll-view class="containers" style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" scroll-y="{{true}}" bindscrolltolower="scrollToBottom">
 <view class='index_head'>
     <view class='local'>
       <image class='local-icon' src='{{localImage}}'></image>

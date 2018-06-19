@@ -6,7 +6,7 @@
 }
 
 .nav{
-  height: 250rpx;
+  height: 220rpx;
   background-color: #fff;
   position: absolute;
   overflow: hidden;
@@ -22,7 +22,7 @@
 
 .nav .menus .item{
   width: 50%;
-  height: 160rpx;
+  height: 130rpx;
   padding: 20rpx; 
   box-sizing: border-box;
   text-align: center;
@@ -31,7 +31,7 @@
 }
 
 .nav .menus .item .item-wrap{
-  width: 100rpx;
+  width: 150rpx;
   height: 100rpx;
   display: flex;
   flex-direction: column;
@@ -43,11 +43,11 @@
 
 .nav .menus .item text{
   color:#666;
-  font-size:20rpx;
+  font-size:26rpx;
 }
 
 .nav .menus .item text.tit{
-  font-size:25rpx;
+  font-size:36rpx;
 }
 
 .nav .menus .item.on .item-wrap{
@@ -85,7 +85,7 @@
 .xuancai-wrap{
   background-color: #fff;
   position: absolute;
-  top:270rpx;
+  top:240rpx;
   bottom: 129rpx;
   overflow: hidden;
   width: 100%;

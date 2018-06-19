@@ -53,13 +53,12 @@ Page({
     wx.request({
       url: app.globalData.posturl + 'wx/personalcenter/wallet.do', //url 不能出现端口号
       data: {
-        fUserID: that.data.userInfo.fUserID
+        fUserID: app.globalData.userInfo.fUserID
       },
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data)
         if (res.data.data.fAmount){
           that.setData({
             fAmount: res.data.data.fAmount, //待修改
@@ -91,7 +90,7 @@ Page({
   ToBill: function (e) {
     var that=this
     wx.navigateTo({
-      url: 'bill?fUserID=' + that.data.userInfo.fUserID +'&num='+0,
+      url: 'bill?fUserID=' + app.globalData.userInfo.fUserID +'&num='+0,
       success: function (res) {    
       }
     })

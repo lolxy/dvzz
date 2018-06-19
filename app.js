@@ -31,9 +31,8 @@ App({
   globalData: {
     userInfo: null,
     location: '泉州',
+    cityId:'ff8080815c3ad0d7015c3ad8a38d0000',
     area: '',
-    CurrentCode:'',
-    CurrentfID: '',
     fOpenID:'',
     fSelectMatID:'',
     fCustomerID:'',
@@ -41,7 +40,6 @@ App({
     fSelectMatType:'',
     posturl: 'https://www.dovzs.com/APPDWERP/',
     appid: 'wx5d6a6e22ab9f16fe',
-    secret: '33f27321c7050ba838efd8817da17847',
     gaodekey: 'f25373107c102c9c02ff92c4596f3b52'
   }
 })

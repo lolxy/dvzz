@@ -1,11 +1,12 @@
 // pages/mine/wdqb/bill.js
+var app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    //BillList:[],
+    BillList:[],
     url:'https://www.dovzs.com/APPDWERP/app/fi/stream.do',
     num:0,
     fUserID:''
@@ -24,7 +25,27 @@ Page({
       num: '&num=' + options.num,
     })
   },
-
+  //获取余额
+  GetData: function () {
+    var that = this
+    wx.request({
+      url: app.globalData.posturl + 'wx/personalcenter/stream.do', //url 不能出现端口号
+      data: {
+        fUserID: app.globalData.userInfo.fUserID,
+        //fUserID: 'ff808081633a37d401633e7e34110270',
+        num:0
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        that.setData({
+          BillList: res.data.data
+        })
+      },
+      method: 'GET'
+    });
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -36,7 +57,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    this.GetData()
   },
 
   /**

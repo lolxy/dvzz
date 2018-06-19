@@ -1,40 +1,41 @@
 {
-  "pages": [
-    "pages/index/index",
-    "pages/index/station",
-    "pages/index/find",
-    "pages/index/finddetail",
-    "pages/index/aborprice",
-    "pages/index/piclink",
-    "pages/index/message",
-    "pages/index/piclist",
-    "pages/index/map",
-    "pages/index/auxiliary/orderlist",
-    "pages/index/auxiliary/grkd",
-    "pages/index/auxiliary/brand",
-    "pages/index/auxiliary/detail",
+  "pages":[
+    "pages/self/index/index",
+    "pages/self/station/index",
+    "pages/self/find/index",
+    "pages/self/finddetail/index",
+    "pages/self/aborprice/index",
+    "pages/self/piclink/index",
+    "pages/self/message/index",
+    "pages/self/piclist/index",
+    "pages/self/map/index",
+    "pages/self/fclist/index",
+    "pages/self/auxiliary/orderlist/index",
+    "pages/self/auxiliary/grkd/index",
+    "pages/self/auxiliary/detail/index",
     "pages/main/index/index",
     "pages/main/categories/index",
     "pages/main/list/index",
-    "pages/main/fclist/index",
     "pages/main/detail/index",
     "pages/main/evaluate/index",
     "pages/main/budget/index/index",
     "pages/main/budget/xuancai/index",
     "pages/main/budget/bill/index",
     "pages/main/budget/detail/index",
-    "pages/order/index",
-    "pages/order/list",
-    "pages/order/evaluate",
-    "pages/mine/index",
-    "pages/mine/login",
-    "pages/mine/bind",
-    "pages/mine/suite",
-    "pages/mine/drawing",
-    "pages/mine/aftersale",
-    "pages/mine/wdqb/info",
-    "pages/mine/wdqb/recharge",
-    "pages/mine/wdqb/bill",
+    "pages/order/index/index",
+    "pages/order/list/index",
+    "pages/order/evaluate/index",
+    "pages/order/settlement/index",
+    "pages/mine/index/index",
+    "pages/mine/login/index",
+    "pages/mine/bind/index",
+    "pages/mine/step/index",
+    "pages/mine/suite/index",
+    "pages/mine/drawing/index",
+    "pages/mine/aftersale/index",
+    "pages/mine/wdqb/info/index",
+    "pages/mine/wdqb/recharge/index",
+    "pages/mine/wdqb/bill/index",
     "pages/outlink/index"
   ],
   "window": {
@@ -51,7 +52,7 @@
       {
         "selectedIconPath": "image/zz2.png",
         "iconPath": "image/zz1.png",
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/self/index/index",
         "text": "自装"
       },
       {
@@ -63,15 +64,16 @@
       {
         "selectedIconPath": "image/dd2.png",
         "iconPath": "image/dd.png",
-        "pagePath": "pages/order/index",
+        "pagePath": "pages/order/index/index",
         "text": "订单"
       },
       {
         "selectedIconPath": "image/wd2.png",
         "iconPath": "image/wd.png",
-        "pagePath": "pages/mine/index",
+        "pagePath": "pages/mine/index/index",
         "text": "我的"
       }
     ]
   }
+
 }

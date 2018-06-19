@@ -68,7 +68,7 @@ Component({
         let currentCate = self.data.currentCategory
         if (self.data.code.currentCode2){
           let currentSubCategoryJson = currentCate.data2.find(item => item.fTypeCode2 == self.data.code.currentCode2)
-          let currentSubCategory = currentSubCategoryJson.fTypeCode2 ? currentSubCategoryJson.data3 : []
+          let currentSubCategory = (currentSubCategoryJson && currentSubCategoryJson.fTypeCode2) ? currentSubCategoryJson.data3 : []
           self.setData({
             currentSubCategory: currentSubCategory,
           })

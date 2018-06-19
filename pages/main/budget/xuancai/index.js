@@ -56,8 +56,8 @@ Page({
   },
 
   onShow: function () { 
-    if (this.data.currentSubMenu){
-      this.getBudgetGoodsList()
+    if (this.data.currentMenu){
+      this.getBudgetByIdCatList()
     }
     if (app.globalData.fCustomerName && app.globalData.fSelectMatType != 'virtual'){
       wx.setNavigationBarTitle({
@@ -91,7 +91,8 @@ Page({
       isManager: false,
       currentSubMenu: e.currentTarget.dataset.code,
       currentSubMenuId: e.currentTarget.dataset.id,
-      currentSubMenuName: e.currentTarget.dataset.fvalue
+      currentSubMenuName: e.currentTarget.dataset.fvalue,
+      managerGoodsList: e.currentTarget.dataset.list
     })
     this.getBudgetGoodsList()
   },
@@ -176,6 +177,45 @@ Page({
     this.setData({
       hiddenComfirmModal: e.detail
     })
+    if (comfirmType == 'saveOrder') {
+      let arrs = this.data.selectMainArr
+      if (this.data.isCanAllChecked && !this.data.isManager) {
+        if (!arrs.length) {
+          wx.showToast({
+            title: '请选择您要操作的选材项',
+            icon: 'none'
+          })
+          return false
+        } else {
+          api.addSaleorder({
+            data: {
+              ids: arrs,
+              fSelectMatID: app.globalData.fSelectMatID,
+              fID: this.data.currentMenuID
+            },
+            method: 'post',
+            success: (res) => {
+              wx.showToast({
+                title: '订单生成成功！',
+                icon: 'none'
+              })
+              this.data.selectMainArr = []
+              this.data.selectArr = []
+              this.setData({
+                selectMainArr: this.data.selectMainArr,
+                selectArr: this.data.selectArr
+              })
+              this.getBudgetGoodsList()
+            }
+          })
+        }
+      } else {
+        wx.showToast({
+          title: '对不起，当前状态不能生成订单！',
+          icon: 'none'
+        })
+      }
+    }
     if (comfirmType == 'dell' || comfirmType == 'selfBuy'){
       if (!arr.length) {
         wx.showToast({
@@ -284,7 +324,8 @@ Page({
           subMenuList: subMenuList,
           currentSubMenu:subMenuList[0].fCode,
           currentSubMenuId: subMenuList[0].fID,
-          currentSubMenuName: subMenuList[0].fValue
+          currentSubMenuName: subMenuList[0].fValue,
+          managerGoodsList: subMenuList[0].list
         })
         this.getBudgetGoodsList()
       }
@@ -293,54 +334,44 @@ Page({
 
   // 获取主材预算产品列表
   getBudgetGoodsList:function(){
-    api.getBudgetGoodsList({
-      data:{
-        fSelectMatID: app.globalData.fSelectMatID,
-        fCode:this.data.currentSubMenu
-      },
-      success:(res)=>{
-        let goodsList = res.data.data
-        let newGoodsList = []
-        let selectArr = []
-        let keyNameArr = goodsList.map(item => {
-          return item.fSpace
-        })
-        let keyNameArrUniq = new Set(keyNameArr)
-        keyNameArrUniq.forEach((item,index) => {
-          let children = goodsList.filter((elem) => elem.fSpace === item)
-          let goodsJson = {
-            'spaceName': item,
-            'children': children
-          }
-          newGoodsList.push(goodsJson)
-        })
-        let sumPrice = 0
-        let isCanAllChenked = goodsList.some(item=>{
-          return !item.fIsSelfBuy && !item.fIsGenerated  
-        })
-        let canSelectGoodList = []
-        goodsList.forEach(item=>{
-          item.checked = true
-          if (!item.fIsSelfBuy && !item.fIsGenerated){
-            canSelectGoodList = canSelectGoodList.concat(item)
-            selectArr.push(item.fSelectMatDetailID)
-          }
-          if (item.fAmount && !item.fIsSelfBuy){
-            sumPrice = sumPrice + parseFloat(item.fAmount)
-          } 
-        })
-        this.data.selectMainArr = this.data.selectMainArr.concat(selectArr)
-        this.setData({
-          checkAll:true,
-          selectArr: selectArr,
-          isCanAllChecked: isCanAllChenked,
-          managerGoodsList: goodsList,
-          goodsList: newGoodsList,
-          canSelectGoodList: canSelectGoodList,
-          sumPrice: sumPrice,
-          selectMainArr: Array.from(new Set(this.data.selectMainArr))
-        })
+    let goodsList = this.data.managerGoodsList
+    let newGoodsList = []
+    let keyNameArr = goodsList.map(item => {
+      return item.fSpace
+    })
+    let keyNameArrUniq = new Set(keyNameArr)
+    keyNameArrUniq.forEach((item,index) => {
+      let children = goodsList.filter((elem) => elem.fSpace === item)
+      let goodsJson = {
+        'spaceName': item,
+        'children': children
       }
+      newGoodsList.push(goodsJson)
+    })
+    let sumPrice = 0
+    let isCanAllChecked = goodsList.some(item=>{
+      return !item.fIsSelfBuy && !item.fIsGenerated && item.fAmount
+    })
+    let canSelectGoodList = []
+    goodsList.forEach(item=>{
+      item.checked = true
+      if (!item.fIsSelfBuy && !item.fIsGenerated && item.fAmount){
+        canSelectGoodList = canSelectGoodList.concat(item)
+        // selectArr.push(item.fSelectMatDetailID)
+      }
+      if (item.fAmount && !item.fIsSelfBuy){
+        sumPrice = sumPrice + parseFloat(item.fAmount)
+      } 
+    })
+    // this.data.selectMainArr = this.data.selectMainArr.concat(selectArr)
+    this.setData({
+      // checkAll:true,
+      // selectArr: selectArr,
+      isCanAllChecked: isCanAllChecked,
+      goodsList: newGoodsList,
+      canSelectGoodList: canSelectGoodList,
+      sumPrice: sumPrice,
+      selectMainArr: Array.from(new Set(this.data.selectMainArr))
     })
   },
 
@@ -390,11 +421,11 @@ Page({
   },
   // 全部选择元素
   selectAllItem:function(){
-    let selectMainArr = this.data.selectMainArr
+    // let selectMainArr = this.data.selectMainArr
     let arr = this.data.canSelectGoodList.map(item=>{
       return item.fSelectMatDetailID
     })
-    let checkAll = !this.data.checkAll
+    // let checkAll = !this.data.checkAll
     this.data.sumPrice = 0
     if(checkAll){      
       this.data.managerGoodsList.forEach(item=>{
@@ -406,21 +437,21 @@ Page({
         if (item.fAmount) {
           this.data.sumPrice = this.data.sumPrice + parseFloat(item.fAmount)
         }
-        selectMainArr.push(item.fSelectMatDetailID)
+        // selectMainArr.push(item.fSelectMatDetailID)
       })
     }else{
       this.data.canSelectGoodList.forEach(item => {
         item.checked = false
-        selectMainArr.splice(selectMainArr.findIndex(elem => elem === item.fSelectMatDetailID), 1)
+        // selectMainArr.splice(selectMainArr.findIndex(elem => elem === item.fSelectMatDetailID), 1)
       })
     }
 
     this.setData({
       managerGoodsList: this.data.managerGoodsList,
-      checkAll: checkAll,
-      selectArr: checkAll ? Array.from(new Set(arr)):[],
+      // checkAll: checkAll,
+      // selectArr: checkAll ? Array.from(new Set(arr)):[],
       sumPrice: this.data.sumPrice,
-      selectMainArr: Array.from(new Set(this.data.selectMainArr))
+      // selectMainArr: Array.from(new Set(this.data.selectMainArr))
     })
   },
 
@@ -438,6 +469,7 @@ Page({
 
   // 扫码选材
   scanCode: function (e) {
+    const that = this
     let fSelectMatDetailID = e.currentTarget.dataset.selectid
     let amount = e.currentTarget.dataset.amount
     wx.scanCode({
@@ -450,9 +482,7 @@ Page({
             },
             success: (res) => {
               if (res.data.data.fMatID) {
-                wx.navigateTo({
-                  url: `/pages/main/detail/index?id=${res.data.data.fMatID}&displayType=budget&amount=${amount}&selectMatDetailId=${fSelectMatDetailID}`
-                })
+                that.addSelectMatDetail(fSelectMatDetailID,res.data.data.fMatID)
               } else {
                 wx.showToast({
                   title: '扫码有误，请重新扫码！',
@@ -466,46 +496,41 @@ Page({
     })
   },
 
-  // 生成订单
-  addSaleorder:function(){
-    let arr = this.data.selectMainArr
-    if (this.data.isCanAllChecked && !this.data.isManager){
-      if (!arr.length) {
+  // 加入选材
+  addSelectMatDetail: function (currentSelectMatDetailId,currentGoodsId) {
+    api.addMatToSelectDetail({
+      data: {
+        fSelectMatDetailID: currentSelectMatDetailId,
+        fMatID: currentGoodsId
+      },
+      success: (res) => {
         wx.showToast({
-          title: '请选择您要操作的选材项',
-          icon: 'none'
+          title: '成功选材！',
         })
-        return false
-      } else {
-        api.addSaleorder({
-          data: {
-            ids: arr,
-            fSelectMatID: app.globalData.fSelectMatID,
-            fID: this.data.currentMenuID
-          },
-          method: 'post',
-          success: (res) => {
-            wx.showToast({
-              title: '订单生成成功！',
-              icon: 'none'
-            })
-            this.getBudgetGoodsList()
-          }
+        this.getBudgetGoodsList()
+      },
+      fail: (res) => {
+        wx.showToast({
+          title: '选材失败！'
         })
       }
-    }else{
+    })
+  },
+
+  // 生成订单
+  addSaleorder:function(){
+    if (this.data.isCanAllChecked && !this.data.isManager) {
+      this.setData({
+        hiddenComfirmModal: false,
+        modalContent: "确定要生成订单吗？",
+        comfirmType: "saveOrder"
+      })
+    } else {
       wx.showToast({
         title: '对不起，当前状态不能生成订单！',
         icon: 'none'
       })
     }
-  },
-
-  // 关闭提示弹窗
-  closeTipModal: function () {
-    this.setData({
-      hiddenTipModal: true
-    })
   },
 
   // 打开提示窗口
@@ -515,16 +540,10 @@ Page({
     })
   },
 
-  comfirmTipModal: function () {
+  // 关闭提示弹窗
+  onCloseTipModal: function () {
     this.setData({
       hiddenTipModal: true
     })
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
   }
 })

@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    fAmount: 100,
+    fAmount: '',
   },
 
   /**
@@ -54,7 +54,6 @@ Page({
     var openid = app.globalData.fOpenID
     wx.request({
       url: app.globalData.posturl + 'zzsc/wxPay.do', //url 不能出现端口号
-      //url: 'http://dwzs.4kb.cn/APPDWERP/zzsc/wxPay.do', //url 不能出现端口号
       data:{
         fAmount: that.data.fAmount,
         fCustomerID: app.globalData.userInfo.fCustomerID,
@@ -65,7 +64,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        console.log(res.data)
         wx.requestPayment(
           {
             'appId': res.data.data.appId,
@@ -75,7 +73,6 @@ Page({
             'signType': res.data.data.signType,
             'paySign': res.data.data.paySign,
             'success': function (res2) { 
-              console.log(res.data)
               wx.request({
                 url: app.globalData.posturl + 'app/home/pay/success.do', //url 不能出现端口号
                 data:{
@@ -98,7 +95,7 @@ Page({
               });
             },
             'fail': function (res2) {
-              console.log(res2.data)
+              
             },
             'complete': function (res2) { }
           })
@@ -131,7 +128,7 @@ Page({
     this.setData({
       fAmount:e.detail.value
     })
-    console.log(this.data.fAmount)
+    
   }
 
 })

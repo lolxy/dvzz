@@ -56,7 +56,7 @@ view, image, text, form, checkbox-group, scroll-view{
   align-items: center;
 }
 .shop_cont_name {
-  font-size: 24rpx;
+  font-size: 28rpx;
   line-height: 1em;
   color: #333333;
   float: left;
@@ -68,8 +68,8 @@ view, image, text, form, checkbox-group, scroll-view{
   float: right;
 }
 .shop_cont_uname {
-  margin-top: 20rpx;
-  font-size: 24rpx;
+  margin-top: 12rpx;
+  font-size: 28rpx;
   line-height: 1em;
   color: #666666;
   clear: both;
@@ -185,7 +185,7 @@ view, image, text, form, checkbox-group, scroll-view{
 }
 .thead > view {
   padding: 30rpx 20rpx; 
-  font-size: 24rpx;
+  font-size: 28rpx;
   line-height: 30rpx;
   color: #333333;
   text-align: center;
@@ -212,7 +212,7 @@ view, image, text, form, checkbox-group, scroll-view{
 }
 .tabrows > view {
   padding: 30rpx 20rpx; 
-  font-size: 24rpx;
+  font-size: 28rpx;
   line-height: 30rpx;
   color: #666666;
   text-align: center;

@@ -26,6 +26,8 @@ Page({
     hiddenModal: true,
     latitude: app.globalData.area.latitude,
     longitude: app.globalData.area.longitude,
+    num:0,
+    totalPage:1,
     lanmu:{
       "lanmu1":"../../../image/lanmu1.png",
       "lanmu2": "../../../image/lanmu2.png",
@@ -60,9 +62,11 @@ Page({
   //选择地区城市
   cityChange: function (e) {
     app.globalData.location = this.data.citylist[e.detail.value].fValue
+    app.globalData.cityId = this.data.citylist[e.detail.value].fID
     this.setData({
       currentCity: app.globalData.location
     })
+    this.getHomeRecommonList()
   },
 
   //获取城市列表
@@ -121,13 +125,15 @@ Page({
   getHomeRecommonList: function () {
     api.getHomeRecommonList({
       data: {
+        fCityID: app.globalData.cityId,
         lat: this.data.latitude,
         lng: this.data.longitude,
-        num: 0
+        num: this.data.num
       },
       success: (res) => {
         this.setData({
-          recommonList: res.data.data
+          totalPage: res.data.totalPage,
+          recommonList: this.data.recommonList.concat(res.data.data)
         })
       }
     });
@@ -143,7 +149,7 @@ Page({
   // 跳转我的消息
   gotoMessage:function(){
     wx.navigateTo({
-      url:'/pages/index/message'
+      url:'/pages/self/message/index'
     })
   },
 
@@ -261,7 +267,7 @@ Page({
           success: function (res) {
             if (res.confirm) {
               wx.navigateTo({
-                url: '/pages/mine/login',
+                url: '/pages/mine/login/index',
               })
             }
           }
@@ -279,6 +285,39 @@ Page({
           })
         }
       }
+    }
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    that.setData({
+      num:0
+    })
+    that.getHomeRecommonList()
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  scrollToBottom: function () {
+    var that = this
+    console.log(that.data.num)
+    console.log(that.data.totalPage)
+    if (that.data.num === that.data.totalPage - 1) {
+      wx.showLoading({
+        title: '已经到底了',
+        mask: true
+      })
+      setTimeout(function () {
+        wx.hideLoading()
+      }, 2000)
+    } else {
+      that.setData({
+        num: that.data.num + 1
+      })
+      that.getHomeRecommonList()
     }
   },
 

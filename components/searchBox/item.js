@@ -6,6 +6,9 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    displayType: {
+      type: String
+    },
     keyword:{
       type:String,
       observer: function (newVal, oldVal) {
@@ -41,6 +44,7 @@ Component({
     },
     // 扫码功能
     scanCode: function () {
+      const that = this
       wx.scanCode({
         success: function (res) {
           if (res.result) {
@@ -51,7 +55,7 @@ Component({
               success: (res) => {
                 if (res.data.data.fMatID) {
                   wx.navigateTo({
-                    url: `/pages/main/detail/index?id=${res.data.data.fMatID}`
+                    url: `/pages/main/detail/index?id=${res.data.data.fMatID}&displayType=${that.data.displayType}`
                   })
                 } else {
                   wx.showToast({

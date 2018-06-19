@@ -27,7 +27,7 @@ Page({
     amount:0,
     isCollect:false,
     isSelectMat:false,
-    hiddenModal:true,
+    hiddenTipModal:true,
     windowWidth: app.systemInfo.windowWidth,
     windowHeight: app.systemInfo.windowHeight - 10,
     favicon:"./image/favicon.png",
@@ -46,8 +46,10 @@ Page({
       currentSelectMatDetailId: options.selectMatDetailId || ''
     })
     this.getDetail()
-    this.getCollectList()
-    this.getSelectMatStatus()
+    if (options.selectMatDetailId && options.selectMatDetailId != 'undefined'){
+      this.getCollectList()
+      this.getSelectMatStatus()
+    }
   },
 
   // 获取商品详情
@@ -207,7 +209,7 @@ Page({
   // 加入预算提示
   join:function(){
     this.setData({
-      hiddenModal:false
+      hiddenTipModal:false
     })
   },
 
@@ -231,7 +233,7 @@ Page({
       },
       fail:(res)=>{
         wx.showToast({
-          title: res.data.msg,
+          title: '选材失败！'
         })
       }
     })
@@ -252,15 +254,9 @@ Page({
   },
 
   // 关闭提示弹窗
-  closeModal:function(){
+  onCloseTipModal:function(){
     this.setData({
-      hiddenModal: true
-    })
-  },
-
-  comfirm:function(){
-    this.setData({
-      hiddenModal: true
+      hiddenTipModal: true
     })
   },
 

@@ -101,7 +101,7 @@
 }
 
 .menu-item text{
-  font-size: 24rpx;
+  font-size: 28rpx;
   color:#666;
   margin-top: 15rpx;
 }

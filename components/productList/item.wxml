@@ -9,11 +9,14 @@
       <view class='sale'>￥<text>{{item.fPrice}}</text>元/{{item.fUnitName}}</view>
       <view class='sum'>总价：{{item.fAmount}}元</view>
     </view>
+    <view class='fucai price' wx:elif="{{displayType == 'fucai'}}">
+      零售价：<view class='sale'>￥<text>{{item.fPrice}}</text>元/{{item.fUnitName}}</view>
+    </view>
     <view class='mall price' wx:else>
       <view class='sale'>￥<text>{{item.fPrice}}</text>元/{{item.fUnitName}}</view>
       <view class='old' wx:if="{{displayType == 'mall' && item.fOldPrice != 0}}">原价：￥{{item.fOldPrice}}元</view>
     </view>
-    <view class='info'>
+    <view class='info' wx:if="{{displayType != 'fucai'}}">
       <view class='store'>{{item.fShopCityName}}</view>
       <view class='area'>{{item.distance}}</view>
     </view>

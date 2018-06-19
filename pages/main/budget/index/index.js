@@ -94,13 +94,7 @@ Page({
   },
 
   // 关闭提示弹窗
-  closeTipModal: function () {
-    this.setData({
-      hiddenTipModal: true
-    })
-  },
-
-  comfirmTipModal: function () {
+  onCloseTipModal: function () {
     this.setData({
       hiddenTipModal: true
     })

@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "多维主材商城",
+  "enablePullDownRefresh":true,
   "usingComponents": {
     "product-list": "/components/productList/item"
   }

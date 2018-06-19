@@ -40,7 +40,7 @@ Page({
   getConsumeType:function(){
     api.getConsumeType({
       data:{
-        fCustomerID: app.globalData.fCustomerID
+        fSelectMatID: app.globalData.fSelectMatID
       },
       success:(res)=>{
         let orderList = res.data.data || []
@@ -68,7 +68,7 @@ Page({
   getConsumeDetail: function () {
     api.getConsumeDetail({
       data: {
-        fCustomerID: app.globalData.fCustomerID,
+        fSelectMatID: app.globalData.fSelectMatID,
         fCode: this.data.currentCode
       },
       success: (res) => {

@@ -1,6 +1,6 @@
 <!--pages/detail/detail.wxml-->
 <import src="../../../wxParse/wxParse.wxml"/>
-<scroll-view class="containers" scroll-y="{{true}}">
+<scroll-view class="containers {{displayType === 'fucai'?'nofixedbottom':''}}" scroll-y="{{true}}">
   <view class='swriper-contains' wx:if="{{detail.list.length}}">
       <view class="customer-top">
         <swiper class='customer-banner' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}">
@@ -19,12 +19,17 @@
             <image src="{{isCollect?faviconed:favicon}}"></image>
           </view> 
         </view>
-        <view class='price'>
+        <view class='price' wx:if="{{displayType != 'fucai'}}">
           <view>
-              优惠价：<text>{{detail.fPrice}}元/{{detail.fUnitName2}}</text>
+              优惠价：<text>{{detail.fPrice}}元/{{detail.fUnitName}}</text>
           </view>
           <view>
-              单价：<text>{{detail.fPrice2}}元/{{detail.fUnitName}}</text>
+              单价：<text>{{detail.fPrice2}}元/{{detail.fUnitName2}}</text>
+          </view>
+        </view>
+        <view class='price' wx:else>
+          <view>
+              零售价：<text>{{detail.fPrice}}元/{{detail.fUnitName}}</text>
           </view>
         </view>
       </view>
@@ -88,19 +93,12 @@
   <button class='btn' bindtap='addSelectMatDetail' wx:if="{{!isSelectMat}}">确定选材</button>
   <button class='btn disabled' wx:else>已被选过</button>
 </view>
-<view class='bth-add' wx:else>
+<block wx:else>
+<view class='bth-add' wx:if="{{displayType != 'fucai'}}">
   <button class='btn' bindtap='join'>加入预算</button>
 </view>
+</block>
 
-<view class='modal-wrap' hidden='{{hiddenModal}}'>
-  <view class='mask' bindtap='closeModal'></view>
-  <view class='modal'>
-    <view class='modal-content'>
-      <text>暂无主材列项,无法预算</text>
-      <text>请预约量房</text>
-    </view>
-    <view class='modal-footer'>
-      <view class='comfirm' bindtap='comfirm'>确定</view>
-    </view>
-  </view>
+<view hidden='{{hiddenTipModal}}'>
+  <tip-modal bindclosemodal="onCloseTipModal"></tip-modal>
 </view>

@@ -188,12 +188,12 @@ const addSaleorder = (params) => {
 
 // 获取我的消费类型
 const getConsumeType = (params) => {
-  wxRequest(params, `${apiURL}/wx/personalcenter/consumeType.do`);
+  wxRequest(params, `${apiURL}/wx/mainBudget/budgetType.do`);
 }; 
 
 // 获取我的消费明细
 const getConsumeDetail = (params) => {
-  wxRequest(params, `${apiURL}/wx/personalcenter/consumeDetail.do`);
+  wxRequest(params, `${apiURL}/wx/mainBudget/budgetDetail.do`);
 }; 
 
 module.exports = {

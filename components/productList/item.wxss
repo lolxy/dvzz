@@ -6,7 +6,7 @@
 
 .pro-item{
   width: 50%;
-  height: 500rpx;
+  /* height: 500rpx; */
   overflow: hidden;
   padding: 20rpx 20rpx 10rpx;
   box-sizing: border-box;
@@ -49,6 +49,16 @@
 .price.budget{
   color:#333333;
   font-size: 24rpx;
+}
+
+.price.fucai{
+  color:#d32f2e;
+  font-size:24rpx;
+  justify-content:flex-start;
+}
+
+.price.fucai text{
+  font-size:30rpx;
 }
 
 .price .old{
