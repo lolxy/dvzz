@@ -1,6 +1,7 @@
 //self/index.js
 //获取应用实例
 const app = getApp()
+const api = require('../../../utils/api.js');
 
 Page({
   data: {
@@ -29,6 +30,7 @@ Page({
     CallIcon: '../../../image/callicon.png',
     NaviIcon: '../../../image/navicon.png',
     AppraiseIcon: '../../../image/AppraiseIcon.png',
+    loadimg:'../../../image/loadimg.png',
     fCustomerID: ''
   },
   /*****  省市区选择   *****/
@@ -140,9 +142,11 @@ Page({
 
   //banner跳转
   toOutLink: function (e) {
-    wx.navigateTo({
-      url: `/pages/outlink/index?url=${e.currentTarget.dataset.burl}`
-    })
+    if (e.currentTarget.dataset.burl) {
+      wx.navigateTo({
+        url: `/pages/outlink/index?url=${e.currentTarget.dataset.burl}`
+      })
+    }
   },
   /**
     * 跳转到各详情页面
@@ -162,25 +166,27 @@ Page({
     })
   },
   // 扫码功能
-  ScanCode: function () {
+  scanCode: function () {
     wx.scanCode({
-      success: function (res){
-        if (res.result){
-          wx.request({
-            url: app.globalData.posturl + 'app/selectmat/scanCode.do', //url 不能出现端口号
-            data: { fMatCode: res.result },
-            header: {
-              'content-type': 'application/json' // 默认值
+      success: function (res) {
+        if (res.result) {
+          api.getScanCode({
+            data: {
+              fMatCode: res.result
             },
-            success: function (res2) {
-              wx.navigateTo({
-                url: '/pages/main/detail/index?fMatID=' + res2.data.data.fMatID,//地址待修改
-                success: function (res) {
-                }
-              })
-            },
-            method: 'GET'
-          });
+            success: (res) => {
+              if (res.data.data.fMatID) {
+                wx.navigateTo({
+                  url: `/pages/main/detail/index?id=${res.data.data.fMatID}&displayType=fucai`
+                })
+              } else {
+                wx.showToast({
+                  title: '扫码有误，请重新扫码！',
+                  icon: 'none'
+                })
+              }
+            }
+          })
         }
       }
     })
@@ -276,9 +282,20 @@ Page({
     })
   },
   tomap: function (e) {
-    wx.navigateTo({
-      url: '../map/index?lat=' + e.target.dataset.lat + '&lng=' + e.target.dataset.lng + '&add=' + e.target.dataset.add,
+    const that = this
+    const latitude = Number(e.target.dataset.lat)
+    const longitude = Number(e.target.dataset.lng)
+    const title = e.target.dataset.add
+    const distance = e.target.dataset.distance
+    wx.getLocation({
+      type: 'gcj02', //返回可以用于wx.openLocation的经纬度
       success: function (res) {
+        wx.openLocation({
+          name: title,
+          address: distance,
+          latitude: latitude,
+          longitude: longitude
+        })
       }
     })
   },
@@ -301,37 +318,40 @@ Page({
   },
 
   chickbtn: function(e) {
-    var that = this;
-    if (e.currentTarget.dataset.targel == '确认支付') {
-      wx.navigateTo({
-        url: '/pages/order/settlement/index?TotleAccont=' + e.currentTarget.dataset.amount + '&OIDList=' + e.currentTarget.dataset.soid,
-        success: function (res) {
-        }
-      })
-    } else if (e.currentTarget.dataset.targel == '确认收货'){
-      wx.showModal({
-        title: '确认收货',
-        content: '为避免不必要的损失，请在确认收到所货品之后点击确认收货',
-        success: function (res) {
-          if (res.confirm) {
-            wx.request({
-              url: app.globalData.posturl + 'wx/shopOrder/updateSaleOrder.do', //url 不能出现端口号
-              data: {
-                fSaleOrderID: e.currentTarget.dataset.soid,
-                fUserID: app.globalData.userInfo.fUserID
-              },
-              header: {
-                'content-type': 'application/json' // 默认值
-              },
-              success: function (res) {
+    wx.navigateTo({
+      url: '/pages/order/list/index?fSaleOrderID=' + e.currentTarget.dataset.soid + '&fTypeCategory=' + e.currentTarget.dataset.cate
+    })
+    // var that = this;
+    // if (e.currentTarget.dataset.targel == '确认支付') {
+    //   wx.navigateTo({
+    //     url: '/pages/order/settlement/index?TotleAccont=' + e.currentTarget.dataset.amount + '&OIDList=' + e.currentTarget.dataset.soid,
+    //     success: function (res) {
+    //     }
+    //   })
+    // } else if (e.currentTarget.dataset.targel == '确认收货'){
+    //   wx.showModal({
+    //     title: '确认收货',
+    //     content: '为避免不必要的损失，请在确认收到所货品之后点击确认收货',
+    //     success: function (res) {
+    //       if (res.confirm) {
+    //         wx.request({
+    //           url: app.globalData.posturl + 'wx/shopOrder/updateSaleOrder.do', //url 不能出现端口号
+    //           data: {
+    //             fSaleOrderID: e.currentTarget.dataset.soid,
+    //             fUserID: app.globalData.userInfo.fUserID
+    //           },
+    //           header: {
+    //             'content-type': 'application/json' // 默认值
+    //           },
+    //           success: function (res) {
 
-              },
-              method: 'GET'
-            });
-          } else if (res.cancel) {
-          }
-        }
-      })
-    }
+    //           },
+    //           method: 'GET'
+    //         });
+    //       } else if (res.cancel) {
+    //       }
+    //     }
+    //   })
+    // }
   }
 })

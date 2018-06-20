@@ -18,7 +18,10 @@ Page({
   onLoad: function (options) {
     wx.setNavigationBarTitle({
       title: '我的钱包',
-    })
+    }) 
+  },
+
+  onShow:function() {
     this.GetData()
   },
 
@@ -28,20 +31,21 @@ Page({
     wx.request({
       url: app.globalData.posturl + 'wx/personalcenter/wallet.do', //url 不能出现端口号
       data: {
+        fCustomerID: app.globalData.fCustomerID,
         fUserID: app.globalData.userInfo.fUserID
       },
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
-        if (res.data.data.fAmount){
+        if (res.data.data.fAmount || res.data.data.fAmount == 0){
           that.setData({
-            fAmount: res.data.data.fAmount, //待修改
+            fAmount: res.data.data.fAmount,
             nocash: 1
           })
         }else {
           that.setData({
-            nocash:0 //待修改
+            nocash:0
           })
         }
       },
@@ -69,12 +73,5 @@ Page({
       success: function (res) {
       }
     })
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   }
 })

@@ -85,14 +85,16 @@
   align-items: center;
 }
 .foot_l_grp image {
-  width: 32rpx;
-  height: 32rpx;
+  width: 30rpx;
+  height: 30rpx;
   margin-right: 10rpx;
+  margin-bottom: 5rpx;
 }
 .foot_l_grp view {
-  font-size: 32rpx;
-  line-height: 1em;
+  font-size: 28rpx;
+  line-height:30rpx;
   color: #999999;
+  text-align: center;
 }
 .foot_r_grp {
   display: flex;

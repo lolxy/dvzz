@@ -56,8 +56,8 @@ Page({
   },
 
   onShow: function () { 
-    if (this.data.currentMenu){
-      this.getBudgetByIdCatList()
+    if (this.data.currentSubMenu){
+      this.getBudgetGoodsList()
     }
     if (app.globalData.fCustomerName && app.globalData.fSelectMatType != 'virtual'){
       wx.setNavigationBarTitle({
@@ -91,8 +91,7 @@ Page({
       isManager: false,
       currentSubMenu: e.currentTarget.dataset.code,
       currentSubMenuId: e.currentTarget.dataset.id,
-      currentSubMenuName: e.currentTarget.dataset.fvalue,
-      managerGoodsList: e.currentTarget.dataset.list
+      currentSubMenuName: e.currentTarget.dataset.fvalue
     })
     this.getBudgetGoodsList()
   },
@@ -324,8 +323,7 @@ Page({
           subMenuList: subMenuList,
           currentSubMenu:subMenuList[0].fCode,
           currentSubMenuId: subMenuList[0].fID,
-          currentSubMenuName: subMenuList[0].fValue,
-          managerGoodsList: subMenuList[0].list
+          currentSubMenuName: subMenuList[0].fValue
         })
         this.getBudgetGoodsList()
       }
@@ -334,44 +332,54 @@ Page({
 
   // 获取主材预算产品列表
   getBudgetGoodsList:function(){
-    let goodsList = this.data.managerGoodsList
-    let newGoodsList = []
-    let keyNameArr = goodsList.map(item => {
-      return item.fSpace
-    })
-    let keyNameArrUniq = new Set(keyNameArr)
-    keyNameArrUniq.forEach((item,index) => {
-      let children = goodsList.filter((elem) => elem.fSpace === item)
-      let goodsJson = {
-        'spaceName': item,
-        'children': children
+    api.getBudgetGoodsList({
+      data:{
+        fSelectMatID: app.globalData.fSelectMatID,
+        fCode:this.data.currentSubMenu
+      },
+      success:(res)=>{
+        let goodsList = res.data.data
+        let newGoodsList = []
+        let selectArr = []
+        let keyNameArr = goodsList.map(item => {
+          return item.fSpace
+        })
+        let keyNameArrUniq = new Set(keyNameArr)
+        keyNameArrUniq.forEach((item,index) => {
+          let children = goodsList.filter((elem) => elem.fSpace === item)
+          let goodsJson = {
+            'spaceName': item,
+            'children': children
+          }
+          newGoodsList.push(goodsJson)
+        })
+        let sumPrice = 0
+        let isCanAllChenked = goodsList.some(item=>{
+          return !item.fIsSelfBuy && !item.fIsGenerated  
+        })
+        let canSelectGoodList = []
+        goodsList.forEach(item=>{
+          item.checked = true
+          if (!item.fIsSelfBuy && !item.fIsGenerated){
+            canSelectGoodList = canSelectGoodList.concat(item)
+            selectArr.push(item.fSelectMatDetailID)
+          }
+          if (item.fAmount && !item.fIsSelfBuy){
+            sumPrice = sumPrice + parseFloat(item.fAmount)
+          } 
+        })
+        this.data.selectMainArr = this.data.selectMainArr.concat(selectArr)
+        this.setData({
+          checkAll:true,
+          selectArr: selectArr,
+          isCanAllChecked: isCanAllChenked,
+          managerGoodsList: goodsList,
+          goodsList: newGoodsList,
+          canSelectGoodList: canSelectGoodList,
+          sumPrice: sumPrice,
+          selectMainArr: Array.from(new Set(this.data.selectMainArr))
+        })
       }
-      newGoodsList.push(goodsJson)
-    })
-    let sumPrice = 0
-    let isCanAllChecked = goodsList.some(item=>{
-      return !item.fIsSelfBuy && !item.fIsGenerated && item.fAmount
-    })
-    let canSelectGoodList = []
-    goodsList.forEach(item=>{
-      item.checked = true
-      if (!item.fIsSelfBuy && !item.fIsGenerated && item.fAmount){
-        canSelectGoodList = canSelectGoodList.concat(item)
-        // selectArr.push(item.fSelectMatDetailID)
-      }
-      if (item.fAmount && !item.fIsSelfBuy){
-        sumPrice = sumPrice + parseFloat(item.fAmount)
-      } 
-    })
-    // this.data.selectMainArr = this.data.selectMainArr.concat(selectArr)
-    this.setData({
-      // checkAll:true,
-      // selectArr: selectArr,
-      isCanAllChecked: isCanAllChecked,
-      goodsList: newGoodsList,
-      canSelectGoodList: canSelectGoodList,
-      sumPrice: sumPrice,
-      selectMainArr: Array.from(new Set(this.data.selectMainArr))
     })
   },
 
@@ -421,11 +429,11 @@ Page({
   },
   // 全部选择元素
   selectAllItem:function(){
-    // let selectMainArr = this.data.selectMainArr
+    let selectMainArr = this.data.selectMainArr
     let arr = this.data.canSelectGoodList.map(item=>{
       return item.fSelectMatDetailID
     })
-    // let checkAll = !this.data.checkAll
+    let checkAll = !this.data.checkAll
     this.data.sumPrice = 0
     if(checkAll){      
       this.data.managerGoodsList.forEach(item=>{
@@ -437,21 +445,21 @@ Page({
         if (item.fAmount) {
           this.data.sumPrice = this.data.sumPrice + parseFloat(item.fAmount)
         }
-        // selectMainArr.push(item.fSelectMatDetailID)
+        selectMainArr.push(item.fSelectMatDetailID)
       })
     }else{
       this.data.canSelectGoodList.forEach(item => {
         item.checked = false
-        // selectMainArr.splice(selectMainArr.findIndex(elem => elem === item.fSelectMatDetailID), 1)
+        selectMainArr.splice(selectMainArr.findIndex(elem => elem === item.fSelectMatDetailID), 1)
       })
     }
 
     this.setData({
       managerGoodsList: this.data.managerGoodsList,
-      // checkAll: checkAll,
-      // selectArr: checkAll ? Array.from(new Set(arr)):[],
+      checkAll: checkAll,
+      selectArr: checkAll ? Array.from(new Set(arr)):[],
       sumPrice: this.data.sumPrice,
-      // selectMainArr: Array.from(new Set(this.data.selectMainArr))
+      selectMainArr: Array.from(new Set(this.data.selectMainArr))
     })
   },
 
@@ -545,5 +553,12 @@ Page({
     this.setData({
       hiddenTipModal: true
     })
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+  
   }
 })

@@ -117,9 +117,16 @@
   align-items: center;
 }
 .order_item_body .checkbox {
-  transform: scale(.6);
-  flex-shrink: 1;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  height: 170rpx;
+  width: 100rpx;
+  text-align: center;
+}
+.foot .checkbox checkbox,.order_item_body .checkbox checkbox{
+  transform: scale(.7)
 }
 .order_item_img {
   width: 170rpx;
@@ -127,7 +134,6 @@
   flex: none;
   flex-shrink: 0;
   border-radius: 10rpx;
-  margin-left:20rpx;
   overflow: hidden;
 }
 .order_item_grp {
@@ -206,11 +212,10 @@
 }
 .foot .checkbox {
   font-size: 32rpx;
-  line-height: 1em;
+  display: flex;
+  align-content: center;
+  align-items: center;
   color: #999999;
-}
-.foot .checkbox checkbox {
-  transform: scale(0.6);
 }
 .foot_r_grp {
   display: flex;
@@ -231,6 +236,10 @@
   text-align: center;
   color: #ffffff;
   background-color: #FF6600;
+}
+
+.foot_r_grp view.btn.disabled{
+  background-color: #999;
 }
 /**** 提示 ****/
 .tipsgrp {

@@ -46,11 +46,7 @@
       <view class='order_item_foot'>
         <view>订单号：{{item.fReceiptNo}}</view>
         <view>
-          <view wx:if="{{flag == 0}}" >创建时间：{{item.fDate}}</view>
-          <view wx:if="{{flag == 1}}" >付款时间：{{item.fDate}}</view>
-          <view wx:if="{{flag == 2}}" >收货时间：{{item.fDate}}</view>
-          <view wx:if="{{flag == 3}}" >退货时间：{{item.fDate}}</view>
-          <view wx:if="{{flag == 4}}" >{{item.fDate}}</view>
+          <view>{{item.fTitle}}：{{item.fDate}}</view>
         </view>
       </view>
       </view>
@@ -64,7 +60,8 @@
     </checkbox-group>
     <view class='foot_r_grp'>
       <view>合计:{{totle}}元</view>
-      <view class='btn foot_button' bindtap='ToSettlement' data-totle='{{totle}}' data-soid="{{OIDList}}">结算</view>
+      <view class='btn foot_button' bindtap='ToSettlement' data-totle='{{totle}}' data-soid="{{OIDList}}" wx:if="{{OIDList.length}}">结算</view>
+      <view class='btn foot_button disabled' bindtap='ToNoSettlement' wx:else>结算</view>
     </view>
   </view>
   <view class='tipsgrp' wx:if="{{!OrderList.length}}">

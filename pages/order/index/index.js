@@ -60,7 +60,9 @@ Page({
     if (app.globalData.userInfo && app.globalData.userInfo.fUserID) {
       that.setData({
         userInfo: app.globalData.userInfo,
-    fCustomerID:app.globalData.fCustomerID
+        fCustomerID:app.globalData.fCustomerID,
+        SelectAll:0,
+        OIDList: []
       })
       that.GetOrderType()
     }else{
@@ -215,6 +217,9 @@ Page({
         [itemb]: that.data.OrderList[n].fSaleOrderID
       })
     }
+    that.setData({
+      SelectAll: that.data.OIDList.length == that.data.OrderList.length ? 1 : 0
+    })
     that.SumTotle()
   },
   //统计已选取的总金额
@@ -234,6 +239,9 @@ Page({
   */
   SelectAll: function (e) {
     var that = this
+    let OIDList = that.data.OrderList.map(item => {
+      return item.fSaleOrderID
+    })
     if (e.detail.value.length > 0) {
       for (let i = 0; i < that.data.OrderList.length;i++) {
         let item = 'OrderList[' + i + '].Selected'
@@ -243,6 +251,10 @@ Page({
           [itemb]: that.data.OrderList[i].fSaleOrderID
         })
       }
+      that.setData({
+        OIDList: OIDList,
+        SelectAll: true
+      })
     }else {
       for (let i = 0; i < that.data.OrderList.length; i++) {
         let item = 'OrderList[' + i + '].Selected'
@@ -251,7 +263,8 @@ Page({
         })
       }
       that.setData({
-        OIDList: []
+        OIDList: [],
+        SelectAll: false
       })
     }
     that.SumTotle()
@@ -262,9 +275,7 @@ Page({
    */
   ToList: function(e) {
     wx.navigateTo({
-      url: '../list/index?fSaleOrderID=' + e.currentTarget.dataset.fid +'&flag='+this.data.flag+ '&fTypeCategory=' + e.currentTarget.dataset.item + '&fUserID=' + e.currentTarget.dataset.usr,
-      success: function (res) {
-      }
+      url: '../list/index?fSaleOrderID=' + e.currentTarget.dataset.fid +'&flag='+this.data.flag+ '&fTypeCategory=' + e.currentTarget.dataset.item + '&fUserID=' + e.currentTarget.dataset.usr
     })
   },
 
@@ -276,6 +287,15 @@ Page({
       url: '../evaluate/index?fSaleOrderID=' + e.currentTarget.dataset.fid,
       success: function (res) {
       }
+    })
+  },
+
+  ToNoSettlement: function () {
+    wx.showToast({
+      title: '请选择要结算的订单！',
+      icon: 'none',
+      duration: 1000,
+      mask: true
     })
   },
   //结算
@@ -303,9 +323,7 @@ Page({
           userInfo: app.globalData.userInfo
         })
         wx.navigateTo({
-          url: '../settlement/index?TotleAccont=' + that.data.totle + '&OIDList=' + e.currentTarget.dataset.soid,
-          success: function (res) {
-          }
+          url: '/pages/order/settlement/index?TotleAccont=' + that.data.totle + '&OIDList=' + e.currentTarget.dataset.soid
         })
       }
     }

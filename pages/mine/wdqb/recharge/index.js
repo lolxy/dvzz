@@ -61,7 +61,7 @@ Page({
                     icon: 'success',
                     duration: 1000
                   })
-                  wx.navigateBack({})
+                  wx.navigateBack()
                 },
                 method: 'GET'
               });

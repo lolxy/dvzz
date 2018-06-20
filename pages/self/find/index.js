@@ -29,7 +29,6 @@ Page({
         fUserID: app.globalData.userInfo.fUserID
       })
     }
-    this.getitemtype()
   },
 
   /**
@@ -118,8 +117,7 @@ Page({
       },
       success: function (res) {
         that.setData({
-          tabs: res.data.data,
-          currentid: res.data.data[0].fOrgID
+          tabs: res.data.data
         })
         that.GetDataList()
       },
@@ -182,7 +180,7 @@ Page({
       that.setData({
         scrollTop: ev.scrollTop
       })
-    }, 0)
+    }, 100)
   },
 
   /**
@@ -190,12 +188,11 @@ Page({
    */
   onReachBottom: function () {
     var that = this
-    if (that.data.num == that.data.maxpage){
+    if (that.data.num === that.data.maxpage - 1){
       wx.showLoading({
         title: '已经到底了',
         mask: true
       })
-
       setTimeout(function () {
         wx.hideLoading()
       }, 2000)

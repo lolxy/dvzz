@@ -21,11 +21,17 @@ Page({
   getCurrentType: function (e) {
     let currentIndex = e.currentTarget.dataset.index
     let orderList = this.data.orderList
+    let currentType = ''
+    if (orderList.length) {
+      currentType = orderList[currentIndex].fValue.indexOf('辅材') > -1 ? 'fucai' : 'zhucai'
+    }
     this.setData({
       currentIndex: currentIndex,
-      currentCode: orderList[currentIndex].fCode
+      currentType: currentType,
+      currentCode: orderList[currentIndex].list[0].fCode,
+      currentDetailId: orderList[currentIndex].list[0].fID,
     })
-    this.getConsumeType()
+    this.getConsumeDetail()
   },
 
   getcurrentCodeData: function (e) {
@@ -50,7 +56,7 @@ Page({
           sumPrice = sumPrice + parseFloat(item.fAmount)
         })
         if (orderList.length){
-          currentType = orderList[0].fValue.indexOf('主材')>-1?'zhucai':'fucai'
+          currentType = orderList[0].fValue.indexOf('辅材')>-1?'fucai':'zhucai'
         }
         this.setData({
           orderList: orderList,
@@ -99,12 +105,5 @@ Page({
    */
   onShow: function () {
     this.getConsumeType()
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   }
 })

@@ -7,6 +7,7 @@
       </view>
     </view>
     <view class='typelist'>
+      <view class="{{currentid == ''?'active':''}}" data-fid="" bindtap='TabsChange'>全部</view>
       <view class="{{item.fOrgID==currentid?'active':''}}"  wx:for="{{tabs}}" data-fid="{{item.fOrgID}}" wx:key="{{index}}" data-index="{{index}}" bindtap='TabsChange'>{{item.fOrgName}}</view>
     </view>
   </view>

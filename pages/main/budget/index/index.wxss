@@ -68,13 +68,13 @@
 }
 
 .x-header navigator{
-  width: 120rpx;
+  width: 130rpx;
   color:#ff6600;
   font-size:26rpx;
   text-align: center;
-  line-height: 58rpx;
+  line-height: 48rpx;
   border:1rpx solid #ff6600;
-  border-radius: 58rpx;
+  border-radius: 48rpx;
 }
 
 .xuancai-wrap .list{
@@ -177,11 +177,12 @@ margin-right: 20rpx;
 
 .total navigator{
   border:1rpx solid #ff6600;
-  line-height: 68rpx;
-  width: 260rpx;
-  border-radius: 68rpx;
+  line-height: 54rpx;
+  width: 220rpx;
+  border-radius: 54rpx;
   color:#ff6600;
   font-weight: 500;
   background-color: #fff;
   text-align: center;
+  margin-left: 10rpx;
 }

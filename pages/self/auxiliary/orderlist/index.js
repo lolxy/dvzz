@@ -59,7 +59,9 @@ Page({
   onShow: function () {
     var that = this
     that.setData({
-      fCustomerID: app.globalData.fCustomerID
+      fCustomerID: app.globalData.fCustomerID,
+      OIDList:[],
+      SelectAll:0
     })
     that.GetOrderInfo()
   },
@@ -159,6 +161,9 @@ Page({
         [itemb]: that.data.OrderList[n].fSaleOrderID
       })
     }
+    that.setData({
+      SelectAll: that.data.OIDList.length == that.data.OrderList.length?1:0
+    })
     that.SumTotle()
   },
   //统计已选取的总金额
@@ -178,6 +183,9 @@ Page({
   */
   SelectAll: function (e) {
     var that = this
+    let OIDList = that.data.OrderList.map(item => {
+      return item.fSaleOrderID
+    })
     if (e.detail.value.length > 0) {
       for (let i = 0; i < that.data.OrderList.length; i++) {
         let item = 'OrderList[' + i + '].Selected'
@@ -185,6 +193,10 @@ Page({
           [item]: true
         })
       }
+      that.setData({
+        OIDList: OIDList,
+        SelectAll:true
+      })
     } else {
       for (let i = 0; i < that.data.OrderList.length; i++) {
         let item = 'OrderList[' + i + '].Selected'
@@ -192,6 +204,10 @@ Page({
           [item]: false
         })
       }
+      that.setData({
+        OIDList: [],
+        SelectAll: false
+      })
     }
     that.SumTotle()
   },
@@ -201,9 +217,7 @@ Page({
    */
   ToList: function (e) {
     wx.navigateTo({
-      url: '/pages/order/list/index?fSaleOrderID=' + e.currentTarget.dataset.fid + '&fTypeCategory=' + e.currentTarget.dataset.item,
-      success: function (res) {
-      }
+      url: '/pages/order/list/index?fSaleOrderID=' + e.currentTarget.dataset.fid + '&fTypeCategory=' + e.currentTarget.dataset.item
     })
   },
   
@@ -224,6 +238,15 @@ Page({
   ToEvaluate: function (e) {
     wx.navigateTo({
       url: '/pages/order/evaluate/index?fSaleOrderID=' + e.currentTarget.dataset.fid
+    })
+  },
+
+  ToNoSettlement:function(){
+    wx.showToast({
+      title: '请选择要结算的订单！',
+      icon: 'none',
+      duration: 1000,
+      mask: true
     })
   },
 
@@ -252,9 +275,7 @@ Page({
           userInfo: app.globalData.userInfo
         })
         wx.navigateTo({
-          url: '../settlement/index?TotleAccont=' + that.data.totle + '&OIDList=' + e.currentTarget.dataset.soid,
-          success: function (res) {
-          }
+          url: '/pages/order/settlement/index?TotleAccont=' + that.data.totle + '&OIDList=' + e.currentTarget.dataset.soid
         })
       }
     }

@@ -185,24 +185,14 @@ Page({
 
   // 搜索商品列表
   onSearch: function (e) {
-    if (this.data.currentType == "brand") {
-      // this.getBrandList()
-      wx.showToast({
-        title: '品牌暂不支持关键字搜索',
-        icon:'none'
-      })
-    } else {
-      this.setData({
-        // loadedBrand: false,
-        loadedGoods: false,
-        // currentBrandPage: 0,
-        currentGoodsPage: 0,
-        // brandList: [],
-        goodsList: [],
-        keyword: e.detail
-      })
-      this.getGoodsList()
-    }
+    this.setData({
+      loadedGoods: false,
+      currentGoodsPage: 0,
+      goodsList: [],
+      keyword: e.detail,
+      currentType:'goods'
+    })
+    this.getGoodsList()
   },
 
   // 获取当前分类的商品列表

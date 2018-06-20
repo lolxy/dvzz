@@ -10,7 +10,7 @@
       </view>
     </scroll-view> 
     <scroll-view class='menu-sub' scroll-x="{{true}}" style='width:{{windowWidth}}px;' wx:if="{{subMenuList.length}}">
-      <view class='item' id="subitem{{item.fCode}}" data-id="{{item.fID}}" data-code="{{item.fCode}}" data-fvalue="{{item.fValue}}" data-list="{{item.list}}" wx:for="{{subMenuList}}" wx:key="{{index}}" bindtap='getCurrentSubMenuData'>
+      <view class='item' id="subitem{{item.fCode}}" data-id="{{item.fID}}" data-code="{{item.fCode}}" data-fvalue="{{item.fValue}}" wx:for="{{subMenuList}}" wx:key="{{index}}" bindtap='getCurrentSubMenuData'>
         <text class="{{currentSubMenu == item.fCode?'on':''}}">{{item.fValue}}</text>
       </view>
     </scroll-view> 
@@ -64,15 +64,10 @@
 
     <scroll-view class='list-line' scroll-y="{{true}}" wx:else>
       <view class='item' wx:for="{{managerGoodsList}}" wx:key="{{index}}" data-selectid="{{item.fSelectMatDetailID}}"  data-title="{{item.fSpace}}{{item.fPosition}}选材明细" bindtap="gotoSelectMatDetail">
-        <block wx:if="{{!item.fIsSelfBuy && !item.fIsGenerated}}">
-        <view class="add-btn" catchtap="selectItem" data-checked="{{item.fSelectMatDetailID}}" data-index="{{index}}" wx:if="{{isComfirm && !isManager && item.fAmount}}">
+        <view class="add-btn" catchtap="selectItem" data-checked="{{item.fSelectMatDetailID}}" data-index="{{index}}" wx:if="{{!item.fIsSelfBuy && !item.fIsGenerated}}">
           <icon type="{{item.checked ? 'success' : 'circle'}}"  size="18" color="#ff6600"></icon>
         </view>
-        <view class="add-btn" catchtap="selectItem" data-checked="{{item.fSelectMatDetailID}}" data-index="{{index}}" wx:if="{{isManager}}">
-          <icon type="{{item.checked ? 'success' : 'circle'}}"  size="18" color="#ff6600"></icon>
-        </view>
-        </block>
-        <view class="name {{(item.fIsSelfBuy || item.fIsGenerated || (isComfirm && !isManager && !item.fAmount)) && isCanAllChecked ? 'ml80':''}}">{{item.fSpace}}{{item.fPosition}}</view>
+        <view class="name {{(item.fIsSelfBuy || item.fIsGenerated) && isCanAllChecked ? 'ml80':''}}">{{item.fSpace}}{{item.fPosition}}</view>
         <view class='price'>{{item.fAmount || 0}}元</view>
         <view class='opbox'>
           <block wx:if="{{!item.fIsSelfBuy && !item.fIsGenerated}}">

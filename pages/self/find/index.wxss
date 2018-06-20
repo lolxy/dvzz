@@ -1,12 +1,12 @@
 /* pages/self/find/index.wxss */
 @import '../../../style/common.wxss';
 .container{
-  padding-top: 200rpx;
+  padding-top:180rpx;
 }
 .fixed-box{
   position: fixed;
   width: 100%;
-  height: 200rpx;
+  height: 180rpx;
   top:0;
   left:0;
 }

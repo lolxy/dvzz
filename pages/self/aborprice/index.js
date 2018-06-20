@@ -121,7 +121,7 @@ Page({
    */
   onReachBottom: function () {
     var that = this
-    if (that.data.num == that.data.maxpage) {
+    if (that.data.num === that.data.maxpage - 1) {
       wx.showLoading({
         title: '已经到底了',
         mask: true
@@ -156,13 +156,6 @@ Page({
       that.setData({
         scrollTop: ev.scrollTop
       })
-    },0)
+    },100)
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })
