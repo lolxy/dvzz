@@ -115,7 +115,6 @@ Page({
               }
             }
           })
-
         }
       },
       method: 'GET'

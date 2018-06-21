@@ -39,7 +39,7 @@ Page({
   },
   getcheckimg: function () {
     var that = this
-    var item = 'https://www.dovzs.com/APPDWERP/wx/captcha/getCaptcha.do?fPhoneNo=' + that.data.phone + '&fOpenID=' + that.data.OpenID + '&' + Math.random()
+    var item = 'https://api.dovzs.com/APPDWERP/wx/captcha/getCaptcha.do?fPhoneNo=' + that.data.phone + '&fOpenID=' + that.data.OpenID + '&' + Math.random()
     that.setData({
       requestimg: item,
       IsNeed: 1

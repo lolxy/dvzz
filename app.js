@@ -14,16 +14,27 @@ App({
       key: 'fOpenID',
       success: function (res) {
         self.globalData.fOpenID = res.data
-      }
-    })
-    
-    wx.getStorage({
-      key: 'userInfo',
-      success: function (res) {
-        self.globalData.userInfo = res.data
-        self.globalData.fSelectMatID = res.data.fSelectMatID
-        self.globalData.fCustomerID = res.data.fCustomerID
-        self.globalData.fCustomerName = res.data.fCustomerName
+        wx.request({
+          url: self.globalData.posturl + 'wx/personalcenter/queryUserInfo.do', //url 不能出现端口号
+          data: { fOpenID: self.globalData.fOpenID },
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success: function (res) {
+            if (res.data.code == 1) {
+              wx.getStorage({
+                key: 'userInfo',
+                success: function (res) {
+                  self.globalData.userInfo = res.data
+                  self.globalData.fSelectMatID = res.data.fSelectMatID
+                  self.globalData.fCustomerID = res.data.fCustomerID
+                  self.globalData.fCustomerName = res.data.fCustomerName
+                }
+              })
+            }
+          },
+          method: 'GET'
+        });
       }
     })
   },

@@ -2,7 +2,7 @@
 @import '../../../style/common.wxss';
 .container {
   height: 100%;
-  padding-bottom: 100rpx;
+  padding-bottom: 200rpx;
   background-color: #f3f3f3;
   position: absolute;
 }
@@ -15,6 +15,13 @@
   line-height: 30rpx;
   color: #666666;
   background-color: #ffffff;
+}
+
+.order-wrap{
+  position: absolute;
+  top:110rpx;
+  bottom: 120rpx;
+  width: 100%;
 }
 .order_list {
   width: 100%;
@@ -77,6 +84,11 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  position: absolute;
+  bottom:0;
+  left:0;
+  width: 100%;
+  box-sizing: border-box;
 }
 .foot_l_grp {
   display: flex;
