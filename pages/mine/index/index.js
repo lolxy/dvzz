@@ -16,8 +16,7 @@ Page({
     servicephone: '15805959782',
     menurightimg: "../../../image/jt1.png",
     loged:0,
-    binded:0,
-    OpenID:''
+    binded:0
   },
 
   /**
@@ -82,17 +81,27 @@ Page({
   onShow: function () {
     this.testlog()
   },
+
   testlog:function(){
     var that = this
     if (app.globalData.fOpenID != '') {
-      if (app.globalData.userInfo) {
+      if (app.globalData.userInfo){
         that.setData({
           userInfo: app.globalData.userInfo,
           loged: 1,
           binded: 1
         })
-      } else {
-        that.GetBindsta()
+      }else{
+        if (app.globalData.fBindStatus){
+          that.setData({
+            loged: 1,
+            binded: 0
+          })
+        }else{
+          that.setData({
+            loged: 0
+          })
+        }
       }
     } else {
       that.setData({
@@ -103,13 +112,9 @@ Page({
 
   //未登录状态跳转登录
   tologin: function () {
-    var that = this
-    if (app.globalData.fOpenID != ''){
-    }else {
-      wx.navigateTo({
-        url: '/pages/mine/login/index'
-      })
-    }
+    wx.navigateTo({
+      url: '/pages/mine/login/index'
+    })
   },
 
   dowm: function () {
@@ -118,33 +123,6 @@ Page({
     })
   },
 
-  //请求绑定信息
-  GetBindsta: function () {
-    var that = this
-    wx.request({
-      url: app.globalData.posturl + 'wx/personalcenter/queryUserInfo.do', //url 不能出现端口号
-      data: { fOpenID: that.data.OpenID },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      complete: function (res) {
-        app.globalData.userInfo = res.data.data
-        if (res.data.code == 1) {
-          that.setData({
-            userInfo: res.data.data,
-            loged: 1,
-            binded: 1
-          })
-        } else {
-          that.setData({
-            loged: 1,
-            binded: 0
-          })
-        }
-      },
-      method: 'GET'
-    });
-  },
   logout:function(){
     var that = this
     app.globalData.userInfo = null
@@ -153,6 +131,7 @@ Page({
     app.globalData.fCustomerID = ''
     app.globalData.fCustomerName = ''
     app.globalData.fOpenID = ''
+    app.globalData.fBindStatus = false
     that.setData({
       loged: 0
     })

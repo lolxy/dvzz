@@ -49,6 +49,10 @@ Page({
             success: function (res2) {
               if (res2.data.data.openid) {
                 app.globalData.fOpenID = res2.data.data.openid
+                wx.setStorage({
+                  key: "fOpenID",
+                  data: res2.data.data.openid
+                })
                 that.setData({
                   OpenID: res2.data.data.openid,
                   loged: 1
@@ -86,11 +90,16 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
+        app.globalData.fBindStatus = true
         if (res.data.code == 1) {
           app.globalData.userInfo = res.data.data
           app.globalData.fSelectMatID = res.data.data.fSelectMatID
           app.globalData.fCustomerID = res.data.data.fCustomerID
           app.globalData.fCustomerName = res.data.data.fCustomerName
+          wx.setStorage({
+            key: "userInfo",
+            data: res.data.data
+          })
           wx.navigateBack({})
         } else {
           wx.showModal({

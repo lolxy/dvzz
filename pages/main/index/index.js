@@ -237,6 +237,10 @@ Page({
               success: function (res2) {
                 if (res2.data.data.openid) {
                   app.globalData.fOpenID = res2.data.data.openid
+                  wx.setStorage({
+                    key: "fOpenID",
+                    data: res2.data.data.openid
+                  })
                   self.getTouristExpInfo()
                 } else {
                   wx.showToast({

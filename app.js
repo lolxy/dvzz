@@ -9,10 +9,23 @@ App({
         self.systemInfo = res;
       }
     });
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+
+    wx.getStorage({
+      key: 'fOpenID',
+      success: function (res) {
+        self.globalData.fOpenID = res.data
+      }
+    })
+    
+    wx.getStorage({
+      key: 'userInfo',
+      success: function (res) {
+        self.globalData.userInfo = res.data
+        self.globalData.fSelectMatID = res.data.fSelectMatID
+        self.globalData.fCustomerID = res.data.fCustomerID
+        self.globalData.fCustomerName = res.data.fCustomerName
+      }
+    })
   },
 
   // 获取当前位置信息
@@ -37,6 +50,7 @@ App({
     fSelectMatID:'',
     fCustomerID:'',
     fCustomerName:'',
+    fBindStatus:false,
     fSelectMatType:'',
     posturl: 'https://api.dovzs.com/APPDWERP/',
     appid: 'wx5d6a6e22ab9f16fe',
