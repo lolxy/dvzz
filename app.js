@@ -38,7 +38,7 @@ App({
     fCustomerID:'',
     fCustomerName:'',
     fSelectMatType:'',
-    posturl: 'https://www.dovzs.com/APPDWERP/',
+    posturl: 'https://api.dovzs.com/APPDWERP/',
     appid: 'wx5d6a6e22ab9f16fe',
     gaodekey: 'f25373107c102c9c02ff92c4596f3b52'
   }

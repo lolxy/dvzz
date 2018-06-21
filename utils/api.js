@@ -1,5 +1,5 @@
 // API
-const apiURL = 'https://www.dovzs.com/APPDWERP';
+const apiURL = 'https://api.dovzs.com/APPDWERP';
 
 const wxRequest = (params, url) => {
   wx.request({

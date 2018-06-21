@@ -6,13 +6,13 @@
     <view class='order_list_item'>
       <view class='order_list_lgrp'>
         <view class='order_list_title'>{{index+1}}.{{item.fMatName}}</view>
-        <view class='order_list_c'>{{item.fBrand}}</view>
-        <view class='order_list_c'>规格：{{item.fNorms}}</view>
+        <view class='order_list_c'><block  wx:if="{{item.fBrand}}">{{item.fBrand}}</block></view>
+        <view class='order_list_c'><block  wx:if="{{item.fNorms}}">规格：{{item.fNorms}}</block></view>
       </view>
       <view class='order_list_rgrp'>
-        <view class='order_list_c'><span>￥{{item.fPrice}}元</span></view>
-        <view class='order_list_c'>x{{item.fQuantity}}</view>
-        <view class='order_list_c order_list_cs'>小计：<span>￥{{item.fAmount}}元</span></view>
+        <view class='order_list_c'><span wx:if="{{item.fPrice}}">￥{{item.fPrice}}元</span></view>
+        <view class='order_list_c'><block  wx:if="{{item.fQuantity}}">x{{item.fQuantity}}</block></view>
+        <view class='order_list_c order_list_cs'><block  wx:if="{{item.fAmount}}">小计：<span>￥{{item.fAmount}}元</span></block></view>
       </view>
     </view>
   </view>

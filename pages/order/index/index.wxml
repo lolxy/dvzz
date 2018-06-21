@@ -23,7 +23,7 @@
           <label class="checkbox" wx:if="{{flag===0}}" catchtap='stopNavigater'>
             <checkbox value="{{index}}" checked="{{item.Selected}}" color="#ff6600"/>
           </label>
-          <image class='order_item_img' src="{{item.fUrl || loadimg}}"/>
+          <image class="order_item_img {{flag!==0?'ml20':''}}" src="{{item.fUrl || loadimg}}"/>
           <view class='order_item_grp'>
             <view class='order_item_name'>{{item.fTypeCategory}}</view>
             <view class='order_item_totle'>合计：{{item.fAmount?item.fAmount:0}}元</view>

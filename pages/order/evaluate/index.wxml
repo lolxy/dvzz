@@ -1,12 +1,12 @@
 <!--pages/order/evaluate/index.wxml-->
 <view class='container' style="padding-bottom: 100rpx;">
-  <form bindsubmit="evaluateSubmit" >
+  <form bindsubmit="evaluateSubmit">
     <view class='head'>
       <view class='head_t'>{{mainEvaluate.fDesc}}</view>
       <input type="text" value="{{item.fValue?item.fValue:CurrentEvaluate0}}" name="rateListvalue0" hidden="{{true}}"/>
       <input type="text" value="{{mainEvaluate.fID}}" name="rateListkey0" hidden="{{true}}"/>
       <view class='star_grp'>
-        <image src="{{CurrentValue0 >= index?SolidStar:hollow}}" data-value="{{item.fID}}" data-name="{{item.fDesc}}" data-index="{{index}}" wx:for="{{EvaluateList}}" wx:key="fid" bindtap="ChangeStar0"/>
+        <image src="{{CurrentValue0 >= index?SolidStar:hollow}}" data-value="{{item.fID}}" data-name="{{item.fDesc}}" data-index="{{index}}" wx:for="{{EvaluateList}}" wx:key="fid" bindtap="changeStar1"/>
       </view>
       <view class='star_name'>{{CurrentName0}}</view>
     </view>
@@ -48,7 +48,7 @@
             <input type="text" value="{{other.fValue?other.fValue:CurrentEvaluate[idx]}}" name="{{'rateListvalue'+(idx+1)}}" hidden="{{true}}"/>
             <input type="text" value="{{other.fID}}" name="{{'rateListkey'+(idx+1)}}" hidden="{{true}}"/>
             <view class='star_grp'>
-              <image src="{{idy <= CurrentValue[idx]?SolidStar:hollow}}" data-value="{{namey.fID}}" data-name="{{namey.fDesc}}" data-index="{{idy}}" wx:for="{{EvaluateList}}" wx:for-index="idy" wx:for-item="namey" wx:key="fID" data-idx="{{idx}}" bindtap="ChangeStar"/>
+              <image src="{{idy <= CurrentValue[idx]?SolidStar:hollow}}" data-value="{{namey.fID}}" data-name="{{namey.fDesc}}" data-index="{{idy}}" wx:for="{{EvaluateList}}" wx:for-index="idy" wx:for-item="namey" wx:key="fID" data-idx="{{idx}}" bindtap="changeStar2"/>
             </view>
           </view>
         </view>

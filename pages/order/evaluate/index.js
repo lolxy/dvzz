@@ -49,7 +49,7 @@ Page({
   /**
    * 页面相关事件处理函数----切换星标1
    */
-  ChangeStar0: function(e) {
+  changeStar1: function(e) {
     var that = this
     if (e.target.dataset.index === that.data.CurrentValue0) {
 
@@ -101,7 +101,7 @@ Page({
   /**
    * 页面相关事件处理函数----切换星标2(其他评价)
    */
-  ChangeStar: function (e) {
+  changeStar2: function (e) {
     var that = this
     if (e.target.dataset.index === that.data.CurrentValue[e.target.dataset.idx]) {
     } else {
@@ -149,10 +149,10 @@ Page({
         wx.showToast({
           'title':'评价成功'
         })
+        wx.navigateBack()
       },
       method:'POST'
     });
-
   },
 
   ChooseImage: function(){

@@ -145,6 +145,9 @@
   border-radius: 10rpx;
   overflow: hidden;
 }
+.order_item_img.ml20{
+  margin-left: 20rpx;
+}
 .order_item_grp {
   flex-shrink: 0;
   padding: 30rpx 20rpx;

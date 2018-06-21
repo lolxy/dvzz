@@ -56,11 +56,16 @@ Page({
    * 充值跳转
    */
   ToRecharge: function (e) {
-    wx.navigateTo({
-      url: '../recharge/index',
-      success: function (res) {
-      }
-    })
+    if (app.globalData.userInfo.fBindUserID === app.globalData.userInfo.fUserID){
+      wx.navigateTo({
+        url: '../recharge/index'
+      })
+    }else{
+      wx.showToast({
+        title: '您再无权限充值，请联系客服！',
+        icon:'none'
+      })
+    }
   },
 
   /**
@@ -69,9 +74,7 @@ Page({
   ToBill: function (e) {
     var that=this
     wx.navigateTo({
-      url: '../bill/index?fUserID=' + app.globalData.userInfo.fUserID +'&num='+0,
-      success: function (res) {
-      }
+      url: '../bill/index?fUserID=' + app.globalData.userInfo.fUserID +'&num='+0
     })
   }
 })
