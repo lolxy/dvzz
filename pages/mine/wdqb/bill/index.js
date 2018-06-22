@@ -11,6 +11,9 @@ Page({
     num:0,
     fUserID:''
   },
+  onShow: function () {
+    this.GetData()
+  },
 
   /**
    * 生命周期函数--监听页面加载

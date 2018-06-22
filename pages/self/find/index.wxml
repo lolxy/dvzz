@@ -18,6 +18,7 @@
       <view>姓名：{{item.fEmployName}}</view>
       <view>电话：{{item.fMobile}}</view>
       <view>工龄：{{item.fYear}}年</view>
+      <view>工种：{{item.fOrgName}}</view>
     </view>
   </view>
   </view>

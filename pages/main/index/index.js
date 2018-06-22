@@ -54,7 +54,7 @@ Page({
 
   //banner跳转
   toOutLink: function (e){
-    if (e.currentTarget.dataset.burl){
+    if (e.currentTarget.dataset.burl && e.currentTarget.dataset.burl.indexOf('dovzs') > -1) {
       wx.navigateTo({
         url: `/pages/outlink/index?url=${e.currentTarget.dataset.burl}`
       })
@@ -86,11 +86,11 @@ Page({
   goToPage: function(e) {
     if (e.currentTarget.dataset.index == 3){
       wx.navigateTo({
-        url: `/pages/main/list/index?code1=${e.currentTarget.dataset.furl.replace(/(^\s*)|(\s*$)/g, "")}&fShopCityID=${app.globalData.cityId}&catname=${e.currentTarget.dataset.title}`
+        url: `/pages/main/list/index?code1=${e.currentTarget.dataset.furl.replace(/(^\s*)|(\s*$)/g, "")}&fShopCityID=ff8080816165d3c6016168d1502f0236&fCityID=${app.globalData.cityId}&catname=${e.currentTarget.dataset.title}`
       })
     }else{
       wx.navigateTo({
-        url: `/pages/main/list/index?code1=${e.currentTarget.dataset.furl.replace(/(^\s*)|(\s*$)/g, "")}&catname=${e.currentTarget.dataset.title}`
+        url: `/pages/main/list/index?code1=${e.currentTarget.dataset.furl.replace(/(^\s*)|(\s*$)/g, "")}&fCityID=${app.globalData.cityId}&catname=${e.currentTarget.dataset.title}`
       })
     }
   },

@@ -142,7 +142,7 @@ Page({
 
   //banner跳转
   toOutLink: function (e) {
-    if (e.currentTarget.dataset.burl) {
+    if (e.currentTarget.dataset.burl && e.currentTarget.dataset.burl.indexOf('dovzs')>-1) {
       wx.navigateTo({
         url: `/pages/outlink/index?url=${e.currentTarget.dataset.burl}`
       })

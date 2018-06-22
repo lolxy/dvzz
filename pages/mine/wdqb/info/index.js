@@ -62,7 +62,7 @@ Page({
       })
     }else{
       wx.showToast({
-        title: '您再无权限充值，请联系客服！',
+        title: '您暂无权限充值，请联系客服！',
         icon:'none'
       })
     }

@@ -69,7 +69,7 @@ Page({
     wx.request({
       url: app.globalData.posturl + 'wx/personalcenter/myDrawings.do', //url 不能出现端口号
       data: {
-        fCustomerID: that.data.userInfo.fCustomerID
+        fCustomerID: app.globalData.fCustomerID
       },
       header: {
         'content-type': 'application/json' // 默认值
