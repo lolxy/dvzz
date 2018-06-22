@@ -217,7 +217,7 @@ Page({
    */
   ToList: function (e) {
     wx.navigateTo({
-      url: '/pages/order/list/index?fSaleOrderID=' + e.currentTarget.dataset.fid + '&fTypeCategory=' + e.currentTarget.dataset.item
+      url: '/pages/self/auxiliary/orderdetail/index?fSaleOrderID=' + e.currentTarget.dataset.fid + '&fTypeCategory=' + e.currentTarget.dataset.item
     })
   },
   

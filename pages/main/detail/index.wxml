@@ -20,16 +20,16 @@
           </view> 
         </view>
         <view class='price' wx:if="{{displayType != 'fucai'}}">
-          <view>
-              优惠价：<text>{{detail.fPrice}}元/{{detail.fUnitName}}</text>
+          <view wx:if="{{detail.fPrice}}">
+              优惠价：<text>{{detail.fPrice}}元<block wx:if="{{detail.fUnitName}}">/{{detail.fUnitName}}</block></text>
           </view>
-          <view>
-              单价：<text>{{detail.fPrice2}}元/{{detail.fUnitName2}}</text>
+          <view wx:if="{{detail.fPrice2}}">
+              单价：<text>{{detail.fPrice2}}元<block wx:if="{{detail.fUnitName2}}">/{{detail.fUnitName2}}</block></text>
           </view>
         </view>
         <view class='price' wx:else>
-          <view>
-              零售价：<text>{{detail.fPrice}}元/{{detail.fUnitName}}</text>
+          <view wx:if="{{detail.fPrice}}">
+              零售价：<text>{{detail.fPrice}}元<block wx:if="{{detail.fUnitName}}">/{{detail.fUnitName}}</block> </text>
           </view>
         </view>
       </view>

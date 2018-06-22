@@ -18,7 +18,7 @@
         </view>
         <view class='box'>
           <view class='unitprice' wx:if="{{detail.fPrice}}">
-              单价：<text>{{detail.fPrice}}元/{{detail.fUnitName}}</text>
+              单价：<text>{{detail.fPrice}}元<block wx:if="{{detail.fUnitName}}">/{{detail.fUnitName}}</block></text>
           </view>
           <view wx:if="{{detail.fNorms}}">
               规格：<text>{{detail.fNorms}}</text>

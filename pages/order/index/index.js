@@ -65,6 +65,7 @@ Page({
         OIDList: []
       })
       that.GetOrderType()
+      that.SumTotle()
     }else{
       wx.showModal({
         title: '温馨提示',

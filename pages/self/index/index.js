@@ -319,39 +319,7 @@ Page({
 
   chickbtn: function(e) {
     wx.navigateTo({
-      url: '/pages/order/list/index?fSaleOrderID=' + e.currentTarget.dataset.soid + '&fTypeCategory=' + e.currentTarget.dataset.cate
+      url: '/pages/self/auxiliary/orderdetail/index?fSaleOrderID=' + e.currentTarget.dataset.soid + '&fTypeCategory=' + e.currentTarget.dataset.cate
     })
-    // var that = this;
-    // if (e.currentTarget.dataset.targel == '确认支付') {
-    //   wx.navigateTo({
-    //     url: '/pages/order/settlement/index?TotleAccont=' + e.currentTarget.dataset.amount + '&OIDList=' + e.currentTarget.dataset.soid,
-    //     success: function (res) {
-    //     }
-    //   })
-    // } else if (e.currentTarget.dataset.targel == '确认收货'){
-    //   wx.showModal({
-    //     title: '确认收货',
-    //     content: '为避免不必要的损失，请在确认收到所货品之后点击确认收货',
-    //     success: function (res) {
-    //       if (res.confirm) {
-    //         wx.request({
-    //           url: app.globalData.posturl + 'wx/shopOrder/updateSaleOrder.do', //url 不能出现端口号
-    //           data: {
-    //             fSaleOrderID: e.currentTarget.dataset.soid,
-    //             fUserID: app.globalData.userInfo.fUserID
-    //           },
-    //           header: {
-    //             'content-type': 'application/json' // 默认值
-    //           },
-    //           success: function (res) {
-
-    //           },
-    //           method: 'GET'
-    //         });
-    //       } else if (res.cancel) {
-    //       }
-    //     }
-    //   })
-    // }
   }
 })

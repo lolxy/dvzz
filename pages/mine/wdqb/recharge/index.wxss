@@ -46,6 +46,8 @@ image {
   width: auto!important;
   min-width: 3em;
   font-size: 72rpx;
+  height: 100rpx;
+  line-height: 100rpx;
   font-weight: bold;
   text-align: center;
 }

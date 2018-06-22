@@ -12,6 +12,7 @@
     "pages/self/auxiliary/orderlist/index",
     "pages/self/auxiliary/grkd/index",
     "pages/self/auxiliary/detail/index",
+    "pages/self/auxiliary/orderdetail/index",
     "pages/main/index/index",
     "pages/main/categories/index",
     "pages/main/list/index",

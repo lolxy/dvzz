@@ -96,6 +96,7 @@ Page({
         let resjson = (typeof res.data === 'object') ? res.data : JSON.parse(res.data)
         wx.showToast({
           title: resjson.msg,
+          icon:'none',
           duration: 2000
         })
         if (resjson.code == 1){

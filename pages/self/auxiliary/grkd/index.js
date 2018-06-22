@@ -30,14 +30,7 @@ Page({
     this.setData ({
       Isdefault: options.type
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    var that = this
-    that.GetBillType()
+    this.GetBillType()
   },
 
   /**

@@ -136,26 +136,5 @@ Page({
       })
       that.GetDataList()
     }
-  },
-
-  onPageScroll: function (ev) {
-    const that = this
-    //判断浏览器滚动条上下滚动
-    if (ev.scrollTop > that.data.scrollTop){
-      that.setData({
-        isShow: false
-      })
-    } else {
-      that.setData({
-        isShow: true
-      })
-    }
-
-    //给scrollTop重新赋值
-    setTimeout(function () {
-      that.setData({
-        scrollTop: ev.scrollTop
-      })
-    },100)
-  },
+  }
 })

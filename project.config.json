@@ -88,6 +88,12 @@
 					"name": "商城商品详情",
 					"pathName": "pages/main/detail/index",
 					"query": "id=997A55F3351640E8BF212708622FB19B"
+				},
+				{
+					"id": 9,
+					"name": "充值页面",
+					"pathName": "pages/mine/wdqb/recharge/index",
+					"query": ""
 				}
 			]
 		}
