@@ -11,7 +11,7 @@
     </view>
     <scroll-view class='order-wrap' scroll-y>
       <view class='t-list' wx:for="{{DataList}}" wx:key="{{index}}">
-        <view class='table-td'>{{item.fMatName}}</view>
+        <view class='table-td'>{{item.fMatOldCode}}</view>
         <view class='table-td'>{{item.fPrice}}</view>
         <view class='table-td'>{{item.fUnitName}}</view>
         <view class='table-td'>{{item.fQuantity}}</view>

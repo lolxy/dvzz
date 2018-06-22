@@ -6,8 +6,8 @@
     <image class='order_pic' src="{{item.fUrl=='https://www.dovzs.com/upload/null'?defaltimg:item.fUrl}}"/>
     <view class='order_list_item'>
       <view class='order_list_lgrp'>
-        <view class='order_list_title'>{{index+1}}.{{item.fMatName}}</view>
-        <view class='order_list_c'><block  wx:if="{{item.fBrand}}">{{item.fBrand}}</block></view>
+        <view class='order_list_title'>{{index+1}}.{{item.fSpaceValue}}</view>
+        <view class='order_list_c'><block  wx:if="{{item.fMatName}}">{{item.fMatName}}</block></view>
         <view class='order_list_c'><block  wx:if="{{item.fNorms}}">规格：{{item.fNorms}}</block></view>
       </view>
       <view class='order_list_rgrp'>
