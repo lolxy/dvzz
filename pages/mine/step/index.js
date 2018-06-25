@@ -236,4 +236,15 @@ Page({
       method: 'GET'
     });
   },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    return {
+      title: '多维自装商城',
+      desc: '免费介绍工人，装修辅材配送，专为自装服务',
+      path: '/pages/self/index/index'
+    }
+  }
 })

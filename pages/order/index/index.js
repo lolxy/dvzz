@@ -95,16 +95,16 @@ Page({
    */
   ChangeTabs: function (e) {
     var that = this
-    if (e.currentTarget.dataset.index === that.data.CurrentTab) {
-      that.setData({num:0})
-    }else {
+    if (e.currentTarget.dataset.index != that.data.CurrentTab) {
       that.setData({
         CurrentTab: e.currentTarget.dataset.index,
         CurrentCode: e.currentTarget.dataset.code,
-        num:0
+        SelectAll: 0,
+        OIDList: [],
+        num: 0
       })
-    }
-    that.GetOrderInfo()
+      that.GetOrderInfo()
+    } 
   },
 
   /**
@@ -112,16 +112,15 @@ Page({
    */
   ChangeFlags: function(e) {
     var that = this
-
-    if (e.currentTarget.dataset.flag === that.data.flag) {
-      that.setData({ num: 0 })
-    } else {
+    if (e.currentTarget.dataset.flag != that.data.flag) {
       that.setData({
         flag: e.currentTarget.dataset.flag,
+        OIDList: [],
+        SelectAll: 0,
         num: 0
       })
-    }
-    that.GetOrderInfo()
+      that.GetOrderInfo()
+    }  
   },
 
   /**
@@ -420,5 +419,16 @@ Page({
         }
       }
     })
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    return {
+      title: '多维自装商城',
+      desc: '免费介绍工人，装修辅材配送，专为自装服务',
+      path: '/pages/self/index/index'
+    }
   }
 })

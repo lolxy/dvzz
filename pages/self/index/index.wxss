@@ -57,17 +57,17 @@
 
 .customer-banner {
   width: 750rpx;
-  height: 400rpx;
+  height: 360rpx;
 }
 
 swiper-item {
   width: 750rpx;
-  height: 400rpx;
+  height: 360rpx;
 }
 
 .customer-top .slide-image {
   width: 750rpx;
-  height: 400rpx;
+  height: 360rpx;
 }
 .linkgrp {
   width: 100%;

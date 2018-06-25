@@ -309,8 +309,6 @@ Page({
    */
   scrollToBottom: function () {
     var that = this
-    console.log(that.data.num)
-    console.log(that.data.totalPage)
     if (that.data.num === that.data.totalPage - 1) {
       wx.showLoading({
         title: '已经到底了',
@@ -338,5 +336,16 @@ Page({
     this.setData({
       hiddenModal: true
     })
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    return {
+      title: '多维自装商城',
+      desc: '免费介绍工人，装修辅材配送，专为自装服务',
+      path: '/pages/self/index/index'
+    }
   }
 })
