@@ -11,8 +11,6 @@ Page({
     duration: 500,//切换动画持续时间
     circular: true,//是否采用衔接滑动
     currentCity: app.globalData.location,
-    windowWidth: app.systemInfo.windowWidth,
-    windowHeight: app.systemInfo.windowHeight,
     localImage:"../../../image/local.png",
     qRCode: "../../../image/qrimg.png",
     phoneIcon: "../../../image/phone_icon.png",
@@ -298,8 +296,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    const that = this
     that.setData({
-      num:0
+      num:0,
+      recommonList:[]
     })
     that.getHomeRecommonList()
   },
@@ -307,7 +307,7 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  scrollToBottom: function () {
+  onReachBottom: function () {
     var that = this
     if (that.data.num === that.data.totalPage - 1) {
       wx.showLoading({

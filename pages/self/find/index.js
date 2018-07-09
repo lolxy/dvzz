@@ -156,8 +156,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    const that = this
     that.setData({
-      num: 0
+      num: 0,
+      datalist:[]
     })
     that.GetDataList()
   },

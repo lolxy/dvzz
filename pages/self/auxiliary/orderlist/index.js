@@ -22,7 +22,7 @@ Page({
         type: 3,
         name: '退货'
       },{
-        type: '',
+        type: 'all',
         name: '全部'
       }],
     OrderList: [],
@@ -311,7 +311,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    const that = this
     that.setData({
+      OrderList: [],
       num: 0
     })
     that.GetOrderInfo()
@@ -322,7 +324,7 @@ Page({
    */
   onReachBottom: function () {
     var that = this
-    if (that.data.num == that.data.maxpage) {
+    if (that.data.num == that.data.maxpage - 1) {
       wx.showLoading({
         title: '已经到底了',
         mask: true

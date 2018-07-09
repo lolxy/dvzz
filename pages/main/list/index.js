@@ -334,6 +334,24 @@ Page({
     }
   },
 
+  onPullDownRefresh:function(){
+    if (this.data.currentType == "brand") {
+      this.setData({
+        loadedBrand: false,
+        currentBrandPage: 0,
+        brandList: []
+      })
+      this.getBrandList()
+    } else {
+      this.setData({
+        loadedGoods: false,
+        currentGoodsPage: 0,
+        goodsList: []
+      })
+      this.getGoodsList()
+    }
+  },
+
   scrollLower:function(e){
     if (this.data.currentType == "brand") {
       if (!this.data.loadedBrand && e.detail.direction == 'bottom') {

@@ -1,6 +1,6 @@
 <!--pages/detail/detail.wxml-->
 <import src="../../../wxParse/wxParse.wxml"/>
-<scroll-view class="containers {{displayType === 'fucai'?'nofixedbottom':''}}" scroll-y="{{true}}">
+<scroll-view class="containers {{displayType === 'fucai'?'nofixedbottom':''}}" scroll-y="{{true}}" bindscrolltolower="onScrollTolower" bindscroll="onScroll">
   <view class='swriper-contains' wx:if="{{detail.list.length}}">
       <view class="customer-top">
         <swiper class='customer-banner' indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}">
@@ -71,7 +71,7 @@
           </view>
                 <swiper current="{{currentTab}}" duration="300" bindchange="switchTabs" class='swiper-wrap'>
                   <swiper-item>
-                    <scroll-view class="tab-content" scroll-y="{{true}}">
+                    <scroll-view class="tab-content" scroll-y="{{detailScroll}}">
                       <block wx:if="{{detail.fDesc}}">
                         <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
                       </block>

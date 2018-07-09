@@ -31,7 +31,9 @@ Page({
     NaviIcon: '../../../image/navicon.png',
     AppraiseIcon: '../../../image/AppraiseIcon.png',
     loadimg:'../../../image/loadimg.png',
-    fCustomerID: ''
+    fCustomerID: '',
+    num:0,
+    totalPage: 1
   },
   /*****  省市区选择   *****/
   CityChange: function (e) {
@@ -246,7 +248,7 @@ Page({
         wx.request({
           url: app.globalData.posturl + 'wx/shop/list.do', //url 不能出现端口号
           data: {
-            page: 0,
+            page: that.data.num,
             lat: res.latitude,
             lng: res.longitude,
             flag: 0,
@@ -258,7 +260,8 @@ Page({
           },
           success: function (json) {
             that.setData({
-              ShopList: json.data.data
+              totalPage: json.data.totalPage,
+              ShopList: that.data.ShopList.concat(json.data.data)
             })
             setTimeout(function () {
               wx.hideLoading()
@@ -303,10 +306,7 @@ Page({
   toeva: function(e) {
     wx.showModal({
       title: '温馨提示',
-      content: '服务站评价功能开发中，敬请期待',
-      success: function (res) {
-
-      }
+      content: '服务站评价功能开发中，敬请期待'
     })
   },
   //图片点击放大
@@ -321,6 +321,39 @@ Page({
     wx.navigateTo({
       url: '/pages/self/auxiliary/orderdetail/index?fSaleOrderID=' + e.currentTarget.dataset.soid + '&fTypeCategory=' + e.currentTarget.dataset.cate
     })
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    const that = this
+    that.setData({
+      num: 0,
+      ShopList: []
+    })
+    that.getshopinfo()
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    var that = this
+    if (that.data.num === that.data.totalPage - 1) {
+      wx.showLoading({
+        title: '已经到底了',
+        mask: true
+      })
+      setTimeout(function () {
+        wx.hideLoading()
+      }, 2000)
+    } else {
+      that.setData({
+        num: that.data.num + 1
+      })
+      that.getshopinfo()
+    }
   },
 
   /**

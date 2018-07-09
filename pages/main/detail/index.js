@@ -11,6 +11,7 @@ Page({
    */
   data: {
     indicatorDots: false,
+    detailScroll:false,
     autoplay: true, //banner  是否自动播放
     interval: 5000,//banner1 切换间隔
     duration: 500,//切换动画持续时间
@@ -32,7 +33,9 @@ Page({
     windowHeight: app.systemInfo.windowHeight - 10,
     favicon:"./image/favicon.png",
     faviconed:"./image/faviconed.png",
-    loadImg: "./image/loadimg.png"
+    loadImg: "./image/loadimg.png",
+    scrollTop:0,
+    maxScrollTop:''
   },
 
   /**
@@ -49,6 +52,25 @@ Page({
     if (options.selectMatDetailId && options.selectMatDetailId != 'undefined'){
       this.getCollectList()
       this.getSelectMatStatus()
+    }
+  },
+
+  onScrollTolower:function(e){
+    this.setData({
+      maxScrollTop: this.data.scrollTop,
+      detailScroll:true
+    })
+  },
+
+  onScroll:function(e){
+    let scrollTop = e.detail.scrollTop
+    this.setData({
+      scrollTop: scrollTop
+    })
+    if (this.data.maxScrollTop && scrollTop < this.data.maxScrollTop){
+      this.setData({
+        detailScroll: false
+      })
     }
   },
 
@@ -267,7 +289,7 @@ Page({
     return {
       title: '多维自装商城',
       desc: '免费介绍工人，装修辅材配送，专为自装服务',
-      path: '/pages/self/index/index'
+      path: `/pages/main/detail/index?id=${this.data.currentGoodsId}&displayType=${this.data.displayType}&amount=${this.data.amount}&selectMatDetailId=${this.data.currentSelectMatDetailId}`
     }
   }
 })

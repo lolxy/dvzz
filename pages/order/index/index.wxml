@@ -8,7 +8,7 @@
     </view>
   </view>
   <view class='typelist'>
-    <view class="{{item.type === flag?'active':''}}" wx:for="{{statusList}}" wx:key="{{index}}" data-flag="{{item.type}}" bindtap='ChangeFlags'><text>{{item.name}}</text></view>
+    <view class="{{(item.type === flag)?'active':''}}" wx:for="{{statusList}}" wx:key="{{index}}" data-flag="{{item.type}}" bindtap='ChangeFlags'><text>{{item.name}}</text></view>
   </view>
   <view wx:if="{{fCustomerID}}">
   <checkbox-group class="order_list {{OrderList.length && flag === 0 ? 'pb125':''}}" bindchange="checkboxChange">
